@@ -1,20 +1,18 @@
 // src/context/AuthContext.jsx
-import { createContext, useContext, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import apiClient from '../api/Client.api.js';
+import { AuthContext } from './Auth.js';
 
-const AuthContext = createContext(undefined);
-
-export const AuthProvider = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // fetch current user api call
-  const fetchCurrentUser = useCallback(async () => {
+  const fetchCurrentUser = async () => {
     try {
-      setIsLoading(true);
-      const response = await apiClient.get('/google/auth/me');
+      const response = await apiClient.get('/google/auth/me', { withCredentials: true });
       console.info('Current user response received.', { status: response.status });
 
       // Extract from body
@@ -47,6 +45,12 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsLoading(true);
+    fetchCurrentUser();
   }, []);
 
   return (
@@ -64,11 +68,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+export { AuthContextProvider };
