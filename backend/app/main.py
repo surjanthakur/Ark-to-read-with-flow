@@ -48,7 +48,11 @@ app.add_middleware(
     expose_headers=["is_authenticated"],
 )
 
-app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=settings.SECRET_KEY,
+    session_cookie="oauth_session",
+)
 
 
 # Logging time taken for each api request
