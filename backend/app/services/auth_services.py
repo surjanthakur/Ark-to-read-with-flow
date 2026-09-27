@@ -209,8 +209,44 @@ async def get_current_user(
         )
 
 
-async def logout_session_user(
-    req: Request,
-    db_session: AsyncSession,
-):
-    pass
+async def logout_session_user(request: Request):
+    try:
+        session_id = request.cookies.get("session")
+
+        if not session_id:
+            logger.warning("Current user request has no session cookie.")
+
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="user is not Authenticated",
+            )
+
+        logger.info("searching for current user_id in redis.")
+        curr_user_id = await redis_client.get(f"session:{session_id}")
+
+        if not curr_user_id:
+            logger.warning("No user ID found in Redis for the current session.")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="user is not Authenticated",
+            )
+
+        await redis_client.delete(f"session:{session_id}")
+
+        response = JSONResponse(
+            content={"message": "Logged out"},
+            status_code=status.HTTP_200_OK,
+            media_type="application/json",
+            headers={"is_authenticated": "false"},
+        )
+        response.delete_cookie(
+            key="session",
+            path="/",
+            httponly=True,
+            secure=False,
+            samesite="lax",
+        )
+        return response
+
+    except ValueError:
+        raise HTTPException()

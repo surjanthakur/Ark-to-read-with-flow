@@ -3,7 +3,11 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
 from ..core.settings import settings
-from ..services.auth_services import authenticate_user, get_current_user
+from ..services.auth_services import (
+    authenticate_user,
+    get_current_user,
+    logout_session_user,
+)
 from ..utils.auth import oauth_client
 from ..utils.get_db_session import get_db_session
 
@@ -55,8 +59,6 @@ async def current_user(
 
 
 @router.get("/logout")
-async def logout_user(
-    request: Request,
-    db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
-):
-    pass
+async def logout_user(request: Request):
+    res = await logout_session_user(request)
+    return res
