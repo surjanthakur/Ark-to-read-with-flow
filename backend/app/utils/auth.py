@@ -2,7 +2,7 @@ from datetime import timedelta
 from uuid import UUID, uuid4
 
 from authlib.integrations.starlette_client import OAuth, OAuthError
-from fastapi import status
+from fastapi import HTTPException, status
 from fastapi.responses import HTMLResponse
 
 from ..core.logginig import get_logger
@@ -74,25 +74,14 @@ def create_auth_response(
             httponly=True,
             secure=False,
             samesite="lax",
+            path="/",
         )
 
         return response
 
-    except OAuthError as err:
-        html = f"""
-        <html>
-        <body>
-          <script>
-            if (window.opener) {{
-              window.opener.postMessage(
-                {{ type: 'google-login-error', error: '{err!s}' }},
-                'http://localhost:5173'
-              );
-              window.close();
-            }}
-          </script>
-          <p>Login failed! try again?</p>
-        </body>
-        </html>
-        """
-        return HTMLResponse(content=html, status_code=status.HTTP_400_BAD_REQUEST)
+    except OAuthError:
+        logger.exception("oauth error while setting cookies")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="google oauth failed try again!",
+        )
