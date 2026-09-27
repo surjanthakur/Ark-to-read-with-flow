@@ -40,6 +40,27 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const LogoutUser = async () => {
+    try {
+      setIsLoading(true);
+      const response = await apiClient.get('/google/logout');
+      console.log('Current user response received.', { status: response.status });
+
+      const isAuthHeader = response.headers['is_authenticated'];
+      const authenticated = isAuthHeader === 'true';
+      setIsAuthenticated(authenticated);
+      return authenticated;
+    } catch (err) {
+      console.error('Current user request failed.', {
+        status: err.response?.status,
+        message: err.message,
+      });
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchCurrentUser();
@@ -51,6 +72,7 @@ const AuthContextProvider = ({ children }) => {
         user,
         isAuthenticated,
         isLoading,
+        LogoutUser,
         fetchCurrentUser,
       }}
     >

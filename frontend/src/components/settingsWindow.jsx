@@ -1,6 +1,17 @@
 import { Sun, MoonStars, Logout6, X } from 'reicon-react';
+import { useAuthContext } from '../context/Auth.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function SettingsPopupWindow({ openSetting, setSetting }) {
+  const { LogoutUser } = useAuthContext();
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const authenticated = await LogoutUser();
+    if (authenticated === false) navigate('/');
+  };
+
   if (!openSetting) return null;
 
   return (
@@ -54,6 +65,7 @@ export default function SettingsPopupWindow({ openSetting, setSetting }) {
 
         {/* Logout */}
         <button
+          onClick={handleLogout}
           type="button"
           className="flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600 transition hover:bg-red-100"
         >
