@@ -5,7 +5,7 @@ import { Handshake } from 'reicon-react';
 const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export default function Navbar() {
-  const { isAuthenticated, user } = useAuthContext();
+  const { isAuthenticated, user, fetchCurrentUser } = useAuthContext();
   const handleLoginUser = () => {
     const width = 500;
     const height = 600;
@@ -19,6 +19,7 @@ export default function Navbar() {
       if (event.origin !== window.location.origin) return;
 
       if (event.data?.type === 'google-login-success') {
+        fetchCurrentUser();
         window.removeEventListener('message', handleMessage);
       }
 
