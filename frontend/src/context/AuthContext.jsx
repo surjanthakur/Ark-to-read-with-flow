@@ -1,6 +1,5 @@
 // src/context/AuthContext.jsx
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import apiClient from '../api/Client.api.js';
 import { AuthContext } from './Auth.js';
 
@@ -13,7 +12,7 @@ const AuthContextProvider = ({ children }) => {
   const fetchCurrentUser = async () => {
     try {
       const response = await apiClient.get('/google/auth/me');
-      console.info('Current user response received.', { status: response.status });
+      console.log('Current user response received.', { status: response.status });
 
       // Extract from body
       const { username, email, profile_img } = response.data ?? {};
@@ -35,13 +34,6 @@ const AuthContextProvider = ({ children }) => {
       });
       setUser(null);
       setIsAuthenticated(false);
-
-      if (err.response?.status === 401 || err.response?.status === 404) {
-        // not logged in – this is expected, fail silently
-      } else {
-        // Trigger react-toastify instead of setting state
-        toast.error('Unable to verify your session. Please try again.');
-      }
     } finally {
       setIsLoading(false);
     }

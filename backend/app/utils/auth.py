@@ -30,12 +30,7 @@ oauth_client.register(
 )
 
 
-# JWT Configurations
-SECRET_KEY = settings.JWT_SECRET_KEY
 SESSION_EXPIRY = timedelta(minutes=1440)
-
-# encoding and decoding jwt token
-ALGORITHM = "HS256"
 
 
 async def create_session(user_id: UUID):
@@ -82,6 +77,7 @@ def create_auth_response(
         )
 
         return response
+
     except OAuthError as err:
         html = f"""
         <html>
