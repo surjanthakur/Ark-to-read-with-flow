@@ -35,10 +35,6 @@ async def auth(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
 ):
-    """
-    endpoint for authenticate user based on token\n
-    get token -> validate -> create access token -> extract user info -> store in db -> redict user url
-    """
     logger.info("calling aunthenticate_user function to extract info.")
     res = await authenticate_user(req=request, db_session=db_session)
     logger.info("aunthenticate_user function return successfully.")

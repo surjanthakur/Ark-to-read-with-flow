@@ -61,7 +61,7 @@ async def log_response_time(request: Request, call_next):
 
     process_time = time.time() - start_time
 
-    logger.info(f"Request: {request.url.path} completed in {process_time:.4f} seconds")
+    logger.info(f"Request: {request.url.path} completed in {process_time:.4f} seconds.")
 
     return response
 
