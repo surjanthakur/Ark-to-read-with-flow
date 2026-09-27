@@ -9,7 +9,6 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from ..core.logginig import get_logger
 from ..db.redis_db import redis_client
 from ..repository.auth_repository import (
-    create_new_oauth_account,
     create_new_user,
     get_user_by_google_id,
     get_user_by_user_id,
@@ -126,16 +125,6 @@ async def authenticate_user(
         new_user = await create_new_user(new_user, db_session)
 
         logger.info("New user created successfully.")
-
-        logger.info("Creating Google OAuth account record.")
-
-        await create_new_oauth_account(
-            new_user_id=new_user.user_id,
-            provider_name="google",
-            google_id=user_google_id,
-            session=db_session,
-        )
-        logger.info("Google OAuth account record created successfully.")
 
         logger.info("Creating application session for new user.")
 
