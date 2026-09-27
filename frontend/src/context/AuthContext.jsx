@@ -1,5 +1,6 @@
 // src/context/AuthContext.jsx
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import apiClient from '../api/Client.api.js';
 import { AuthContext } from './Auth.js';
 
@@ -7,7 +8,6 @@ const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   // fetch current user api call
   const fetchCurrentUser = async () => {
@@ -37,10 +37,10 @@ const AuthContextProvider = ({ children }) => {
       setIsAuthenticated(false);
 
       if (err.response?.status === 401 || err.response?.status === 404) {
-        // not logged in – this is expected
-        setError(null);
+        // not logged in – this is expected, fail silently
       } else {
-        setError(err.message || 'Failed to authenticate user');
+        // Trigger react-toastify instead of setting state
+        toast.error('Unable to verify your session. Please try again.');
       }
     } finally {
       setIsLoading(false);
@@ -59,7 +59,6 @@ const AuthContextProvider = ({ children }) => {
         user,
         isAuthenticated,
         isLoading,
-        error,
         fetchCurrentUser,
       }}
     >
