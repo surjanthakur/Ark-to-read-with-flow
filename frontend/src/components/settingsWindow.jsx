@@ -1,7 +1,7 @@
-import { Sun, MoonStars, Logout6, X } from 'reicon-react'
+import { Sun, MoonStars, Logout6, X } from 'reicon-react';
 
 export default function SettingsPopupWindow({ openSetting, setSetting }) {
-  if (!openSetting) return null
+  if (!openSetting) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 p-4 backdrop-blur-sm">
@@ -19,16 +19,14 @@ export default function SettingsPopupWindow({ openSetting, setSetting }) {
             </button>
 
             {/* Tooltip */}
-            <div className="pointer-events-none absolute bottom-full left-2/2 mb-2 -translate-x-1/2 rounded-lg border border-black bg-white px-3 py-2 text-xs font-medium whitespace-nowrap text-neutral-700 opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100">
+            <div className="pointer-events-none absolute bottom-full left-2/2 mb-2 -translate-x-1/2 rounded-lg border border-black/10 bg-white px-3 py-2 text-xs font-medium whitespace-nowrap text-neutral-700 opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100">
               close
             </div>
           </div>
 
           <h2 className="text-lg font-semibold text-neutral-900">Settings</h2>
 
-          <p className="mt-1 pr-8 text-sm text-neutral-500">
-            Customize your Lily experience.
-          </p>
+          <p className="mt-1 pr-8 text-sm text-neutral-500">Customize your Lily experience.</p>
         </div>
 
         {/* Theme */}
@@ -64,5 +62,5 @@ export default function SettingsPopupWindow({ openSetting, setSetting }) {
         </button>
       </div>
     </div>
-  )
+  );
 }

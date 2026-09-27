@@ -1,26 +1,25 @@
-import './Loader.css'
-import { useEffect, useState } from 'react'
+import './Loader.css';
+import { useEffect, useState } from 'react';
 
 export default function AgentLoader() {
-  const [messageIndex, setMessageIndex] = useState(0)
+  const [messageIndex, setMessageIndex] = useState(0);
 
   const loadingMessages = [
+    'wait for a second...',
     'Understanding your topic...',
     'Optimizing your search...',
     'Finding relevant resources...',
     'Analyzing the resources...',
     'Organizing the best results...',
-  ]
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMessageIndex((prev) =>
-        prev < loadingMessages.length - 1 ? prev + 1 : prev,
-      )
-    }, 1800)
+      setMessageIndex((prev) => (prev < loadingMessages.length - 1 ? prev + 1 : prev));
+    }, 1800);
 
-    return () => clearInterval(interval)
-  }, [loadingMessages.length])
+    return () => clearInterval(interval);
+  }, [loadingMessages.length]);
 
   return (
     <div className="rounded-2xl p-5">
@@ -31,7 +30,7 @@ export default function AgentLoader() {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
 function Loader() {
@@ -43,5 +42,5 @@ function Loader() {
       <div id="square4"></div>
       <div id="square5"></div>
     </div>
-  )
+  );
 }

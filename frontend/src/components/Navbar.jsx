@@ -1,8 +1,11 @@
 import LilyLogo from '../assets/lily-logo.png';
+import { useAuthContext } from '../context/Auth.js';
+import { Handshake } from 'reicon-react';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export default function Navbar() {
+  const { isAuthenticated, user } = useAuthContext();
   const handleLoginUser = () => {
     const width = 500;
     const height = 600;
@@ -85,11 +88,19 @@ export default function Navbar() {
           />
         </a>
 
+        {isAuthenticated && (
+          <h2 className="flex font-mono text-sm font-bold text-black sm:text-base">
+            Welcome
+            <Handshake size={24} weight="filled" color="black" /> , {user?.email}
+          </h2>
+        )}
+
         {/* ================= GOOGLE LOGIN ================= */}
-        <button
-          onClick={handleLoginUser}
-          type="button"
-          className="
+        {!isAuthenticated && (
+          <button
+            onClick={handleLoginUser}
+            type="button"
+            className="
               group
               flex
               min-h-14
@@ -119,22 +130,23 @@ export default function Navbar() {
               focus-visible:outline-2
               focus-visible:outline-offset-4
               focus-visible:outline-black
-            "
-        >
-          <img
-            src="https://cdn.reicon.dev/logos/google/original.svg"
-            alt="Google"
-            width={22}
-            height={22}
-            className="
+              "
+          >
+            <img
+              src="https://cdn.reicon.dev/logos/google/original.svg"
+              alt="Google"
+              width={22}
+              height={22}
+              className="
                 transition-transform
                 duration-200
                 group-hover:scale-110
-              "
-          />
+                "
+            />
 
-          <span>Continue with Google</span>
-        </button>
+            <span>Continue with Google</span>
+          </button>
+        )}
       </div>
     </nav>
   );

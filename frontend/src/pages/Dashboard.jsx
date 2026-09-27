@@ -7,8 +7,10 @@ import { getAgentResponse } from '../api/agent.api.js';
 import { AgentLoader } from '../components/export.js';
 import Lilylogo from '../assets/lily-logo.png';
 import { ArrowToDownLeft, Magicpen } from 'reicon-react';
+import { useAuthContext } from '../context/Auth.js';
 
 export default function Dashboard() {
+  const { user, isLoading } = useAuthContext();
   const [openSettings, setOpenSettings] = useState(false);
 
   const [chats, setChats] = useState(() => {
@@ -110,6 +112,12 @@ export default function Dashboard() {
 
   return (
     <section className="h-dvh overflow-hidden bg-[#e9e8e0] text-neutral-900">
+      {isLoading && (
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-[#e9e8e0]/55 backdrop-blur-md">
+          <AgentLoader />
+        </div>
+      )}
+
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-[#e9e8e0]/80 backdrop-blur-sm">
         {/* Header */}
         <header className="flex h-12 shrink-0 items-center justify-between  border-l border-r border-black/10 bg-[#e9e8e0]/90 px-3 sm:px-6">
@@ -127,11 +135,13 @@ export default function Dashboard() {
 
           {/* Profile */}
           <div className="flex items-center gap-2.5">
-            <span className="hidden text-sm font-medium text-neutral-700 sm:block">Surjan</span>
+            <span className="hidden text-sm font-medium text-neutral-700 sm:block">
+              {user ? user.username : 'default'}
+            </span>
             <img
-              src={Lilylogo}
+              src={user ? user.profile_img : ''}
               alt="Profile"
-              className="h-8 w-8 rounded-full object-cover sm:h-9 sm:w-9"
+              className="h-10 w-10 rounded-full object-cover sm:h-9 sm:w-9"
             />
           </div>
         </header>

@@ -11,6 +11,7 @@ const AuthContextProvider = ({ children }) => {
   // fetch current user api call
   const fetchCurrentUser = async () => {
     try {
+      setIsLoading(true);
       const response = await apiClient.get('/google/auth/me');
       console.log('Current user response received.', { status: response.status });
 
@@ -41,7 +42,6 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsLoading(true);
     fetchCurrentUser();
   }, []);
 

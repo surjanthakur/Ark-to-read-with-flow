@@ -1,9 +1,8 @@
 import './DashboardButton.css';
-import { ArrowsRight } from 'reicon-react';
 import { useAuthContext } from '../context/Auth.js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-// import { DefaultLoader } from '../components/export.js';
+import { DefaultLoader } from '../components/export.js';
 
 export default function DashboardRedirectButton() {
   const { isLoading, user, isAuthenticated, fetchCurrentUser } = useAuthContext();
@@ -14,11 +13,6 @@ export default function DashboardRedirectButton() {
     e.preventDefault();
     try {
       await fetchCurrentUser();
-
-      if (isLoading) {
-        toast.info('Checking authentication...');
-        return;
-      }
       if (!isAuthenticated || !user?.email) {
         toast.error('Please login first to open dashboard');
         return;
@@ -35,6 +29,7 @@ export default function DashboardRedirectButton() {
     <>
       <button
         type="button"
+        disabled={isLoading}
         className={isLoading ? 'cursor-not-allowed button' : 'cursor-pointer button'}
         onClick={handleClick}
       >
@@ -66,7 +61,14 @@ export default function DashboardRedirectButton() {
           ></path>
         </svg>
         <span className="text_button flex justify-center align-middle">
-          open dashboard <ArrowsRight className="px-0.5" color="white" size={25} />
+          {isLoading ? (
+            <>
+              <DefaultLoader />
+              &nbsp;redirecting...
+            </>
+          ) : (
+            'open dashboard'
+          )}
         </span>
       </button>
     </>
