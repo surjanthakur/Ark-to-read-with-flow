@@ -6,25 +6,19 @@ import { toast } from 'react-toastify';
 // import { DefaultLoader } from '../components/export.js';
 
 export default function DashboardRedirectButton() {
-  const { isLoading, error, user, isAuthenticated, fetchCurrentUser } = useAuthContext;
+  const { isLoading, user, isAuthenticated, fetchCurrentUser } = useAuthContext();
 
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     try {
-      fetchCurrentUser();
+      await fetchCurrentUser();
 
       if (isLoading) {
         toast.info('Checking authentication...');
         return;
       }
-
-      if (error) {
-        toast.error('Something went wrong. Please try again.');
-        return;
-      }
-
       if (!isAuthenticated || !user?.email) {
         toast.error('Please login first to open dashboard');
         return;

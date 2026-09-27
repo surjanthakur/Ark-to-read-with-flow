@@ -12,7 +12,7 @@ const AuthContextProvider = ({ children }) => {
   // fetch current user api call
   const fetchCurrentUser = async () => {
     try {
-      const response = await apiClient.get('/google/auth/me', { withCredentials: true });
+      const response = await apiClient.get('/google/auth/me');
       console.info('Current user response received.', { status: response.status });
 
       // Extract from body
