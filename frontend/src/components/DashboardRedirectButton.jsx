@@ -1,19 +1,19 @@
 import './DashboardButton.css';
 import { ArrowsRight } from 'reicon-react';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuthContext } from '../context/Auth.js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 // import { DefaultLoader } from '../components/export.js';
 
 export default function DashboardRedirectButton() {
-  const { isLoading, error, user, isAuthenticated, fetchCurrentUser } = useAuth();
+  const { isLoading, error, user, isAuthenticated, fetchCurrentUser } = useAuthContext;
 
   const navigate = useNavigate();
 
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     try {
-      await fetchCurrentUser();
+      fetchCurrentUser();
 
       if (isLoading) {
         toast.info('Checking authentication...');
@@ -31,7 +31,7 @@ export default function DashboardRedirectButton() {
       }
 
       // Redirect to /dashboard/:email
-      navigate(`/dashboard/${user.email}`);
+      navigate(`/dashboard/${user?.email}`);
     } catch {
       toast.error('Something went wrong. Please try again.');
     }
