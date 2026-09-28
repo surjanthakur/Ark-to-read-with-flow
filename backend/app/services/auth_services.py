@@ -24,130 +24,136 @@ async def authenticate_user(
     req: Request,
     db_session: AsyncSession,
 ):
-    logger.info("Authentication started.")
     try:
-        logger.info("Requesting Google OAuth token authorization.")
 
-        token_info: dict = await oauth_client.google_auth.authorize_access_token(req)
+        logger.info("Authentication started.")
+        try:
+            logger.info("Requesting Google OAuth token authorization.")
 
-        logger.info("Google OAuth token authorization succeeded.")
+            token_info: dict = await oauth_client.google_auth.authorize_access_token(
+                req
+            )
 
-    except JWTError:
-        logger.exception("Google OAuth token authorization failed.")
+            logger.info("Google OAuth token authorization succeeded.")
 
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Google authentication failed.",
+        except JWTError:
+            logger.exception("Google OAuth token authorization failed.")
+
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Google authentication failed.",
+            )
+
+        try:
+            user_info_endpoint = "https://www.googleapis.com/oauth2/v2/userinfo"
+
+            headers = {"Authorization": f"Bearer {token_info['access_token']}"}
+
+            async with httpx.AsyncClient() as client:
+                logger.info("Requesting user profile from Google.")
+
+                google_response = await client.get(user_info_endpoint, headers=headers)
+
+                google_response.raise_for_status()
+
+            user_info: dict = google_response.json()
+
+            logger.info("Google user profile retrieved successfully.")
+
+        except httpx.HTTPError:
+
+            logger.exception("Failed to retrieve the Google user profile.")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Failed to retrieve Google user information.",
+            )
+
+        logger.info("Checking OAuth response for user information.")
+
+        user: dict = token_info.get("userinfo")
+
+        if not user:
+
+            logger.warning("Google OAuth response did not include user information.")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Google authentication failed.",
+            )
+
+        logger.info("Extracting required Google user claims.")
+
+        user_google_id = user.get("sub")
+        oauth_provider = user.get("iss")
+        user_email = user.get("email")
+
+        user_name = user_info.get("name")
+        user_pic = user_info.get("picture")
+
+        logger.info(
+            "Google user claims extracted (provider_present=%s, subject_present=%s, email_present=%s).",
+            bool(oauth_provider),
+            bool(user_google_id),
+            bool(user_email),
         )
 
-    try:
-        user_info_endpoint = "https://www.googleapis.com/oauth2/v2/userinfo"
+        # Verifies that the token was actually issued by Google
+        logger.info("Validating Google token issuer and subject.")
 
-        headers = {"Authorization": f"Bearer {token_info['access_token']}"}
+        if (
+            oauth_provider not in ["https://accounts.google.com", "accounts.google.com"]
+            and not user_google_id
+        ):
+            logger.warning("Google user information failed issuer/subject validation.")
 
-        async with httpx.AsyncClient() as client:
-            logger.info("Requesting user profile from Google.")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid Google user information.",
+            )
+        logger.info("Google issuer and subject validation completed.")
 
-            google_response = await client.get(user_info_endpoint, headers=headers)
+        logger.info("Looking up user by Google account.")
 
-            google_response.raise_for_status()
-
-        user_info: dict = google_response.json()
-
-        logger.info("Google user profile retrieved successfully.")
-
-    except httpx.HTTPError:
-
-        logger.exception("Failed to retrieve the Google user profile.")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Failed to retrieve Google user information.",
+        existing_user = await get_user_by_google_id(
+            google_id=user_google_id, session=db_session
         )
 
-    logger.info("Checking OAuth response for user information.")
+        if not existing_user:
+            logger.info("No existing user found; creating a new user.")
 
-    user: dict = token_info.get("userinfo")
+            new_user = UserRequest(
+                username=user_name,
+                google_id=user_google_id,
+                email_id=user_email,
+                profile_picture=user_pic,
+            )
+            new_user = await create_new_user(new_user, db_session)
 
-    if not user:
+            logger.info("New user created successfully.")
 
-        logger.warning("Google OAuth response did not include user information.")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Google authentication failed.",
-        )
+            logger.info("Creating application session for new user.")
 
-    logger.info("Extracting required Google user claims.")
+            new_session_id = await create_session(user_id=new_user.user_id)
 
-    user_google_id = user.get("sub")
-    oauth_provider = user.get("iss")
-    user_email = user.get("email")
+            logger.info("Application session created for new user.")
 
-    user_name = user_info.get("name")
-    user_pic = user_info.get("picture")
+            res = create_auth_response(new_session_id)
 
-    logger.info(
-        "Google user claims extracted (provider_present=%s, subject_present=%s, email_present=%s).",
-        bool(oauth_provider),
-        bool(user_google_id),
-        bool(user_email),
-    )
+            logger.info("Authentication completed for newly registered user.")
+            return res
 
-    # Verifies that the token was actually issued by Google
-    logger.info("Validating Google token issuer and subject.")
+        else:
+            logger.info("Existing user found; creating application session.")
 
-    if (
-        oauth_provider not in ["https://accounts.google.com", "accounts.google.com"]
-        and not user_google_id
-    ):
-        logger.warning("Google user information failed issuer/subject validation.")
+            new_session_id = await create_session(user_id=existing_user.user_id)
 
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid Google user information.",
-        )
-    logger.info("Google issuer and subject validation completed.")
+            logger.info("Application session created for existing user.")
 
-    logger.info("Looking up user by Google account.")
+            res = create_auth_response(new_session_id)
 
-    existing_user = await get_user_by_google_id(
-        google_id=user_google_id, session=db_session
-    )
-
-    if not existing_user:
-        logger.info("No existing user found; creating a new user.")
-
-        new_user = UserRequest(
-            username=user_name,
-            google_id=user_google_id,
-            email_id=user_email,
-            profile_picture=user_pic,
-        )
-        new_user = await create_new_user(new_user, db_session)
-
-        logger.info("New user created successfully.")
-
-        logger.info("Creating application session for new user.")
-
-        new_session_id = await create_session(user_id=new_user.user_id)
-
-        logger.info("Application session created for new user.")
-
-        res = create_auth_response(new_session_id)
-
-        logger.info("Authentication completed for newly registered user.")
-        return res
-
-    else:
-        logger.info("Existing user found; creating application session.")
-
-        new_session_id = await create_session(user_id=existing_user.user_id)
-
-        logger.info("Application session created for existing user.")
-
-        res = create_auth_response(new_session_id)
-
-        logger.info("Authentication completed for existing user.")
-        return res
+            logger.info("Authentication completed for existing user.")
+            return res
+    except Exception:
+        pass
 
 
 # get current session user
