@@ -20,10 +20,5 @@ class AgentResponse(BaseModel):
 # Route to get agent response
 @router.post("/asks", status_code=status.HTTP_200_OK, response_model=AgentResponse)
 async def get_agent_response(requests: AgentReq) -> dict:
-    logger.info("executing services fun langgraph_agent...")
-
     res = await call_langgraph_agent(query=requests.user_query)
-
-    logger.info("executed services fun langgraph_agent...")
-
     return {"found_resources": res}

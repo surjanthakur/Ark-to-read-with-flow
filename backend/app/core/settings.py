@@ -26,6 +26,7 @@ class Settings(BaseSettings):
 
     FRONTEND_REDIRECT_URL: str
     AUTH_REDIRECT_URL: str
+    FRONTEND_ORIGINS: str
 
     model_config = SettingsConfigDict(
         env_file=env_path,
