@@ -12,7 +12,7 @@ import { useAuthContext } from '../context/Auth.js';
 export default function Dashboard() {
   const { user, isLoading } = useAuthContext();
   const [openSettings, setOpenSettings] = useState(false);
-
+  const [isAgentLoading, setIsAgentLoading] = useState(false);
   const [chats, setChats] = useState(() => {
     try {
       const storedChats = localStorage.getItem('lily_chats');
@@ -22,8 +22,6 @@ export default function Dashboard() {
       return [];
     }
   });
-
-  const [isAgentLoading, setIsAgentLoading] = useState(false);
 
   const textareaRef = useRef(null);
   const chatWindowRef = useRef(null);
@@ -80,9 +78,6 @@ export default function Dashboard() {
 
     try {
       const response = await getAgentResponse(userQuery);
-
-      toast.success('agent send response...');
-
       const foundResources = response?.found_resources || [];
 
       // Update the same chat item with agent response
@@ -118,7 +113,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="mx-auto flex h-full py-4 w-full max-w-6xl flex-col bg-[#e9e8e0]/80 backdrop-blur-sm">
+      <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-[#e9e8e0]/80 backdrop-blur-sm">
         {/* Header */}
         <header className="flex h-12 shrink-0 items-center justify-between  border-l border-r border-black/10 bg-[#e9e8e0]/90 px-3 sm:px-6">
           {/* Logo */}
