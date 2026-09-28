@@ -1,7 +1,7 @@
 import time
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -11,6 +11,7 @@ from .core.settings import settings
 from .db.databse import create_db_tables
 from .db.redis_db import check_redis_connection, close_redis_connection
 from .routes import agent_routes, auth_routes
+from .utils.auth import require_authenticated_user
 
 setup_logging()
 
@@ -74,7 +75,11 @@ async def log_response_time(request: Request, call_next):
 
 
 # include routes to app
-app.include_router(router=agent_routes.router, prefix="/api/v1/agent")
+app.include_router(
+    router=agent_routes.router,
+    prefix="/api/v1/agent",
+    dependencies=[Depends(require_authenticated_user)],
+)
 app.include_router(router=auth_routes.router, prefix="/api/v1/google")
 
 
