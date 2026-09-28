@@ -1,4 +1,4 @@
-import { Settings2 } from 'reicon-react';
+import { Settings2, Trash2 } from 'reicon-react';
 import { useRef, useState, useEffect } from 'react';
 import { SettingsPopupWindow } from '../components/export.js';
 import { useForm } from 'react-hook-form';
@@ -29,7 +29,11 @@ export default function Dashboard() {
 
   // Save chats to localStorage whenever chats changes
   useEffect(() => {
-    localStorage.setItem('lily_chats', JSON.stringify(chats));
+    if (chats.length === 0) {
+      localStorage.removeItem('lily_chats');
+    } else {
+      localStorage.setItem('lily_chats', JSON.stringify(chats));
+    }
   }, [chats]);
 
   useEffect(() => {
@@ -42,6 +46,11 @@ export default function Dashboard() {
 
   const handleSettings = () => {
     setOpenSettings((prev) => !prev);
+  };
+
+  const deleteAllChats = () => {
+    setChats([]);
+    localStorage.removeItem('lily_chats');
   };
 
   const handleInput = (e) => {
@@ -106,16 +115,16 @@ export default function Dashboard() {
   };
 
   return (
-    <section className="h-dvh overflow-hidden bg-[#e9e8e0] text-neutral-900">
+    <section className="h-dvh overflow-hidden bg-[#e9e8e0] text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
       {isLoading && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-[#e9e8e0]/55 backdrop-blur-md">
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-[#e9e8e0]/55 backdrop-blur-md dark:bg-neutral-950/65">
           <AgentLoader />
         </div>
       )}
 
-      <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-[#e9e8e0]/80 backdrop-blur-sm">
+      <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-[#e9e8e0]/80 backdrop-blur-sm dark:bg-neutral-950/80">
         {/* Header */}
-        <header className="flex h-12 shrink-0 items-center justify-between  border-l border-r border-black/10 bg-[#e9e8e0]/90 px-3 sm:px-6">
+        <header className="flex h-12 shrink-0 items-center justify-between border-l border-r border-black/10 bg-[#e9e8e0]/90 px-3 sm:px-6 dark:border-white/10 dark:bg-neutral-950/90">
           {/* Logo */}
           <div className="flex items-center gap-2.5">
             <img
@@ -123,14 +132,14 @@ export default function Dashboard() {
               alt="Lily"
               className="h-8 w-8 rounded-lg object-cover sm:h-9 sm:w-9"
             />
-            <span className="text-base font-semibold tracking-tight text-neutral-900">
+            <span className="text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
               agent on mission
             </span>
           </div>
 
           {/* Profile */}
           <div className="flex items-center gap-2.5">
-            <span className="hidden text-sm font-medium text-neutral-700 sm:block">
+            <span className="hidden text-sm font-medium text-neutral-700 sm:block dark:text-neutral-300">
               {user?.username || 'default'}
             </span>
             <img
@@ -146,7 +155,7 @@ export default function Dashboard() {
           {/* Chat */}
           <main
             ref={chatWindowRef}
-            className="min-h-0 flex-1 overflow-y-auto border border-black/10 px-3 py-5 sm:px-6 sm:py-7"
+            className="min-h-0 flex-1 overflow-y-auto border border-black/10 px-3 py-5 sm:px-6 sm:py-7 dark:border-white/10"
           >
             <div className="mx-auto flex w-full max-w-4xl flex-col gap-5 sm:gap-6">
               {/* Empty state */}
@@ -159,11 +168,11 @@ export default function Dashboard() {
                       className="mx-auto mb-4 h-30 w-30 rounded-xl object-cover opacity-90"
                     />
 
-                    <h1 className="text-xl font-semibold tracking-tight text-neutral-800 sm:text-2xl">
+                    <h1 className="text-xl font-semibold tracking-tight text-neutral-800 sm:text-2xl dark:text-neutral-100">
                       What do you want to learn today?
                     </h1>
 
-                    <p className="mt-2 text-sm leading-6 text-neutral-600">
+                    <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
                       Ask Lily for articles, blogs, and resources about any topic you want to
                       explore/read.
                     </p>
@@ -177,7 +186,7 @@ export default function Dashboard() {
                   {/* User message */}
                   <div className="flex justify-end">
                     <div className="w-fit max-w-[92%] sm:max-w-[75%]">
-                      <div className="rounded-2xl rounded-br-sm bg-[#292927] px-4 py-3 shadow-sm sm:px-5">
+                      <div className="rounded-2xl rounded-br-sm bg-[#292927] px-4 py-3 shadow-sm sm:px-5 dark:bg-neutral-800">
                         <p className="wrap-break-word text-sm leading-6 text-white">
                           {chat.user_query}
                         </p>
@@ -192,15 +201,15 @@ export default function Dashboard() {
                         {chat.found_resources.map((resource, resourceIndex) => (
                           <article
                             key={`${resource.url}-${resourceIndex}`}
-                            className="rounded-2xl rounded-tl-sm border border-black/10 bg-[#f5f4ed] p-4 shadow-md transition-shadow hover:shadow-lg sm:p-5"
+                            className="rounded-2xl rounded-tl-sm border border-black/10 bg-[#f5f4ed] p-4 shadow-md transition-shadow hover:shadow-lg sm:p-5 dark:border-white/10 dark:bg-neutral-900"
                           >
                             {/* Title */}
-                            <h3 className="wrap-break-word py-2 text-base font-semibold leading-6 text-neutral-900 sm:text-lg sm:leading-7">
+                            <h3 className="wrap-break-word py-2 text-base font-semibold leading-6 text-neutral-900 sm:text-lg sm:leading-7 dark:text-neutral-100">
                               {resource.title}
                             </h3>
 
                             {/* Read */}
-                            <span className="flex items-center justify-start text-xs font-medium text-fuchsia-700 sm:text-sm">
+                            <span className="flex items-center justify-start text-xs font-medium text-fuchsia-700 sm:text-sm dark:text-fuchsia-300">
                               read&nbsp;
                               <ArrowToDownLeft size={25} />
                             </span>
@@ -210,25 +219,25 @@ export default function Dashboard() {
                               href={resource.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="mt-1.5 block break-all text-xs leading-5 text-blue-700 hover:underline sm:text-sm"
+                              className="mt-1.5 block break-all text-xs leading-5 text-blue-700 hover:underline sm:text-sm dark:text-blue-300"
                             >
                               {resource.url}
                             </a>
 
                             {/* Score */}
                             <div className="mt-3 flex flex-wrap items-center gap-2">
-                              <span className="text-xs font-medium text-lime-700 sm:text-sm">
+                              <span className="text-xs font-medium text-lime-700 sm:text-sm dark:text-lime-300">
                                 good score
                               </span>
 
-                              <span className="rounded-full bg-[#2cc53b7b] px-2.5 py-1 text-xs font-semibold text-neutral-700">
+                              <span className="rounded-full bg-[#2cc53b7b] px-2.5 py-1 text-xs font-semibold text-neutral-700 dark:text-neutral-900">
                                 {((resource.score || 0) * 100).toFixed(0)}%
                               </span>
                             </div>
 
                             {/* Content */}
-                            <p className="mt-3 wrap-break-word text-sm leading-6 text-neutral-700">
-                              <span className="text-xs font-medium text-orange-700 sm:text-sm">
+                            <p className="mt-3 wrap-break-word text-sm leading-6 text-neutral-700 dark:text-neutral-300">
+                              <span className="text-xs font-medium text-orange-700 sm:text-sm dark:text-orange-300">
                                 About this resource =
                               </span>{' '}
                               {resource.content?.split(/\s+/).slice(0, 100).join(' ')}
@@ -256,27 +265,32 @@ export default function Dashboard() {
 
           {/* ------------------------ Input area ------------------------- */}
 
-          <div className="shrink-0 border border-black/10 bg-[#e9e8e0]/95 px-3 py-3 backdrop-blur-md sm:px-6 sm:py-5">
+          <div className="shrink-0 border border-black/10 bg-[#e9e8e0]/95 px-3 py-3 backdrop-blur-md sm:px-6 sm:py-5 dark:border-white/10 dark:bg-neutral-950/95">
             <div className="mx-auto w-full max-w-3xl">
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex items-end gap-1.5 rounded-2xl border border-black/15 bg-[#f5f4ed] p-2 shadow-md sm:gap-2"
+                className="flex items-end gap-1.5 rounded-2xl border border-black/15 bg-[#f5f4ed] p-2 shadow-md sm:gap-2 dark:border-white/10 dark:bg-neutral-900"
               >
                 {/* Settings */}
-                <div className="group relative shrink-0">
+                <div className="flex group relative shrink-0">
                   <button
                     type="button"
                     onClick={handleSettings}
                     aria-label="Settings"
-                    className="flex h-11 w-11 items-center justify-center rounded-xl text-neutral-500 transition hover:bg-[#deddd4] hover:text-neutral-900"
+                    title="settings"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl text-neutral-500 transition hover:bg-[#deddd4] hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
                   >
                     <Settings2 size={20} />
                   </button>
-
-                  {/* Tooltip */}
-                  <div className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-lg border border-black/10 bg-[#f5f4ed] px-3 py-2 text-xs font-medium whitespace-nowrap text-neutral-700 opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100">
-                    Settings
-                  </div>
+                  <button
+                    type="button"
+                    onClick={deleteAllChats}
+                    aria-label="Delete all chats"
+                    title="Delete all chats"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl text-red-600 transition hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-950"
+                  >
+                    <Trash2 size={20} />
+                  </button>
                 </div>
 
                 {/* Textarea */}
@@ -293,7 +307,7 @@ export default function Dashboard() {
                   onInput={handleInput}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask Lily what you want to learn..."
-                  className="max-h-50 min-h-11 flex-1 resize-none overflow-y-auto bg-transparent px-2 py-3 text-sm leading-5 text-neutral-900 outline-none placeholder:text-neutral-500 sm:px-3"
+                  className="max-h-50 min-h-11 flex-1 resize-none overflow-y-auto bg-transparent px-2 py-3 text-sm leading-5 text-neutral-900 outline-none placeholder:text-neutral-500 sm:px-3 dark:text-neutral-100 dark:placeholder:text-neutral-500"
                 />
 
                 {/* Send */}
@@ -307,7 +321,7 @@ export default function Dashboard() {
                 </button>
               </form>
 
-              <p className="mt-2 hidden text-center text-[11px] text-neutral-500 sm:block">
+              <p className="mt-2 hidden text-center text-[11px] text-neutral-500 sm:block dark:text-neutral-500">
                 Press Enter to send · Shift + Enter for a new line
               </p>
             </div>
