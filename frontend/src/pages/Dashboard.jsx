@@ -118,7 +118,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-[#e9e8e0]/80 backdrop-blur-sm">
+      <div className="mx-auto flex h-full py-4 w-full max-w-6xl flex-col bg-[#e9e8e0]/80 backdrop-blur-sm">
         {/* Header */}
         <header className="flex h-12 shrink-0 items-center justify-between  border-l border-r border-black/10 bg-[#e9e8e0]/90 px-3 sm:px-6">
           {/* Logo */}

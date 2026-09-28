@@ -2,46 +2,12 @@ import LilyLogo from '../assets/lily-logo.png';
 import { useAuthContext } from '../context/Auth.js';
 import { Handshake } from 'reicon-react';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL;
-
 export default function Navbar() {
-  const { isAuthenticated, user, fetchCurrentUser } = useAuthContext();
+  const { isAuthenticated, user, LoginUser } = useAuthContext();
+
   const handleLoginUser = () => {
-    const width = 500;
-    const height = 600;
-
-    const left = window.screenX + (window.outerWidth - width) / 2;
-
-    const top = window.screenY + (window.outerHeight - height) / 2;
-
-    const handleMessage = (event) => {
-      console.log('Message received:', event);
-      if (event.origin !== window.location.origin) return;
-
-      if (event.data?.type === 'google-login-success') {
-        fetchCurrentUser();
-        window.removeEventListener('message', handleMessage);
-      }
-
-      if (event.data?.type === 'google-login-error') {
-        window.removeEventListener('message', handleMessage);
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-
-    const popup = window.open(
-      `${BACKEND_URL}/google/login`,
-      'google-login',
-      `width=${width},height=${height},left=${left},top=${top}`
-    );
-
-    if (!popup) {
-      window.removeEventListener('message', handleMessage);
-      return;
-    }
+    LoginUser();
   };
-
   return (
     <nav className="sticky top-0 z-50 w-full  backdrop-blur-lg">
       <div
