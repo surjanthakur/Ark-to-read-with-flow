@@ -139,7 +139,7 @@ export default function Dashboard() {
               {user ? user.username : 'default'}
             </span>
             <img
-              src={user ? user.profile_img : Lilylogo}
+              src={user?.profile_img || Lilylogo}
               alt="Profile-photo"
               className="h-10 w-10 rounded-full object-cover sm:h-9 sm:w-9"
             />
