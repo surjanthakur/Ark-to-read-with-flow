@@ -71,6 +71,7 @@ def create_auth_response(
         response.set_cookie(
             key="oauth_session",
             value=session_id,
+            max_age=int(SESSION_EXPIRY.total_seconds()),
             httponly=True,
             secure=False,
             samesite="lax",
