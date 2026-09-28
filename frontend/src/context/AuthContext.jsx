@@ -12,17 +12,14 @@ const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // fetch current user api call
+  // get current user info
   const fetchCurrentUser = async () => {
     try {
       setIsLoading(true);
-      const response = await apiClient.get('/google/auth/me');
-      console.log('Current user response received.', { status: response.status });
 
-      // Extract from body
+      const response = await apiClient.get('/google/auth/me');
       const { username, email, profile_img } = response.data ?? {};
 
-      // Extract from headers (Axios lowercases header names)
       const isAuthHeader = response.headers['is_authenticated'];
       const authenticated = isAuthHeader === 'true';
 
@@ -32,22 +29,16 @@ const AuthContextProvider = ({ children }) => {
         profile_img: profile_img || null,
       });
       setIsAuthenticated(authenticated);
-    } catch (err) {
-      console.error('Current user request failed.', {
-        status: err.response?.status,
-        message: err.message,
-      });
+    } catch {
       setUser(null);
       setIsAuthenticated(false);
+      toast.error('something went wrong try again!');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const refreshAfterLogin = useEffectEvent(() => {
-    fetchCurrentUser();
-  });
-
+  // login user
   const LoginUser = () => {
     const width = 500;
     const height = 600;
@@ -67,6 +58,7 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
+  // logout user
   const LogoutUser = async () => {
     try {
       setIsLoading(true);
@@ -77,16 +69,17 @@ const AuthContextProvider = ({ children }) => {
       const authenticated = isAuthHeader === 'true';
       setIsAuthenticated(authenticated);
       return authenticated;
-    } catch (err) {
-      console.error('Current user request failed.', {
-        status: err.response?.status,
-        message: err.message,
-      });
+    } catch {
       setUser(null);
+      toast.error('something went wrong try again!');
     } finally {
       setIsLoading(false);
     }
   };
+
+  const refreshAfterLogin = useEffectEvent(() => {
+    fetchCurrentUser();
+  });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
