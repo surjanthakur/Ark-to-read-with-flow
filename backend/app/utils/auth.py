@@ -2,15 +2,12 @@ from datetime import timedelta
 from uuid import UUID, uuid4
 
 from authlib.integrations.starlette_client import OAuth, OAuthError
-from fastapi import Depends, HTTPException, Request, status
+from fastapi import HTTPException, status
 from fastapi.responses import HTMLResponse
-from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
 from ..core.settings import settings
 from ..db.redis_db import redis_client
-from ..services.auth_services import get_current_user
-from ..utils.get_db_session import get_db_session
 
 logger = get_logger(__name__)
 
@@ -34,13 +31,6 @@ oauth_client.register(
 
 
 SESSION_EXPIRY = timedelta(minutes=1440)
-
-
-async def require_authenticated_user(
-    request: Request,
-    db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
-) -> None:
-    await get_current_user(request, db_session)
 
 
 async def create_session(user_id: UUID):
