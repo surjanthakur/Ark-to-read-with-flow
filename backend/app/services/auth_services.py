@@ -156,7 +156,7 @@ async def get_current_user(
     db_session: AsyncSession,
 ):
     try:
-        session_id = request.cookies.get("session")
+        session_id = request.cookies.get("oauth_session")
 
         if not session_id:
             logger.warning("Current user request has no session cookie.")
@@ -211,7 +211,7 @@ async def get_current_user(
 
 async def logout_session_user(request: Request):
     try:
-        session_id = request.cookies.get("session")
+        session_id = request.cookies.get("oauth_session")
 
         if not session_id:
             logger.warning("Current user request has no session cookie.")
@@ -240,7 +240,7 @@ async def logout_session_user(request: Request):
             headers={"is_authenticated": "false"},
         )
         response.delete_cookie(
-            key="session",
+            key="oauth_session",
             path="/",
             httponly=True,
             secure=False,

@@ -69,7 +69,7 @@ def create_auth_response(
         """)
 
         response.set_cookie(
-            key="session",
+            key="oauth_session",
             value=session_id,
             httponly=True,
             secure=False,
