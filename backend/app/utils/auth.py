@@ -62,16 +62,10 @@ def create_auth_response(
         <html>
             <body>
                 <script>
-
-                console.log("Popup: sending success message");
-
                     window.opener.postMessage(
                         { type: "google-login-success" },
                         "http://localhost:5173"
                     );
-                    
-                    console.log("Popup: closing");
-
                     window.close();
                 </script>
             </body>
