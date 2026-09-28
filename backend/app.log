@@ -263,3 +263,25 @@ WHERE "user".user_id = $1::UUID
 2026-09-28 21:39:03 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.8971 seconds.
 2026-09-28 21:39:03 | INFO | sqlalchemy.engine.Engine | ROLLBACK
 2026-09-28 21:39:03 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 21:53:28 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 21:53:28 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 21:53:30 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 21:53:30 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 21:53:30 | INFO | sqlalchemy.engine.Engine | [cached since 870s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 21:53:30 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 21:53:30 | INFO | app.main | Request: /api/v1/google/auth/me completed in 2.3460 seconds.
+2026-09-28 21:53:30 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 21:53:30 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 21:53:30 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 21:53:30 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 21:53:31 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 21:53:31 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 21:53:31 | INFO | sqlalchemy.engine.Engine | [cached since 870.9s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 21:53:31 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 21:53:31 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.8188 seconds.
+2026-09-28 21:53:31 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 21:53:31 | INFO | app.utils.get_db_session | session closed now!!
