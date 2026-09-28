@@ -1,0 +1,289 @@
+2026-09-28 19:08:38 | INFO | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-09-28 19:08:38 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-28 19:08:38 | INFO | sqlalchemy.engine.Engine | select current_schema()
+2026-09-28 19:08:38 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-28 19:08:38 | INFO | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-09-28 19:08:38 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-28 19:08:39 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:08:39 | INFO | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-09-28 19:08:39 | INFO | sqlalchemy.engine.Engine | [generated in 0.00033s] ('user', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-09-28 19:08:39 | INFO | sqlalchemy.engine.Engine | COMMIT
+2026-09-28 19:08:39 | INFO | app.db.databse | Database tables created successfully
+2026-09-28 19:08:40 | INFO | app.db.redis_db | redis db connected successfully ✅
+2026-09-28 19:08:50 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:08:50 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:08:50 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:08:50 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:08:50 | INFO | sqlalchemy.engine.Engine | [generated in 0.00053s] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:08:51 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:08:51 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.8146 seconds.
+2026-09-28 19:08:51 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:08:51 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:08:51 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:08:51 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:08:51 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:08:51 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:08:51 | INFO | sqlalchemy.engine.Engine | [cached since 1.082s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:08:52 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:08:52 | INFO | app.main | Request: /api/v1/google/auth/me completed in 1.0824 seconds.
+2026-09-28 19:08:52 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:08:52 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:04 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:04 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:05 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:05 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:05 | INFO | sqlalchemy.engine.Engine | [cached since 74.26s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:05 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:05 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6140 seconds.
+2026-09-28 19:10:05 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:05 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:21 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:21 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:22 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:22 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:22 | INFO | sqlalchemy.engine.Engine | [cached since 91.31s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:22 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:22 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.7301 seconds.
+2026-09-28 19:10:22 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:22 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:22 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:22 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:22 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:22 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:22 | INFO | sqlalchemy.engine.Engine | [cached since 91.9s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:22 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:22 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6085 seconds.
+2026-09-28 19:10:22 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:23 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:24 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:24 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:24 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:24 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:24 | INFO | sqlalchemy.engine.Engine | [cached since 94.13s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:25 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:25 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6312 seconds.
+2026-09-28 19:10:25 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:25 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:25 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:25 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:25 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:25 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:25 | INFO | sqlalchemy.engine.Engine | [cached since 94.76s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:25 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:25 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6078 seconds.
+2026-09-28 19:10:25 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:25 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:29 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:29 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:30 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:30 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:30 | INFO | sqlalchemy.engine.Engine | [cached since 99.23s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:30 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:30 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6134 seconds.
+2026-09-28 19:10:30 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:30 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:30 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:30 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:30 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:30 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:30 | INFO | sqlalchemy.engine.Engine | [cached since 99.85s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:30 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:30 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6188 seconds.
+2026-09-28 19:10:30 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:31 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:31 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:31 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:32 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:32 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:32 | INFO | sqlalchemy.engine.Engine | [cached since 101.5s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:32 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:32 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6104 seconds.
+2026-09-28 19:10:32 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:32 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:10:32 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:10:32 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:10:32 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:10:32 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:10:32 | INFO | sqlalchemy.engine.Engine | [cached since 102.1s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:10:33 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:10:33 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6022 seconds.
+2026-09-28 19:10:33 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:10:33 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:11:37 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:11:37 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:11:37 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:11:37 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:11:37 | INFO | sqlalchemy.engine.Engine | [cached since 166.7s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:11:37 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:11:37 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5868 seconds.
+2026-09-28 19:11:37 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:11:37 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:11:37 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:11:37 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:11:38 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:11:38 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:11:38 | INFO | sqlalchemy.engine.Engine | [cached since 167.3s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:11:38 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:11:38 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6017 seconds.
+2026-09-28 19:11:38 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:11:38 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:11:59 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:11:59 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:11:59 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:11:59 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:11:59 | INFO | sqlalchemy.engine.Engine | [cached since 188.8s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:11:59 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:11:59 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5958 seconds.
+2026-09-28 19:11:59 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:11:59 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:11:59 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:11:59 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:12:00 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:12:00 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:12:00 | INFO | sqlalchemy.engine.Engine | [cached since 189.4s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:12:00 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:12:00 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5984 seconds.
+2026-09-28 19:12:00 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:12:00 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:13:07 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:13:07 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:13:08 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:13:08 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:13:08 | INFO | sqlalchemy.engine.Engine | [cached since 257.4s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:13:08 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:13:08 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5877 seconds.
+2026-09-28 19:13:08 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:13:08 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:13:08 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:13:08 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:13:08 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:13:08 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:13:08 | INFO | sqlalchemy.engine.Engine | [cached since 258s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:13:08 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:13:08 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5851 seconds.
+2026-09-28 19:13:08 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:13:09 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:14:02 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:14:02 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:14:03 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:14:03 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:14:03 | INFO | sqlalchemy.engine.Engine | [cached since 312.3s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:14:03 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:14:03 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6269 seconds.
+2026-09-28 19:14:03 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:14:03 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:14:03 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:14:03 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:14:03 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:14:03 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:14:03 | INFO | sqlalchemy.engine.Engine | [cached since 313.1s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:14:04 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:14:04 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.7965 seconds.
+2026-09-28 19:14:04 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:14:04 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:14:38 | INFO | app.main | Request: /api/v1/google/logout completed in 0.0006 seconds.
+2026-09-28 19:14:40 | INFO | app.main | Request: /api/v1/google/logout completed in 0.0006 seconds.
+2026-09-28 19:14:41 | INFO | app.main | Request: /api/v1/google/logout completed in 0.0006 seconds.
+2026-09-28 19:14:41 | INFO | app.main | Request: /api/v1/google/logout completed in 0.0006 seconds.
+2026-09-28 19:14:41 | INFO | app.main | Request: /api/v1/google/logout completed in 0.0006 seconds.
+2026-09-28 19:15:45 | INFO | app.db.redis_db | Redis connection closed successfully.
+2026-09-28 19:15:47 | INFO | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-09-28 19:15:47 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-28 19:15:47 | INFO | sqlalchemy.engine.Engine | select current_schema()
+2026-09-28 19:15:47 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-28 19:15:47 | INFO | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-09-28 19:15:47 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-28 19:15:48 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:15:48 | INFO | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-09-28 19:15:48 | INFO | sqlalchemy.engine.Engine | [generated in 0.00024s] ('user', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-09-28 19:15:48 | INFO | sqlalchemy.engine.Engine | COMMIT
+2026-09-28 19:15:48 | INFO | app.db.databse | Database tables created successfully
+2026-09-28 19:15:49 | INFO | app.db.redis_db | redis db connected successfully ✅
+2026-09-28 19:16:38 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:16:38 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:16:38 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:16:38 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:16:38 | INFO | sqlalchemy.engine.Engine | [generated in 0.00048s] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:16:39 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:16:39 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.7986 seconds.
+2026-09-28 19:16:39 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:16:39 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:16:39 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:16:39 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:16:39 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:16:39 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:16:39 | INFO | sqlalchemy.engine.Engine | [cached since 1.143s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:16:40 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:16:40 | INFO | app.main | Request: /api/v1/google/auth/me completed in 1.1577 seconds.
+2026-09-28 19:16:40 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:16:40 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:16:41 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:16:41 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:16:42 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:16:42 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:16:42 | INFO | sqlalchemy.engine.Engine | [cached since 3.376s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:16:42 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:16:42 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5829 seconds.
+2026-09-28 19:16:42 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:16:42 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:16:42 | INFO | app.services.auth_services | searching for current user in database.
+2026-09-28 19:16:42 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:16:42 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-28 19:16:42 | INFO | sqlalchemy.engine.Engine | SELECT "user".user_id, "user".username, "user".google_id, "user".email_id, "user".profile_picture, "user".created_at 
+FROM "user" 
+WHERE "user".user_id = $1::UUID
+2026-09-28 19:16:42 | INFO | sqlalchemy.engine.Engine | [cached since 4.06s ago] (UUID('a4c24da9-a20a-40d2-875e-625027d25ced'),)
+2026-09-28 19:16:43 | INFO | app.services.auth_services | find the current user in db.
+2026-09-28 19:16:43 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.6763 seconds.
+2026-09-28 19:16:43 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2026-09-28 19:16:43 | INFO | app.utils.get_db_session | session closed now!!
+2026-09-28 19:16:49 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-09-28 19:16:49 | INFO | app.main | Request: /api/v1/google/logout completed in 0.1342 seconds.

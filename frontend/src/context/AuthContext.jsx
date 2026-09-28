@@ -70,7 +70,7 @@ const AuthContextProvider = ({ children }) => {
   const LogoutUser = async () => {
     try {
       setIsLoading(true);
-      const response = await apiClient.get('/google/logout');
+      const response = await apiClient.post('/google/logout');
       console.log('Current user response received.', { status: response.status });
 
       const isAuthHeader = response.headers['is_authenticated'];

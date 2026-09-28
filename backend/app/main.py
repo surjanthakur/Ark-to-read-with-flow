@@ -74,10 +74,7 @@ async def log_response_time(request: Request, call_next):
 
 
 # include routes to app
-app.include_router(
-    router=agent_routes.router,
-    prefix="/api/v1/agent",
-)
+app.include_router(router=agent_routes.router, prefix="/api/v1/agent")
 app.include_router(router=auth_routes.router, prefix="/api/v1/google")
 
 
