@@ -25,7 +25,7 @@ export default function AgentLoader() {
     <div className="rounded-2xl p-5">
       <div className="flex items-center gap-3">
         <Loader />
-        <p className="text-sm text-black/60 transition-opacity duration-300">
+        <p className="text-sm text-black/60  transition-opacity duration-300 dark:text-white/60">
           {loadingMessages[messageIndex]}
         </p>
       </div>
