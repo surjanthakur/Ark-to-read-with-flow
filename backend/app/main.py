@@ -51,7 +51,7 @@ app.add_middleware(
 app.add_middleware(
     SessionMiddleware,
     secret_key=settings.SECRET_KEY,
-    session_cookie="oauth_session",
+    session_cookie="oauth_state",
 )
 
 
