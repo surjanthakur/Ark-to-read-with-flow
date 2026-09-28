@@ -136,7 +136,7 @@ export default function Dashboard() {
           {/* Profile */}
           <div className="flex items-center gap-2.5">
             <span className="hidden text-sm font-medium text-neutral-700 sm:block">
-              {user ? user.username : 'default'}
+              {user?.username || 'default'}
             </span>
             <img
               src={user?.profile_img || Lilylogo}
