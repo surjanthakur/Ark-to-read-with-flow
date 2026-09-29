@@ -259,5 +259,11 @@ async def logout_session_user(request: Request):
         )
         return response
 
-    except ValueError:
-        raise HTTPException()
+    except HTTPException:
+        raise
+    except Exception:
+        logger.exception("Unexpected error while retrieving the current user.")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="something went worng!",
+        )
