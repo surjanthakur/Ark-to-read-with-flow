@@ -148,12 +148,17 @@ async def authenticate_user(
 
             logger.info("Application session created for existing user.")
 
-            res = create_auth_response(new_session_id)
+            response = create_auth_response(new_session_id)
 
             logger.info("Authentication completed for existing user.")
-            return res
+            return response
+
     except Exception:
-        pass
+        logger.exception("Unexpected authentication error")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Authentication failed.",
+        )
 
 
 # get current session user
