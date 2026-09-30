@@ -1,3 +1,5 @@
+"""Repository layer for user authentication and user lookup operations."""
+
 from uuid import UUID
 
 from sqlmodel import select
@@ -8,14 +10,32 @@ from ..schemas.user_req import UserRequest
 
 
 # FIND user
-async def get_user_by_google_id(google_id: str, session: AsyncSession):
+async def get_user_by_google_id(google_id: str, session: AsyncSession) -> User | None:
+    """Fetch a user by Google ID.
+
+    Args:
+        google_id: Unique Google account identifier.
+        session: Async database session.
+
+    Returns:
+        The matching User record, or None if not found.
+    """
     statement = select(User).where(User.google_id == google_id)
     result = await session.exec(statement)
 
     return result.one_or_none()
 
 
-async def get_user_by_user_id(user_id: UUID, session: AsyncSession):
+async def get_user_by_user_id(user_id: UUID, session: AsyncSession) -> User | None:
+    """Fetch a user by internal UUID.
+
+    Args:
+        user_id: Unique user identifier.
+        session: Async database session.
+
+    Returns:
+        The matching User record, or None if not found.
+    """
     statement = select(User).where(User.user_id == user_id)
     result = await session.exec(statement)
 
@@ -23,7 +43,16 @@ async def get_user_by_user_id(user_id: UUID, session: AsyncSession):
 
 
 # CREATE user
-async def create_new_user(user: UserRequest, session: AsyncSession):
+async def create_new_user(user: UserRequest, session: AsyncSession) -> User:
+    """Create a new user record from the incoming request payload.
+
+    Args:
+        user: Validated user request data.
+        session: Async database session.
+
+    Returns:
+        The newly created user record.
+    """
     new_user = User(
         google_id=user.google_id,
         email_id=user.email_id,
