@@ -27,7 +27,8 @@ async def check_redis_connection() -> bool:
     try:
         response = await redis_client.ping()
         if response:
-            logger.info("redis db connected successfully ✅")
+            logger.info("redis-client connected successfully ✅")
+            return True
 
     except (
         ConnectionError,
@@ -36,7 +37,7 @@ async def check_redis_connection() -> bool:
         ResponseError,
         RedisError,
     ):
-        logger.exception("Redis DB network or connection issue ❌")
+        logger.exception("Redis-client network or connection issue ❌")
         return False
 
 

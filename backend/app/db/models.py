@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 from uuid import UUID, uuid4
 
 from sqlmodel import Field, SQLModel
@@ -27,7 +28,7 @@ class User(SQLModel, table=True):
         unique=True,
         title="email of the user",
     )
-    profile_picture: str = Field(
+    profile_picture: Optional[str] = Field(  # noqa: UP045
         default=None,
         title="picture of the user",
     )

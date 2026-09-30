@@ -13,7 +13,7 @@ logger = get_logger(__name__)
 
 
 # --------------------------------------------------
-# 1. Async Engine
+# * 1. Async Engine
 # --------------------------------------------------
 
 async_engine: AsyncEngine = create_async_engine(
@@ -27,7 +27,7 @@ async_engine: AsyncEngine = create_async_engine(
 
 
 # --------------------------------------------------
-# 2. Async Session Maker
+# * 2. Async Session Maker
 # --------------------------------------------------
 
 async_session_maker = async_sessionmaker(
@@ -39,13 +39,12 @@ async_session_maker = async_sessionmaker(
 
 
 # --------------------------------------------------
-# 3. Create Tables
+# * 3. Create Tables
 # --------------------------------------------------
 
 
 async def create_db_tables():
     try:
-
         async with async_engine.begin() as conn:
             await conn.run_sync(SQLModel.metadata.create_all)
 
@@ -62,4 +61,4 @@ async def create_db_tables():
         raise
 
     else:
-        logger.info("Database tables created successfully")
+        logger.info("Database tables created successfully✅")
