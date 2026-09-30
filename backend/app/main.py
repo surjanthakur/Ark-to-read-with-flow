@@ -12,9 +12,6 @@ from .db.databse import create_db_tables
 from .db.redis_db import check_redis_connection, close_redis_connection
 from .routes import agent_routes, auth_routes
 
-setup_logging()
-
-
 logger = get_logger(__name__)
 
 
@@ -22,6 +19,7 @@ logger = get_logger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:
+        setup_logging()
         await create_db_tables()
         await check_redis_connection()
         yield
