@@ -2,7 +2,7 @@ from uuid import UUID
 
 import httpx
 from fastapi import HTTPException, Request, status
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from jose import JWTError
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -23,7 +23,7 @@ logger = get_logger(__name__)
 async def authenticate_user(
     req: Request,
     db_session: AsyncSession,
-):
+) -> HTMLResponse:
     try:
 
         logger.info("Authentication started.")
@@ -38,7 +38,6 @@ async def authenticate_user(
 
         except JWTError:
             logger.exception("Google OAuth token authorization failed.")
-
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Google authentication failed.",
@@ -61,7 +60,6 @@ async def authenticate_user(
             logger.info("Google user profile retrieved successfully.")
 
         except httpx.HTTPError:
-
             logger.exception("Failed to retrieve the Google user profile.")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -73,7 +71,6 @@ async def authenticate_user(
         user: dict = token_info.get("userinfo")
 
         if not user:
-
             logger.warning("Google OAuth response did not include user information.")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -85,7 +82,6 @@ async def authenticate_user(
         user_google_id = user.get("sub")
         oauth_provider = user.get("iss")
         user_email = user.get("email")
-
         user_name = user_info.get("name")
         user_pic = user_info.get("picture")
 
@@ -110,11 +106,11 @@ async def authenticate_user(
                 detail="Invalid Google user information.",
             )
         logger.info("Google issuer and subject validation completed.")
-
         logger.info("Looking up user by Google account.")
 
         existing_user = await get_user_by_google_id(
-            google_id=user_google_id, session=db_session
+            google_id=user_google_id,
+            session=db_session,
         )
 
         if not existing_user:
@@ -128,30 +124,24 @@ async def authenticate_user(
             )
             new_user = await create_new_user(new_user, db_session)
 
-            logger.info("New user created successfully.")
-
-            logger.info("Creating application session for new user.")
-
-            new_session_id = await create_session(user_id=new_user.user_id)
-
-            logger.info("Application session created for new user.")
-
-            res = create_auth_response(new_session_id)
-
-            logger.info("Authentication completed for newly registered user.")
-            return res
-
+            logger.info("New user created successfully✅.")
+            session_creation_user_id = new_user.user_id
         else:
             logger.info("Existing user found; creating application session.")
+            session_creation_user_id = existing_user.user_id
 
-            new_session_id = await create_session(user_id=existing_user.user_id)
+        # Create session once
 
-            logger.info("Application session created for existing user.")
+        logger.info("Creating application session.")
 
-            response = create_auth_response(new_session_id)
+        new_session_id = await create_session(session_creation_user_id)
 
-            logger.info("Authentication completed for existing user.")
-            return response
+        logger.info("Application session created.")
+
+        response = create_auth_response(new_session_id)
+
+        logger.info("Authentication completed successfully✅¯.")
+        return response
 
     except Exception:
         logger.exception("Unexpected authentication error")
@@ -165,13 +155,12 @@ async def authenticate_user(
 async def get_current_user(
     request: Request,
     db_session: AsyncSession,
-):
+) -> JSONResponse:
     try:
         session_id = request.cookies.get("oauth_session")
 
         if not session_id:
             logger.warning("Current user request has no session cookie.")
-
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="user is not Authenticated",
@@ -182,7 +171,6 @@ async def get_current_user(
 
         if not curr_user_id:
             logger.warning("No user ID found in Redis for the current session.")
-
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="user is not Authenticated",
@@ -210,23 +198,20 @@ async def get_current_user(
             headers={"is_authenticated": "true"},
         )
 
-    except HTTPException:
-        raise
     except Exception:
         logger.exception("Unexpected error while retrieving the current user.")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="something went worng!",
+            detail="can't authenticate user something went worng!",
         )
 
 
-async def logout_session_user(request: Request):
+async def logout_session_user(request: Request) -> JSONResponse:
     try:
         session_id = request.cookies.get("oauth_session")
 
         if not session_id:
             logger.warning("Current user request has no session cookie.")
-
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="user is not Authenticated",
@@ -259,8 +244,6 @@ async def logout_session_user(request: Request):
         )
         return response
 
-    except HTTPException:
-        raise
     except Exception:
         logger.exception("Unexpected error while retrieving the current user.")
         raise HTTPException(
