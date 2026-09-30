@@ -4,6 +4,7 @@ from uuid import UUID, uuid4
 from authlib.integrations.starlette_client import OAuth, OAuthError
 from fastapi import HTTPException, status
 from fastapi.responses import HTMLResponse
+from redis.exceptions import RedisError, TimeoutError
 
 from ..core.logginig import get_logger
 from ..core.settings import settings
@@ -44,16 +45,29 @@ async def create_session(user_id: UUID) -> str:
     Returns:
         A random session ID that is stored in Redis and later used as a cookie value.
     """
-    session_id = str(uuid4())
+    try:
+        session_id = str(uuid4())
+        await redis_client.set(
+            name=f"session:{session_id}",
+            value=str(user_id),
+            ex=SESSION_EXPIRY,
+        )
 
-    # Store the user ID against the generated session ID in Redis with expiry.
-    await redis_client.set(
-        name=f"session:{session_id}",
-        value=str(user_id),
-        ex=SESSION_EXPIRY,
-    )
+        return session_id
 
-    return session_id
+    except TimeoutError:
+        logger.exception("Redis timed out while creating an auth session.")
+        raise HTTPException(
+            status_code=status.HTTP_408_REQUEST_TIMEOUT,
+            detail="Session creation timed out.",
+        )
+
+    except RedisError:
+        logger.exception("Redis failed while creating an auth session.")
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Session service is temporarily unavailable.",
+        )
 
 
 def create_auth_response(session_id: str) -> HTMLResponse:
@@ -90,9 +104,9 @@ def create_auth_response(session_id: str) -> HTMLResponse:
             key="oauth_session",
             value=session_id,
             max_age=int(SESSION_EXPIRY.total_seconds()),
-            httponly=True,
-            secure=False,
-            samesite="lax",
+            httponly=settings.HTTPONLY,
+            secure=settings.SECURE,
+            samesite=settings.SAMESITE,
             path="/",
         )
 
