@@ -118,3 +118,34 @@ WHERE "user".user_id = $1::UUID
 2026-09-30 13:23:05 | INFO | app.utils.get_db_session | session closed now!!
 2026-09-30 13:23:05 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.0015 seconds.
 2026-09-30 13:24:48 | INFO | app.db.redis_db | Redis connection closed successfully.
+2026-09-30 14:26:09 | INFO | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-09-30 14:26:09 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-30 14:26:09 | INFO | sqlalchemy.engine.Engine | select current_schema()
+2026-09-30 14:26:09 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-30 14:26:10 | INFO | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-09-30 14:26:10 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-30 14:26:10 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-30 14:26:10 | INFO | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-09-30 14:26:10 | INFO | sqlalchemy.engine.Engine | [generated in 0.00024s] ('user', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-09-30 14:26:11 | INFO | sqlalchemy.engine.Engine | COMMIT
+2026-09-30 14:26:11 | INFO | app.db.databse | Database tables created successfully
+2026-09-30 14:26:11 | DEBUG | redis.asyncio.connection | Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'
+2026-09-30 14:26:12 | INFO | app.db.redis_db | redis db connected successfully ✅
+2026-09-30 14:26:20 | INFO | app.main | Request: /docs completed in 0.0004 seconds.
+2026-09-30 14:26:20 | INFO | app.main | Request: /openapi.json completed in 0.0077 seconds.
+2026-09-30 14:27:47 | INFO | app.db.redis_db | Redis connection closed successfully.
+2026-09-30 14:27:49 | INFO | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-09-30 14:27:49 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-30 14:27:49 | INFO | sqlalchemy.engine.Engine | select current_schema()
+2026-09-30 14:27:49 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-30 14:27:49 | INFO | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-09-30 14:27:49 | INFO | sqlalchemy.engine.Engine | [raw sql] ()
+2026-09-30 14:27:50 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-09-30 14:27:50 | INFO | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-09-30 14:27:50 | INFO | sqlalchemy.engine.Engine | [generated in 0.00036s] ('user', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-09-30 14:27:50 | INFO | sqlalchemy.engine.Engine | COMMIT
+2026-09-30 14:27:51 | INFO | app.db.databse | Database tables created successfully

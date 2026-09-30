@@ -15,7 +15,7 @@ class AgentReq(BaseModel):
         description="A question or topic for the research agent to investigate.",
         min_length=1,
         max_length=100,
-        examples=["What are the latest advances in renewable energy storage?"],
+        examples=["hey i want to read databse design articles."],
     )
 
 
