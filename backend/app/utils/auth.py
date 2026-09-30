@@ -11,6 +11,8 @@ from ..db.redis_db import redis_client
 
 logger = get_logger(__name__)
 
+"""Utilities for Google OAuth session creation and browser auth response handling."""
+
 # OAuth Setup
 oauth_client = OAuth()
 
@@ -33,8 +35,18 @@ oauth_client.register(
 SESSION_EXPIRY = timedelta(minutes=1440)
 
 
-async def create_session(user_id: UUID):
+async def create_session(user_id: UUID) -> str:
+    """Create a short-lived Redis-backed auth session for a user.
+
+    Args:
+        user_id: The authenticated user UUID.
+
+    Returns:
+        A random session ID that is stored in Redis and later used as a cookie value.
+    """
     session_id = str(uuid4())
+
+    # Store the user ID against the generated session ID in Redis with expiry.
     await redis_client.set(
         name=f"session:{session_id}",
         value=str(user_id),
@@ -44,9 +56,21 @@ async def create_session(user_id: UUID):
     return session_id
 
 
-def create_auth_response(
-    session_id: str,
-) -> HTMLResponse:
+def create_auth_response(session_id: str) -> HTMLResponse:
+    """Return a small HTML page that notifies the frontend login succeeded.
+
+    The page posts a success message to the opener window and closes itself,
+    while also setting an HttpOnly session cookie for the browser.
+
+    Args:
+        session_id: The Redis-backed session identifier to store in the cookie.
+
+    Returns:
+        An HTML response that triggers the frontend login-success flow.
+
+    Raises:
+        HTTPException: If cookie creation fails due to OAuth-related issues.
+    """
     try:
         response = HTMLResponse(content="""
         <html>
