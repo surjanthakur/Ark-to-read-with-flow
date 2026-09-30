@@ -32,7 +32,6 @@ const AuthContextProvider = ({ children }) => {
     } catch {
       setUser(null);
       setIsAuthenticated(false);
-      toast.error('something went wrong try again!');
     } finally {
       setIsLoading(false);
     }
