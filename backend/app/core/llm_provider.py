@@ -14,7 +14,7 @@ from ..schemas.llm_req import LLMRequest
 from .settings import settings
 
 
-async def llm_provider(model_validation: LLMRequest):
+async def llm_provider(model_validation: LLMRequest) -> str:
     """
     Return LLM response text asynchronously.
     """
