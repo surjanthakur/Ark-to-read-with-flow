@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -7,7 +7,7 @@ class LLMRequest(BaseModel):
 
     model_config = ConfigDict(str_strip_whitespace=True)
 
-    user_input: str = Field(
+    user_input: Optional[str] = Field(  # noqa: UP045
         min_length=2,
         max_length=2000,
         description="The user's request",

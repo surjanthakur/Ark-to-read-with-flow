@@ -1,24 +1,28 @@
-from pydantic import BaseModel, EmailStr, Field
+from typing import Optional
+
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class UserRequest(BaseModel):
-    username: str = Field(
+    model_config = ConfigDict(str_strip_whitespace=True)
+
+    username: Optional[str] = Field(  # noqa: UP045
         default=None,
         min_length=3,
         max_length=50,
-        title="name of the user",
+        description="Display name of the user.",
     )
-    google_id: str = Field(
+    google_id: Optional[str] = Field(  # noqa: UP045
         default=None,
-        unique=True,
-        title="google id of the user",
+        min_length=1,
+        description="Google account ID for the user.",
     )
-    email_id: EmailStr = Field(
+    email_id: Optional[EmailStr] = Field(  # noqa: UP045
         default=None,
-        unique=True,
-        title="email of the user",
+        description="Primary email address of the user.",
     )
-    profile_picture: str = Field(
+    profile_picture: Optional[str] = Field(  # noqa: UP045
         default=None,
-        title="picture of the user",
+        max_length=500,
+        description="URL or path to the user's profile picture.",
     )
