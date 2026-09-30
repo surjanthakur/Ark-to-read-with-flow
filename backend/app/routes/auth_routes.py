@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
@@ -16,7 +17,14 @@ logger = get_logger(__name__)
 router = APIRouter(tags=["auth endpoints"])
 
 
-@router.get("/login", status_code=status.HTTP_307_TEMPORARY_REDIRECT)
+@router.get(
+    "/login",
+    status_code=status.HTTP_307_TEMPORARY_REDIRECT,
+    response_class=RedirectResponse,
+    summary="Start Google sign-in",
+    description="Clears any existing OAuth state and redirects the browser to Google for account consent. Google returns to the configured OAuth callback.",
+    response_description="Redirect to Google's OAuth consent page.",
+)
 async def login(request: Request):
     """
     api endpoint to redirect user to google oauth-page for login consent.
@@ -28,7 +36,23 @@ async def login(request: Request):
     )
 
 
-@router.get("/auth/callback", status_code=status.HTTP_200_OK)
+@router.get(
+    "/auth/callback",
+    status_code=status.HTTP_200_OK,
+    response_class=HTMLResponse,
+    summary="Complete Google sign-in",
+    description=(
+        "Handles Google's OAuth callback, creates an application session for the "
+        "signed-in user, and sets the HttpOnly `oauth_session` cookie. New users "
+        "are created on their first successful sign-in."
+    ),
+    response_description="HTML response that notifies the opener and closes the login window.",
+    responses={
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {
+            "description": "Authentication could not be completed."
+        }
+    },
+)
 async def auth(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
@@ -41,7 +65,27 @@ async def auth(
     return await authenticate_user(req=request, db_session=db_session)
 
 
-@router.get("/auth/me", status_code=status.HTTP_200_OK)
+@router.get(
+    "/auth/me",
+    status_code=status.HTTP_200_OK,
+    summary="Get the signed-in user",
+    description=(
+        "Returns the profile associated with the `oauth_session` cookie. "
+        "The response includes an `is_authenticated: true` header."
+    ),
+    response_description="The signed-in user's username, email, and profile image URL.",
+    responses={
+        status.HTTP_401_UNAUTHORIZED: {
+            "description": "The session cookie is missing or invalid."
+        },
+        status.HTTP_404_NOT_FOUND: {
+            "description": "The session references a user that no longer exists."
+        },
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {
+            "description": "The user profile could not be retrieved."
+        },
+    },
+)
 async def current_user(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
@@ -52,7 +96,24 @@ async def current_user(
     return await get_current_user(request, db_session)
 
 
-@router.post("/logout", status_code=status.HTTP_200_OK)
+@router.post(
+    "/logout",
+    status_code=status.HTTP_200_OK,
+    summary="Sign out the current user",
+    description=(
+        "Invalidates the session identified by the `oauth_session` cookie and "
+        "expires that cookie in the browser."
+    ),
+    response_description="Confirmation that the user has been signed out.",
+    responses={
+        status.HTTP_401_UNAUTHORIZED: {
+            "description": "The session cookie is missing or invalid."
+        },
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {
+            "description": "The session could not be invalidated."
+        },
+    },
+)
 async def logout_user(request: Request):
     """
     api endpoint to logout current session user.
