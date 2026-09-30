@@ -17,6 +17,9 @@ logger = get_logger(__name__)
 router = APIRouter(tags=["auth endpoints"])
 
 
+# * GOOGLE OAUTH LOGIN REDIRECT ROUTE
+
+
 @router.get(
     "/login",
     status_code=status.HTTP_307_TEMPORARY_REDIRECT,
@@ -34,6 +37,9 @@ async def login(request: Request):
     return await oauth_client.google_auth.authorize_redirect(
         request, auth_redirect_url, prompt="consent"
     )
+
+
+# * AUTHENTICATE GOOGLE OAUTH USER ROUTE
 
 
 @router.get(
@@ -65,6 +71,9 @@ async def auth(
     return await authenticate_user(req=request, db_session=db_session)
 
 
+# * GET CURRENT USER INFORMATION ROUTE
+
+
 @router.get(
     "/auth/me",
     status_code=status.HTTP_200_OK,
@@ -94,6 +103,9 @@ async def current_user(
     api endpoint to get current user information if its authenticated.
     """
     return await get_current_user(request, db_session)
+
+
+# * LOGOUT USER ROUTE
 
 
 @router.post(
