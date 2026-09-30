@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     FRONTEND_ORIGINS: str
 
     model_config = SettingsConfigDict(
+        title="env file config's",
         env_file=env_path,
         env_file_encoding="utf-8",
         extra="ignore",
