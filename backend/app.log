@@ -52,3 +52,13 @@ json.decoder.JSONDecodeError: Unterminated string starting at: line 7 column 5 (
 2026-10-02 20:23:22 | INFO | app.core.langgraph.nodes | updating found_resources list
 2026-10-02 20:23:22 | INFO | app.services.agent_services | invoked langgraph workflow...
 2026-10-02 20:23:22 | INFO | app.main | Request: /api/v1/agent/asks completed in 7.1427 seconds.
+2026-10-02 20:24:34 | INFO | app.db.databse | Database tables created successfully✅
+2026-10-02 20:24:34 | DEBUG | redis.asyncio.connection | Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'
+2026-10-02 20:24:35 | INFO | app.db.redis_db | redis-client connected successfully ✅
+2026-10-02 20:24:41 | INFO | app.main | Request: /docs completed in 0.0006 seconds.
+2026-10-02 20:24:41 | INFO | app.main | Request: /openapi.json completed in 0.0061 seconds.
+2026-10-02 20:24:45 | INFO | app.main | Request: /health completed in 0.0031 seconds.
+2026-10-02 20:24:48 | INFO | app.main | Request: /health completed in 0.0016 seconds.
+2026-10-02 20:24:48 | WARNING | slowapi | ratelimit 2 per 1 minute (127.0.0.1) exceeded at endpoint: /health
+2026-10-02 20:24:48 | INFO | app.main | Request: /health completed in 0.0054 seconds.
+2026-10-02 20:25:03 | INFO | app.db.redis_db | Redis connection closed successfully.
