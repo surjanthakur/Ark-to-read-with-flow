@@ -1,9 +1,9 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, Request, status
 from pydantic import BaseModel, Field
 
 from ..core.logginig import get_logger
-from ..main import rate_limiter
 from ..services.agent_services import call_langgraph_agent
+from ..utils.rate_limiter import rate_limiter
 
 router = APIRouter(tags=["agent"])
 
@@ -56,6 +56,9 @@ class AgentResponse(BaseModel):
     },
 )
 @rate_limiter.limit("1/minute")
-async def get_agent_response(requests: AgentReq) -> dict:
+async def get_agent_response(
+    requests: AgentReq,
+    request: Request,
+) -> dict:
     res = await call_langgraph_agent(query=requests.user_query)
     return {"found_resources": res}

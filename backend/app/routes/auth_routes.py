@@ -4,7 +4,6 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
 from ..core.settings import settings
-from ..main import rate_limiter
 from ..services.auth_services import (
     authenticate_user,
     get_current_user,
@@ -12,6 +11,7 @@ from ..services.auth_services import (
 )
 from ..utils.auth import oauth_client
 from ..utils.get_db_session import get_db_session
+from ..utils.rate_limiter import rate_limiter
 
 logger = get_logger(__name__)
 
