@@ -85,6 +85,6 @@ app.include_router(router=auth_routes.router, prefix="/api/v1/google")
 
 # health check route
 @app.get("/health", status_code=200, tags=["health check"])
-@rate_limiter.limit("10/minute")
+@rate_limiter.limit("2/minute")
 def health_checks_route(request: Request):
     return {"status": "ok"}
