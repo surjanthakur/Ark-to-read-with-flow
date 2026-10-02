@@ -1,0 +1,4 @@
+2026-10-02 19:56:32 | INFO | app.db.databse | Database tables created successfully✅
+2026-10-02 19:56:33 | DEBUG | redis.asyncio.connection | Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'
+2026-10-02 19:56:33 | INFO | app.db.redis_db | redis-client connected successfully ✅
+2026-10-02 19:57:15 | INFO | app.db.redis_db | Redis connection closed successfully.
