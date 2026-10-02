@@ -18,7 +18,7 @@ logger = get_logger(__name__)
 
 async_engine: AsyncEngine = create_async_engine(
     settings.DB_URL,
-    echo=True,  # set False in production
+    echo=False,  # set False in production
     pool_size=10,
     max_overflow=20,
     pool_timeout=30,
