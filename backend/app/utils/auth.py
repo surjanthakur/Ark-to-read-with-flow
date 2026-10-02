@@ -109,7 +109,7 @@ def create_auth_response(session_id: str) -> HTMLResponse:
             samesite=settings.SAMESITE,
             path="/",
         )
-
+        response.status_code = status.HTTP_201_CREATED
         return response
 
     except OAuthError:

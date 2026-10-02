@@ -206,6 +206,7 @@ async def get_current_user(
         )
 
 
+# logout session user
 async def logout_session_user(request: Request) -> JSONResponse:
     try:
         session_id = request.cookies.get("oauth_session")
@@ -242,6 +243,7 @@ async def logout_session_user(request: Request) -> JSONResponse:
             secure=False,
             samesite="lax",
         )
+        response.status_code = status.HTTP_200_OK
         return response
 
     except Exception:
