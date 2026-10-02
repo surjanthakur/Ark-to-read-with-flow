@@ -23,6 +23,7 @@ dependencies = [
     "python-dotenv>=1.2.3",
     "redis>=8.1.0",
     "requests>=2.34.2",
+    "slowapi>=0.1.10",
     "sqlmodel>=0.0.42",
     "tavily-python>=0.8.2",
 ]

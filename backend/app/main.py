@@ -4,6 +4,9 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 from starlette.middleware.sessions import SessionMiddleware
 
 from .core.logginig import get_logger, setup_logging
@@ -13,6 +16,8 @@ from .db.redis_db import check_redis_connection, close_redis_connection
 from .routes import agent_routes, auth_routes
 
 logger = get_logger(__name__)
+
+rate_limiter = Limiter(key_func=get_remote_address)
 
 
 # to perform app startup and shutdown task
@@ -36,6 +41,10 @@ app = FastAPI(
     redoc_url="/redoc" if settings.ENVIRONMENT != "production" else None,
     openapi_url="/openapi.json",
 )
+
+app.state.limiter = rate_limiter
+
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # CORS middleware
 app.add_middleware(
@@ -78,5 +87,6 @@ app.include_router(router=auth_routes.router, prefix="/api/v1/google")
 
 # health check route
 @app.get("/health", status_code=200, tags=["health check"])
+@rate_limiter.limit("10/minute")
 def health_checks_route():
     return {"status": "ok"}

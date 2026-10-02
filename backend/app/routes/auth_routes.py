@@ -4,6 +4,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
 from ..core.settings import settings
+from ..main import rate_limiter
 from ..services.auth_services import (
     authenticate_user,
     get_current_user,
@@ -28,6 +29,7 @@ router = APIRouter(tags=["auth endpoints"])
     description="Clears any existing OAuth state and redirects the browser to Google for account consent. Google returns to the configured OAuth callback.",
     response_description="Redirect to Google's OAuth consent page.",
 )
+@rate_limiter.limit("3/minute")
 async def login(request: Request):
     """
     api endpoint to redirect user to google oauth-page for login consent.
@@ -59,6 +61,7 @@ async def login(request: Request):
         }
     },
 )
+@rate_limiter.limit("3/minute")
 async def auth(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
@@ -126,6 +129,7 @@ async def current_user(
         },
     },
 )
+@rate_limiter.limit("3/minute")
 async def logout_user(request: Request):
     """
     api endpoint to logout current session user.
