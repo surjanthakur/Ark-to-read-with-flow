@@ -4,6 +4,8 @@ import { AuthContext } from './Auth.js';
 import { toast } from 'react-toastify';
 import { LoginUser, LogoutUser, GetCurrentUser } from '../api/user.js';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,14 +30,38 @@ const AuthContextProvider = ({ children }) => {
         setIsAuthenticated(true);
       } catch (error) {
         setUser(null);
+
         setIsAuthenticated(false);
-        toast.error(error.response?.data || "Oop's something went wrong plzz try again later!");
+
+        toast.error(
+          error.response?.data?.detail || "Oop's something went wrong plzz try again later!"
+        );
       } finally {
         setIsLoading(false);
       }
     };
 
+    const handleOAuthMessage = (event) => {
+      if (event.origin !== BACKEND_URL) {
+        return;
+      }
+
+      if (event.data?.type === 'google-login-success') {
+        toast.success("you'r now logged in");
+
+        // Refresh user/session
+        fetchCurrentUser();
+      }
+    };
+
+    // Check existing session when app loads
     fetchCurrentUser();
+
+    window.addEventListener('message', handleOAuthMessage);
+
+    return () => {
+      window.removeEventListener('message', handleOAuthMessage);
+    };
   }, []);
 
   //* login user

@@ -3,11 +3,8 @@ import { useAuthContext } from '../context/Auth.js';
 import { Handshake } from 'reicon-react';
 
 export default function Navbar() {
-  const { isAuthenticated, user, LoginUser } = useAuthContext();
+  const { user, isAuthenticated, loginUser } = useAuthContext();
 
-  const handleLoginUser = () => {
-    LoginUser();
-  };
   return (
     <nav className="sticky top-0 z-50 w-full  backdrop-blur-lg">
       <div
@@ -65,7 +62,7 @@ export default function Navbar() {
         {/* ================= GOOGLE LOGIN ================= */}
         {!isAuthenticated && (
           <button
-            onClick={handleLoginUser}
+            onClick={loginUser}
             type="button"
             className="
               group

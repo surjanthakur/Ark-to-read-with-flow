@@ -7,7 +7,7 @@ if (!BACKEND_URL) {
 }
 
 const apiClient = axios.create({
-  baseURL: BACKEND_URL,
+  baseURL: `${BACKEND_URL}/api/v1`,
   headers: {
     'Content-Type': 'application/json',
   },

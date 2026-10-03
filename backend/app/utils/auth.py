@@ -86,7 +86,8 @@ def create_auth_response(session_id: str) -> HTMLResponse:
         HTTPException: If cookie creation fails due to OAuth-related issues.
     """
     try:
-        response = HTMLResponse(content="""
+        response = HTMLResponse(
+            content="""
         <html>
             <body>
                 <script>
@@ -98,7 +99,9 @@ def create_auth_response(session_id: str) -> HTMLResponse:
                 </script>
             </body>
         </html>
-        """)
+        """,
+            status_code=status.HTTP_201_CREATED,
+        )
 
         response.set_cookie(
             key="oauth_session",
@@ -109,7 +112,6 @@ def create_auth_response(session_id: str) -> HTMLResponse:
             samesite=settings.SAMESITE,
             path="/",
         )
-        response.status_code = status.HTTP_201_CREATED
         return response
 
     except OAuthError:
