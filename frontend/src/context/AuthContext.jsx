@@ -9,7 +9,7 @@ const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  //* get current user info
+  //* get current session user
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
@@ -25,13 +25,7 @@ const AuthContextProvider = ({ children }) => {
           profile_img: profile_img || '',
         });
 
-        const is_authenticated = result.headers['is_authenticated'];
-
-        if (is_authenticated == 'true') {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
+        setIsAuthenticated(true);
       } catch (error) {
         setUser(null);
         setIsAuthenticated(false);
@@ -44,7 +38,7 @@ const AuthContextProvider = ({ children }) => {
     fetchCurrentUser();
   }, []);
 
-  // login user
+  //* login user
   const loginUser = () => {
     try {
       setIsLoading(true);
@@ -57,19 +51,20 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  // logout user
+  //* logout current session user
   const logoutUser = async () => {
     try {
       setIsLoading(true);
 
       const result = await LogoutUser();
 
-      const is_authenticated = result.headers['is_authenticated'];
+      const { message } = result.data ?? '';
 
-      if (is_authenticated == 'false') {
-        setIsAuthenticated(false);
-        setUser(null);
-      }
+      setUser(null);
+
+      setIsAuthenticated(false);
+
+      toast.success(message || 'ok see you soon again.');
     } catch (error) {
       toast.error(error.response?.data || "Oop's something went wrong plzz try again later!");
     } finally {
