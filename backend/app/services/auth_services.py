@@ -243,7 +243,6 @@ async def logout_session_user(request: Request) -> JSONResponse:
             secure=False,
             samesite="lax",
         )
-        response.status_code = status.HTTP_200_OK
         return response
 
     except Exception:
