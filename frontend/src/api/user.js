@@ -25,7 +25,9 @@ export const LoginUser = () => {
 // LOGOUT USER
 export const LogoutUser = async () => {
   const response = await apiClient.post('/google/logout');
-  return response;
+  if (response.status == 200) {
+    return response;
+  }
 };
 
 // GET CURRENT USER

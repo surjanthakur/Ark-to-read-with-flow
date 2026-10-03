@@ -195,7 +195,6 @@ async def get_current_user(
             },
             status_code=status.HTTP_200_OK,
             media_type="application/json",
-            headers={"is_authenticated": "true"},
         )
 
     except Exception:
@@ -234,7 +233,6 @@ async def logout_session_user(request: Request) -> JSONResponse:
             content={"message": "Logged out"},
             status_code=status.HTTP_200_OK,
             media_type="application/json",
-            headers={"is_authenticated": "false"},
         )
         response.delete_cookie(
             key="oauth_session",

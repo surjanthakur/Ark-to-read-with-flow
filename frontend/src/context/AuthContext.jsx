@@ -14,14 +14,19 @@ const AuthContextProvider = ({ children }) => {
     const fetchCurrentUser = async () => {
       try {
         setIsLoading(true);
+
         const result = await GetCurrentUser();
+
         const { username, email, profile_img } = result.data ?? {};
+
         setUser({
           username,
           email,
           profile_img: profile_img || '',
         });
+
         const is_authenticated = result.headers['is_authenticated'];
+
         if (is_authenticated == 'true') {
           setIsAuthenticated(true);
         } else {
@@ -43,6 +48,7 @@ const AuthContextProvider = ({ children }) => {
   const loginUser = () => {
     try {
       setIsLoading(true);
+
       LoginUser();
     } catch (error) {
       toast.error(error.response?.data || "Oop's something went wrong plzz try again later!");
@@ -53,7 +59,22 @@ const AuthContextProvider = ({ children }) => {
 
   // logout user
   const logoutUser = async () => {
-    const result = await logoutUser();
+    try {
+      setIsLoading(true);
+
+      const result = await LogoutUser();
+
+      const is_authenticated = result.headers['is_authenticated'];
+
+      if (is_authenticated == 'false') {
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    } catch (error) {
+      toast.error(error.response?.data || "Oop's something went wrong plzz try again later!");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
