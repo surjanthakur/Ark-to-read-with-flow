@@ -4,14 +4,14 @@ import { useTheme } from '../context/ThemeToggleContext.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function SettingsPopupWindow({ openSetting, setSetting }) {
-  const { LogoutUser } = useAuthContext();
+  const { isAuthenticated, logoutUser } = useAuthContext();
   const { themeMode, lightTheme, darkTheme } = useTheme();
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    const authenticated = await LogoutUser();
-    if (authenticated === false) navigate('/');
+    await logoutUser();
+    if (!isAuthenticated) navigate('/');
   };
 
   if (!openSetting) return null;
@@ -40,7 +40,9 @@ export default function SettingsPopupWindow({ openSetting, setSetting }) {
 
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Settings</h2>
 
-          <p className="mt-1 pr-8 text-sm text-neutral-500 dark:text-neutral-400">Customize your Lily experience.</p>
+          <p className="mt-1 pr-8 text-sm text-neutral-500 dark:text-neutral-400">
+            Customize your Lily experience.
+          </p>
         </div>
 
         {/* Theme */}

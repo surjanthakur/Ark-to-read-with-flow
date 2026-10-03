@@ -71,7 +71,9 @@ const AuthContextProvider = ({ children }) => {
 
       LoginUser();
     } catch (error) {
-      toast.error(error.response?.data || "Oop's something went wrong plzz try again later!");
+      toast.error(
+        error.response?.data?.details || "Oop's something went wrong plzz try again later!"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -92,7 +94,9 @@ const AuthContextProvider = ({ children }) => {
 
       toast.success(message || 'ok see you soon again.');
     } catch (error) {
-      toast.error(error.response?.data || "Oop's something went wrong plzz try again later!");
+      toast.error(
+        error.response?.data?.detail || "Oop's something went wrong plzz try again later!"
+      );
     } finally {
       setIsLoading(false);
     }
