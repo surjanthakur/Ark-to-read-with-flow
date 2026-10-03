@@ -62,3 +62,6 @@ json.decoder.JSONDecodeError: Unterminated string starting at: line 7 column 5 (
 2026-10-02 20:24:48 | WARNING | slowapi | ratelimit 2 per 1 minute (127.0.0.1) exceeded at endpoint: /health
 2026-10-02 20:24:48 | INFO | app.main | Request: /health completed in 0.0054 seconds.
 2026-10-02 20:25:03 | INFO | app.db.redis_db | Redis connection closed successfully.
+2026-10-04 00:42:35 | INFO | app.db.databse | Database tables created successfully✅
+2026-10-04 00:42:36 | DEBUG | redis.asyncio.connection | Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'
+2026-10-04 00:42:36 | INFO | app.db.redis_db | redis-client connected successfully ✅
