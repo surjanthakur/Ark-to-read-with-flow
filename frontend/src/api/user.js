@@ -12,7 +12,7 @@ export const LoginUser = () => {
   const top = window.screenY + (window.outerHeight - height) / 2;
 
   const popup = window.open(
-    `${BACKEND_URL}/google/login`,
+    `${BACKEND_URL}/api/v1/google/login`,
     'google-login',
     `width=${width},height=${height},left=${left},top=${top}`
   );
@@ -25,9 +25,7 @@ export const LoginUser = () => {
 // LOGOUT USER
 export const LogoutUser = async () => {
   const response = await apiClient.post('/google/logout');
-  if (response.status == 200) {
-    return response;
-  }
+  return response;
 };
 
 // GET CURRENT USER

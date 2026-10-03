@@ -4,14 +4,17 @@ import { useTheme } from '../context/ThemeToggleContext.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function SettingsPopupWindow({ openSetting, setSetting }) {
-  const { isAuthenticated, logoutUser } = useAuthContext();
+  const { logoutUser } = useAuthContext();
   const { themeMode, lightTheme, darkTheme } = useTheme();
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logoutUser();
-    if (!isAuthenticated) navigate('/');
+    const success = await logoutUser();
+
+    if (success) {
+      navigate('/');
+    }
   };
 
   if (!openSetting) return null;

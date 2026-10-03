@@ -68,7 +68,6 @@ const AuthContextProvider = ({ children }) => {
   const loginUser = () => {
     try {
       setIsLoading(true);
-
       LoginUser();
     } catch (error) {
       toast.error(
@@ -84,19 +83,18 @@ const AuthContextProvider = ({ children }) => {
     try {
       setIsLoading(true);
 
-      const result = await LogoutUser();
-
-      const { message } = result.data ?? '';
-
-      setUser(null);
+      await LogoutUser();
 
       setIsAuthenticated(false);
+      setUser(null);
 
-      toast.success(message || 'ok see you soon again.');
+      return true;
     } catch (error) {
       toast.error(
         error.response?.data?.detail || "Oop's something went wrong plzz try again later!"
       );
+
+      return false;
     } finally {
       setIsLoading(false);
     }
