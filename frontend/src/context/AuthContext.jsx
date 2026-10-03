@@ -32,7 +32,9 @@ const AuthContextProvider = ({ children }) => {
         setUser(null);
 
         setIsAuthenticated(false);
-
+        if (error.response.status == 500) {
+          return;
+        }
         toast.error(
           error.response?.data?.detail || "Oop's something went wrong plzz try again later!"
         );
