@@ -36,7 +36,9 @@ export default function Dashboard() {
   });
 
   const textareaRef = useRef(null);
+
   const chatWindowRef = useRef(null);
+
   const { register, handleSubmit, reset } = useForm();
 
   // Save chats to localStorage whenever chats changes
