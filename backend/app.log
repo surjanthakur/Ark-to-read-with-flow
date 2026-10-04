@@ -1516,3 +1516,4 @@ fastapi.exceptions.HTTPException: 401: user is not Authenticated
 2026-10-04 14:21:36 | INFO | app.main | Request: /api/v1/agent/asks completed in 6.4254 seconds.
 2026-10-04 14:27:25 | INFO | app.services.auth_services | searching for current user_id in redis.
 2026-10-04 14:27:25 | INFO | app.main | Request: /api/v1/google/logout completed in 0.1163 seconds.
+2026-10-04 14:28:16 | INFO | app.db.redis_db | Redis connection closed successfully.
