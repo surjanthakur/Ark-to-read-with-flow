@@ -1,7 +1,7 @@
 import time
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from slowapi import _rate_limit_exceeded_handler
@@ -58,7 +58,7 @@ app.add_middleware(
     secret_key=settings.SECRET_KEY,
     session_cookie="oauth_state",
     https_only=settings.ENVIRONMENT == "production",
-    same_site="lax",
+    same_site=settings.SAMESITE,
 )
 
 app.add_middleware(
@@ -83,7 +83,7 @@ app.include_router(router=auth_routes.router, prefix="/api/v1/google")
 
 
 # health check route
-@app.get("/health", status_code=200, tags=["health check"])
-@rate_limiter.limit("2/minute")
+@app.get("/api/v1/health", status_code=status.HTTP_200_OK, tags=["health_check route"])
+@rate_limiter.limit("10/minute")
 def health_checks_route(request: Request):
     return {"status": "ok"}
