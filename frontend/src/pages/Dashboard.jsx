@@ -129,132 +129,130 @@ export default function Dashboard() {
   };
 
   return (
-    <section className="h-dvh overflow-hidden bg-[#e9e8e0] text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+    <section
+      className="h-dvh overflow-hidden bg-[#f4f4f0] text-neutral-900 font-sans selection:bg-[#ff8ae2] selection:text-black"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)`,
+        backgroundSize: '24px 24px',
+      }}
+    >
+      {/* Global Loading Overlay */}
       {isLoading && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-[#e9e8e0]/55 backdrop-blur-md dark:bg-neutral-950/65">
-          <AgentLoader />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#f4f4f0]/80 backdrop-blur-sm">
+          <div className="bg-white border-4 border-black p-6 rounded-3xl shadow-[8px_8px_0px_0px_#000]">
+            <AgentLoader />
+          </div>
         </div>
       )}
 
-      <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-[#e9e8e0]/80 backdrop-blur-sm dark:bg-neutral-950/80">
-        {/* Header */}
-        <header className="flex h-12 shrink-0 items-center justify-between border-l border-r border-black/10 bg-[#e9e8e0]/90 px-3 sm:px-6 dark:border-white/10 dark:bg-neutral-950/90">
-          {/* Logo */}
-          <div className="flex items-center gap-2.5">
-            <img
-              src={Lilylogo}
-              alt="Lily"
-              className="h-10 w-10 rounded-lg object-cover sm:h-9 sm:w-9"
-            />
-            <span className="text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-              agent on mission
-            </span>
+      <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-transparent">
+        {/* Header - Neo Brutalist Style */}
+        <header className="flex h-16 shrink-0 items-center justify-between border-b-4 border-black bg-white px-4 sm:px-8">
+          <div className="flex items-center gap-3">
+            <div className="border-2 border-black rounded-xl p-1 bg-lime-200 shadow-[2px_2px_0px_0px_#000]">
+              <img src={Lilylogo} alt="Lily" className="h-8 w-8 rounded-lg object-cover" />
+            </div>
+            <span className="text-lg font-black tracking-tight uppercase">Agent on mission</span>
           </div>
 
-          {/* Profile */}
-          <div className="flex items-center gap-2.5">
-            <span className="hidden text-sm font-medium text-neutral-700 sm:block dark:text-neutral-300">
+          <div className="flex items-center gap-3">
+            <span className="hidden text-sm font-bold bg-[#fcf6c5] px-3 py-1 border-2 border-black rounded-full shadow-[2px_2px_0px_0px_#000] sm:block">
               {user?.username || 'default'}
             </span>
-
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#d9d5c6] text-neutral-900 shadow-sm sm:h-9 sm:w-9 dark:bg-neutral-800 dark:text-neutral-100">
-              <h1 className="text-xs font-bold leading-none">{profileInitials}</h1>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ff8ae2] border-2 border-black shadow-[2px_2px_0px_0px_#000]">
+              <h1 className="text-sm font-black leading-none">{profileInitials}</h1>
             </div>
           </div>
         </header>
 
-        {/* Main content */}
-        <div className="flex min-h-0 flex-1 flex-col">
-          {/* Chat */}
+        {/* Main Chat Area */}
+        <div className="flex min-h-0 flex-1 flex-col relative">
           <main
             ref={chatWindowRef}
-            className="min-h-0 flex-1 overflow-y-auto border border-black/10 px-3 py-5 sm:px-6 sm:py-7 dark:border-white/10"
+            className="min-h-0 flex-1 overflow-y-auto px-4 py-6 sm:px-8 sm:py-10"
           >
-            <div className="mx-auto flex w-full max-w-4xl flex-col gap-5 sm:gap-6">
-              {/* Empty state */}
+            <div className="mx-auto flex w-full max-w-4xl flex-col gap-8">
+              {/* Empty State - Floating Card */}
               {chats.length === 0 && !isAgentLoading && (
-                <div className="flex min-h-[50vh] items-center justify-center px-4">
-                  <div className="max-w-md text-center">
+                <div className="flex min-h-[50vh] items-center justify-center">
+                  <div className="max-w-lg text-center bg-lime-200 border-4 border-black p-8 rounded-3xl shadow-[12px_12px_0px_0px_#000] -rotate-1 relative">
                     <img
                       src={Lilylogo}
                       alt="Lily"
-                      className="mx-auto mb-4 h-30 w-30 rounded-xl object-cover opacity-90"
+                      className="mx-auto mb-6 h-24 w-24 rounded-2xl object-cover border-2 border-black bg-[#ff8ae2] p-2 shadow-[4px_4px_0px_0px_#000]"
                     />
+                    <span className="text-2xl font-serif font-bold">hey!!</span>
 
-                    <h1 className="text-xl font-semibold tracking-tight text-neutral-800 sm:text-2xl dark:text-neutral-100">
-                      What do you want to learn today?
+                    <h1 className="text-3xl font-black tracking-tight text-black font-serif sm:text-4xl">
+                      Tell me what you want to learn.
                     </h1>
 
-                    <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
-                      Ask Lily for articles, blogs, and resources about any topic you want to
-                      explore/read.
+                    <p className="mt-4 text-base font-medium leading-6 text-neutral-700">
+                      Read the best articles and blogs out there. Don't dig through the internet —
+                      Lily finds them for you.
                     </p>
                   </div>
                 </div>
               )}
 
-              {/* Chat history */}
+              {/* Chat History */}
               {chats.map((chat, chatIndex) => (
-                <div key={chatIndex} className="space-y-4 sm:space-y-5">
-                  {/* User message */}
+                <div key={chatIndex} className="space-y-6 sm:space-y-8">
+                  {/* User Message Bubble */}
                   <div className="flex justify-end">
                     <div className="w-fit max-w-[92%] sm:max-w-[75%]">
-                      <div className="rounded-2xl rounded-br-sm bg-[#292927] px-4 py-3 shadow-sm sm:px-5 dark:bg-neutral-800">
-                        <p className="wrap-break-word text-sm leading-6 text-white">
+                      <div className="rounded-2xl rounded-br-sm bg-[#1a1a1a] border-2 border-black px-5 py-4 shadow-[4px_4px_0px_0px_#c4f75d]">
+                        <p className="wrap-break-word text-base font-medium leading-6 text-white">
                           {chat.user_query}
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Agent resources */}
+                  {/* Agent Resources */}
                   {chat.found_resources?.length > 0 && (
                     <div className="flex justify-start">
-                      <div className="w-full max-w-[98%] space-y-3 sm:max-w-[82%] sm:space-y-4">
+                      <div className="w-full max-w-[98%] space-y-4 sm:max-w-[85%]">
                         {chat.found_resources.map((resource, resourceIndex) => (
                           <article
                             key={`${resource.url}-${resourceIndex}`}
-                            className="rounded-2xl rounded-tl-sm border border-black/10 bg-[#f5f4ed] p-4 shadow-md transition-shadow hover:shadow-lg sm:p-5 dark:border-white/10 dark:bg-neutral-900"
+                            className="rounded-2xl rounded-tl-sm border-2 border-black bg-[#fcf6c5] p-5 shadow-[6px_6px_0px_0px_#000] transition-transform hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_#000]"
                           >
                             {/* Title */}
-                            <h3 className="wrap-break-word py-2 text-base font-semibold leading-6 text-neutral-900 sm:text-lg sm:leading-7 dark:text-neutral-100">
+                            <h3 className="wrap-break-word py-2 text-lg font-black leading-7 text-black sm:text-xl">
                               {resource.title}
                             </h3>
 
-                            {/* Read */}
-                            <span className="flex items-center justify-start text-xs font-medium text-fuchsia-700 sm:text-sm dark:text-fuchsia-300">
-                              read&nbsp;
-                              <ArrowToDownLeft size={25} />
-                            </span>
+                            {/* Read Badge */}
+                            <div className="flex items-center gap-2 mt-2">
+                              <span className="flex items-center text-xs font-bold bg-[#ff8ae2] border-2 border-black px-2 py-1 rounded-md shadow-[2px_2px_0px_0px_#000]">
+                                read <ArrowToDownLeft size={16} className="ml-1" />
+                              </span>
+
+                              <span className="text-xs font-bold bg-[#c4f75d] border-2 border-black px-2 py-1 rounded-md shadow-[2px_2px_0px_0px_#000]">
+                                score: {((resource.score || 0) * 100).toFixed(0)}%
+                              </span>
+                            </div>
 
                             {/* URL */}
                             <a
                               href={resource.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="mt-1.5 block break-all text-xs leading-5 text-blue-700 hover:underline sm:text-sm dark:text-blue-300"
+                              className="mt-4 block break-all text-sm font-bold text-blue-700 underline decoration-2 underline-offset-2 hover:text-blue-900"
                             >
                               {resource.url}
                             </a>
 
-                            {/* Score */}
-                            <div className="mt-3 flex flex-wrap items-center gap-2">
-                              <span className="text-xs font-medium text-lime-700 sm:text-sm dark:text-lime-300">
-                                good score
-                              </span>
-
-                              <span className="rounded-full bg-[#2cc53b7b] px-2.5 py-1 text-xs font-semibold text-neutral-700 dark:text-neutral-900">
-                                {((resource.score || 0) * 100).toFixed(0)}%
-                              </span>
+                            {/* Content Snippet */}
+                            <div className="mt-4 bg-white border-2 border-black p-3 rounded-xl shadow-[2px_2px_0px_0px_#000]">
+                              <p className="wrap-break-word text-sm leading-6 text-neutral-800 font-medium">
+                                <span className="font-black text-black block mb-1">
+                                  About this resource:
+                                </span>{' '}
+                                {resource.content?.split(/\s+/).slice(0, 50).join(' ')}...
+                              </p>
                             </div>
-
-                            {/* Content */}
-                            <p className="mt-3 wrap-break-word text-sm leading-6 text-neutral-700 dark:text-neutral-300">
-                              <span className="text-xs font-medium text-orange-700 sm:text-sm dark:text-orange-300">
-                                About this resource =
-                              </span>{' '}
-                              {resource.content?.split(/\s+/).slice(0, 50).join(' ')}
-                            </p>
                           </article>
                         ))}
                       </div>
@@ -263,11 +261,11 @@ export default function Dashboard() {
                 </div>
               ))}
 
-              {/* Current loading */}
+              {/* Agent Loading State */}
               {isAgentLoading && (
                 <div className="flex justify-start">
-                  <div className="w-full max-w-[98%] sm:max-w-[82%]">
-                    <div className="rounded-2xl p-5">
+                  <div className="w-full max-w-[98%] sm:max-w-[85%]">
+                    <div className="rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0px_0px_#000]">
                       <AgentLoader />
                     </div>
                   </div>
@@ -276,33 +274,30 @@ export default function Dashboard() {
             </div>
           </main>
 
-          {/* ------------------------ Input area ------------------------- */}
-
-          <div className="shrink-0 border border-black/10 bg-[#e9e8e0]/95 px-3 py-3 backdrop-blur-md sm:px-6 sm:py-5 dark:border-white/10 dark:bg-neutral-950/95">
+          {/* Input Area - Floating Brutalist Box */}
+          <div className="shrink-0 bg-transparent px-4 py-6 sm:px-8">
             <div className="mx-auto w-full max-w-3xl">
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex items-end gap-1.5 rounded-2xl border border-black/15 bg-[#f5f4ed] p-2 shadow-md sm:gap-2 dark:border-white/10 dark:bg-neutral-900"
+                className="flex items-end gap-2 rounded-3xl border-4 border-black bg-white p-3 shadow-[8px_8px_0px_0px_#000]"
               >
-                {/* Settings */}
-                <div className="flex group relative shrink-0">
+                {/* Settings & Delete */}
+                <div className="flex shrink-0 gap-1">
                   <button
                     type="button"
                     onClick={handleSettings}
                     aria-label="Settings"
-                    title="settings"
-                    className="flex h-11 w-11 items-center justify-center rounded-xl text-neutral-500 transition hover:bg-[#deddd4] hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-transparent text-neutral-500 transition hover:border-black hover:bg-[#f4f4f0] hover:text-black hover:shadow-[2px_2px_0px_0px_#000]"
                   >
-                    <Settings2 size={20} />
+                    <Settings2 size={22} />
                   </button>
                   <button
                     type="button"
                     onClick={deleteAllChats}
                     aria-label="Delete all chats"
-                    title="Delete all chats"
-                    className="flex h-11 w-11 items-center justify-center rounded-xl text-red-600 transition hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-950"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-transparent text-red-500 transition hover:border-black hover:bg-[#ff8ae2] hover:text-black hover:shadow-[2px_2px_0px_0px_#000]"
                   >
-                    <Trash2 size={20} />
+                    <Trash2 size={22} />
                   </button>
                 </div>
 
@@ -320,30 +315,32 @@ export default function Dashboard() {
                   onInput={handleInput}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask Lily what you want to learn..."
-                  className="max-h-50 min-h-11 flex-1 resize-none overflow-y-auto bg-transparent px-2 py-3 text-sm leading-5 text-neutral-900 outline-none placeholder:text-neutral-500 sm:px-3 dark:text-neutral-100 dark:placeholder:text-neutral-500"
+                  className="max-h-50 min-h-12 flex-1 resize-none overflow-y-auto bg-transparent px-3 py-3 text-base font-medium text-black outline-none placeholder:text-neutral-400"
                 />
 
-                {/* Send */}
+                {/* Send Button */}
                 <button
                   type="submit"
                   aria-label="Send message"
                   disabled={isAgentLoading}
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#292927cd] text-lg text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-lime-200 border-2 border-black text-black shadow-[2px_2px_0px_0px_#000] transition-all hover:bg-[#b0e64a] active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <Magicpen size={20} />
+                  <Magicpen size={22} />
                 </button>
               </form>
 
-              <p className="mt-2 hidden text-center text-[11px] text-neutral-500 sm:block dark:text-neutral-500">
-                Press Enter to send · Shift + Enter for a new line
-              </p>
+              {/* Helper Text */}
+              <div className="mt-4 flex justify-center">
+                <p className="text-xs font-bold text-black bg-[#f4f4f0] border-2 border-black px-3 py-1 rounded-full shadow-[2px_2px_0px_0px_#000]">
+                  Press Enter to send · Shift + Enter for a new line
+                </p>
+              </div>
             </div>
           </div>
-          {/* ksfksdfnkd */}
         </div>
       </div>
 
-      {/* Settings popup */}
+      {/* Settings Popup */}
       <SettingsPopupWindow openSetting={openSettings} setSetting={handleSettings} />
     </section>
   );

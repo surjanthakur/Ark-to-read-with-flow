@@ -1,11 +1,9 @@
-import { Sun, MoonStars, Logout6, X } from 'reicon-react';
+import { Logout6, X } from 'reicon-react';
 import { useAuthContext } from '../context/Auth.js';
-import { useTheme } from '../context/ThemeToggleContext.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function SettingsPopupWindow({ openSetting, setSetting }) {
   const { logoutUser } = useAuthContext();
-  const { themeMode, lightTheme, darkTheme } = useTheme();
 
   const navigate = useNavigate();
 
@@ -46,33 +44,6 @@ export default function SettingsPopupWindow({ openSetting, setSetting }) {
           <p className="mt-1 pr-8 text-sm text-neutral-500 dark:text-neutral-400">
             Customize your Lily experience.
           </p>
-        </div>
-
-        {/* Theme */}
-        <div className="mb-6">
-          <p className="mb-3 text-sm font-medium text-neutral-700 dark:text-neutral-300">Theme</p>
-
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={lightTheme}
-              aria-pressed={themeMode === 'light'}
-              className={`flex items-center justify-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium transition ${themeMode === 'light' ? 'border-black bg-black text-white hover:bg-neutral-800' : 'border-black/10 bg-neutral-50 text-neutral-700 hover:bg-neutral-100 dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700'}`}
-            >
-              <Sun size={18} />
-              Light [default]
-            </button>
-
-            <button
-              type="button"
-              onClick={darkTheme}
-              aria-pressed={themeMode === 'dark'}
-              className={`flex items-center justify-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium transition ${themeMode === 'dark' ? 'border-neutral-700 bg-neutral-800 text-white hover:bg-neutral-700' : 'border-black/10 bg-neutral-50 text-neutral-700 hover:bg-neutral-100 dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700'}`}
-            >
-              <MoonStars size={18} />
-              Dark
-            </button>
-          </div>
         </div>
 
         {/* Logout */}
