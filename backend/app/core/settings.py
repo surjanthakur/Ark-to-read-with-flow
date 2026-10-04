@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     REDIS_DB_URL: str
 
     LOG_LEVEL: str
+    API_V1_STR: str
 
     GOOGLE_GEMINI_API_KEY: str
     TRAVILY_API_KEY: str

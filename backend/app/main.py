@@ -20,7 +20,7 @@ logger = get_logger(__name__)
 
 # to perform app startup and shutdown task
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI):  # noqa: ARG001
     try:
         setup_logging()
         await create_db_tables()
@@ -37,7 +37,7 @@ app = FastAPI(
     description="API for the Lily-Agent project.",
     docs_url="/docs" if settings.ENVIRONMENT != "production" else None,
     redoc_url="/redoc" if settings.ENVIRONMENT != "production" else None,
-    openapi_url="/openapi.json",
+    openapi_url=f"{settings.API_V1_STR}/openapi.json",
 )
 
 app.state.limiter = rate_limiter
@@ -78,12 +78,12 @@ async def log_response_time(request: Request, call_next):
 
 
 # include routes to app
-app.include_router(router=agent_routes.router, prefix="/api/v1/agent")
-app.include_router(router=auth_routes.router, prefix="/api/v1/google")
+app.include_router(router=agent_routes.router, prefix=f"{settings.API_V1_STR}/agent")
+app.include_router(router=auth_routes.router, prefix=f"{settings.API_V1_STR}/google")
 
 
 # health check route
 @app.get("/api/v1/health", status_code=status.HTTP_200_OK, tags=["health_check route"])
 @rate_limiter.limit("10/minute")
-def health_checks_route(request: Request):
+def health_checks_route(request: Request):  # noqa: ARG001
     return {"status": "ok"}
