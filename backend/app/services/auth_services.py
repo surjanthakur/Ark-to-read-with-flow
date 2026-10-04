@@ -7,6 +7,7 @@ from jose import JWTError
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
+from ..core.settings import settings
 from ..db.redis_db import redis_client
 from ..repository.auth_repository import (
     create_new_user,
@@ -191,7 +192,6 @@ async def get_current_user(
             content={
                 "username": curr_user.username,
                 "email": curr_user.email_id,
-                "profile_img": curr_user.profile_picture,
             },
             status_code=status.HTTP_200_OK,
             media_type="application/json",
@@ -237,9 +237,9 @@ async def logout_session_user(request: Request) -> JSONResponse:
         response.delete_cookie(
             key="oauth_session",
             path="/",
-            httponly=True,
-            secure=False,
-            samesite="lax",
+            httponly=settings.HTTPONLY,
+            secure=settings.SECURE,
+            samesite=settings.SAMESITE,
         )
         return response
 

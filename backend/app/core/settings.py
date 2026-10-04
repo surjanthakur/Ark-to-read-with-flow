@@ -33,7 +33,6 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     JWT_SECRET_KEY: str
 
-    FRONTEND_REDIRECT_URL: str
     AUTH_REDIRECT_URL: str
     FRONTEND_ORIGINS: str
 
