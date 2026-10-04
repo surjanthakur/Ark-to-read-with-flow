@@ -152,7 +152,9 @@ export default function Dashboard() {
             <div className="border-2 border-black rounded-xl p-1 bg-lime-200 shadow-[2px_2px_0px_0px_#000]">
               <img src={Lilylogo} alt="Lily" className="h-8 w-8 rounded-lg object-cover" />
             </div>
-            <span className="text-lg font-black tracking-tight uppercase">Agent on mission</span>
+            <span className="hidden sm:block text-sm font-bold tracking-tight uppercase">
+              Agent on mission
+            </span>
           </div>
 
           <div className="flex items-center gap-3">
