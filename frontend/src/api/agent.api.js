@@ -1,15 +1,10 @@
 import apiClient from './Client.api.js';
 
-const getAgentResponse = async (user_input = String) => {
-  try {
-    const response = await apiClient.post('/agent/asks', {
-      user_query: user_input,
-    });
+export const CallAgent = async (user_input = String) => {
+  const response = await apiClient.post('/agent/asks', {
+    user_query: user_input,
+  });
+  if (response.status == 200) {
     return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
   }
 };
-
-export { getAgentResponse };

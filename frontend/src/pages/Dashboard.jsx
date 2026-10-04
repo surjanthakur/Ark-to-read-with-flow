@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { SettingsPopupWindow } from '../components/export.js';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { getAgentResponse } from '../api/agent.api.js';
+import { CallAgent } from '../api/agent.api.js';
 import { AgentLoader } from '../components/export.js';
 import Lilylogo from '../assets/lily-logo.png';
 import { ArrowToDownLeft, Magicpen } from 'reicon-react';
@@ -11,14 +11,26 @@ import { useAuthContext } from '../context/Auth.js';
 
 export default function Dashboard() {
   const { user, isLoading } = useAuthContext();
+
+  const profileInitials =
+    (user?.username || 'default')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((word) => word[0]?.toUpperCase())
+      .join('') || 'D';
+
   const [openSettings, setOpenSettings] = useState(false);
+
   const [isAgentLoading, setIsAgentLoading] = useState(false);
+
   const [chats, setChats] = useState(() => {
     try {
       const storedChats = localStorage.getItem('lily_chats');
       return storedChats ? JSON.parse(storedChats) : [];
-    } catch (error) {
-      console.error('Failed to load chats from localStorage:', error);
+    } catch {
+      console.error('Failed to load chats.');
       return [];
     }
   });
@@ -86,7 +98,7 @@ export default function Dashboard() {
     ]);
 
     try {
-      const response = await getAgentResponse(userQuery);
+      const response = await CallAgent(userQuery);
       const foundResources = response?.found_resources || [];
 
       // Update the same chat item with agent response
@@ -100,10 +112,10 @@ export default function Dashboard() {
             : chat
         )
       );
-    } catch (error) {
+    } catch (err) {
       // Remove the pending chat if request fails
       setChats((prev) => prev.filter((_, index) => index !== chatIndex));
-      toast.error(error || 'Something went wrong. Please try again.');
+      toast.error(err.response?.data?.detail || "Oop's Something went wrong. Please try again.");
     } finally {
       setIsAgentLoading(false);
       reset();
@@ -130,7 +142,7 @@ export default function Dashboard() {
             <img
               src={Lilylogo}
               alt="Lily"
-              className="h-8 w-8 rounded-lg object-cover sm:h-9 sm:w-9"
+              className="h-10 w-10 rounded-lg object-cover sm:h-9 sm:w-9"
             />
             <span className="text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
               agent on mission
@@ -142,11 +154,10 @@ export default function Dashboard() {
             <span className="hidden text-sm font-medium text-neutral-700 sm:block dark:text-neutral-300">
               {user?.username || 'default'}
             </span>
-            <img
-              src={user?.profile_img || Lilylogo}
-              alt="Profile-photo"
-              className="h-10 w-10 rounded-full object-cover sm:h-9 sm:w-9"
-            />
+
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#d9d5c6] text-neutral-900 shadow-sm sm:h-9 sm:w-9 dark:bg-neutral-800 dark:text-neutral-100">
+              <h1 className="text-xs font-bold leading-none">{profileInitials}</h1>
+            </div>
           </div>
         </header>
 
@@ -240,7 +251,7 @@ export default function Dashboard() {
                               <span className="text-xs font-medium text-orange-700 sm:text-sm dark:text-orange-300">
                                 About this resource =
                               </span>{' '}
-                              {resource.content?.split(/\s+/).slice(0, 100).join(' ')}
+                              {resource.content?.split(/\s+/).slice(0, 50).join(' ')}
                             </p>
                           </article>
                         ))}

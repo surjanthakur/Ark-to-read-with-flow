@@ -52,7 +52,7 @@ async def call_langgraph_agent(query: str) -> dict:
     except GraphRecursionError as exc:
         logger.warning("LangGraph recursion limit reached: %s", exc)
         raise HTTPException(
-            status_code=508,
+            status_code=status.HTTP_508_LOOP_DETECTED,
             detail="The agent exceeded its recursion limit.",
         )
 
