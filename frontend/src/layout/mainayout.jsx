@@ -1,6 +1,6 @@
 import { ThemeProvider } from '../context/ThemeToggleContext.js';
 import { useState, useEffect } from 'react';
-import { Navbar } from '../components/export.js';
+import { Navbar, Footer } from '../components/export.js';
 import { HomePage } from '../pages/export.js';
 import { ToastContainer } from 'react-toastify';
 
@@ -52,6 +52,7 @@ export default function MainLayout() {
             />
             <HomePage />
           </main>
+          <Footer />
         </div>
       </ThemeProvider>
     </>

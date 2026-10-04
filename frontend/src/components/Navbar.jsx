@@ -51,11 +51,14 @@ export default function Navbar() {
             "
           />
         </a>
+        <a href="https://www.buymeacoffee.com/tsurjan506a">
+          <img src="https://img.buymeacoffee.com/button-api/?text=buy me a Diet Coke&emoji=&slug=tsurjan506a&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff" />
+        </a>
 
         {isAuthenticated && (
           <h2 className="flex font-mono text-sm font-bold text-black sm:text-base">
             Welcome
-            <Handshake size={24} weight="filled" color="black" /> , {user?.email}
+            <Handshake size={24} weight="filled" color="black" /> , {user?.username}
           </h2>
         )}
 
