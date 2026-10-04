@@ -1189,3 +1189,154 @@ fastapi.exceptions.HTTPException: 401: user is not Authenticated
 2026-10-04 14:02:07 | INFO | app.core.langgraph.nodes | updating found_resources list
 2026-10-04 14:02:07 | INFO | app.services.agent_services | invoked langgraph workflow...
 2026-10-04 14:02:07 | INFO | app.main | Request: /api/v1/agent/asks completed in 8.8018 seconds.
+2026-10-04 14:10:04 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:10:04 | INFO | app.services.auth_services | searching for current user in database.
+2026-10-04 14:10:05 | INFO | app.services.auth_services | find the current user in db.
+2026-10-04 14:10:05 | INFO | app.main | Request: /api/v1/google/auth/me completed in 1.8164 seconds.
+2026-10-04 14:10:05 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:10:05 | INFO | app.services.auth_services | searching for current user in database.
+2026-10-04 14:10:06 | INFO | app.utils.get_db_session | session closed now!!
+2026-10-04 14:10:06 | INFO | app.services.auth_services | find the current user in db.
+2026-10-04 14:10:06 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.8459 seconds.
+2026-10-04 14:10:06 | INFO | app.utils.get_db_session | session closed now!!
+2026-10-04 14:10:08 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:10:08 | INFO | app.services.auth_services | searching for current user in database.
+2026-10-04 14:10:08 | INFO | app.services.auth_services | find the current user in db.
+2026-10-04 14:10:08 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5137 seconds.
+2026-10-04 14:10:08 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:10:08 | INFO | app.services.auth_services | searching for current user in database.
+2026-10-04 14:10:08 | INFO | app.utils.get_db_session | session closed now!!
+2026-10-04 14:10:09 | INFO | app.services.auth_services | find the current user in db.
+2026-10-04 14:10:09 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5447 seconds.
+2026-10-04 14:10:09 | INFO | app.utils.get_db_session | session closed now!!
+2026-10-04 14:10:10 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:10:10 | INFO | app.services.auth_services | searching for current user in database.
+2026-10-04 14:10:10 | INFO | app.services.auth_services | find the current user in db.
+2026-10-04 14:10:10 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.4338 seconds.
+2026-10-04 14:10:10 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:10:10 | INFO | app.services.auth_services | searching for current user in database.
+2026-10-04 14:10:10 | INFO | app.utils.get_db_session | session closed now!!
+2026-10-04 14:10:11 | INFO | app.services.auth_services | find the current user in db.
+2026-10-04 14:10:11 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.4616 seconds.
+2026-10-04 14:10:11 | INFO | app.utils.get_db_session | session closed now!!
+2026-10-04 14:10:43 | INFO | app.services.agent_services | invoking langgraph workflow...
+2026-10-04 14:10:43 | INFO | app.core.langgraph.nodes | Calling llm...
+2026-10-04 14:10:43 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | llm returned repsonse successfully...
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | Loading optimizer result's into JSON...
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | getting list of queries from loaded json data...
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | Updating graph state...
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | executing Travily api...
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.started
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | executing Travily api...
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | executing Travily api...
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | executing Travily api...
+2026-10-04 14:10:47 | INFO | app.core.langgraph.nodes | executing Travily api...
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.started
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.started host='api.tavily.com' port=443 local_address=None timeout=20 socket_options=None
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.started host='api.tavily.com' port=443 local_address=None timeout=20 socket_options=None
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.started host='api.tavily.com' port=443 local_address=None timeout=20 socket_options=None
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.started host='api.tavily.com' port=443 local_address=None timeout=20 socket_options=None
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.started
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.started
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.started
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | close.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.started host='api.tavily.com' port=443 local_address=None timeout=20 socket_options=None
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x113946f10>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10dc6dd00> server_hostname='api.tavily.com' timeout=20
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x113935fd0>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10dc6dd00> server_hostname='api.tavily.com' timeout=20
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x113947310>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10dc6dd00> server_hostname='api.tavily.com' timeout=20
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x113946b10>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10dc6dd00> server_hostname='api.tavily.com' timeout=20
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x113935090>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10dc6dd00> server_hostname='api.tavily.com' timeout=20
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1139470d0>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x113934d50>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1139474d0>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x113946cd0>
+2026-10-04 14:10:47 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x113934b10>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-10-04 14:10:47 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 04 Oct 2026 08:40:49 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'2799'), (b'Connection', b'keep-alive'), (b'content-security-policy', b"default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';base-uri 'self';form-action 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests;")])
+2026-10-04 14:10:49 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.started
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.complete
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | api executed successfully...
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | updating found_resources list
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 04 Oct 2026 08:40:49 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'2197'), (b'Connection', b'keep-alive'), (b'content-security-policy', b"default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';base-uri 'self';form-action 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests;")])
+2026-10-04 14:10:49 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.started
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.complete
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | api executed successfully...
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | updating found_resources list
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 04 Oct 2026 08:40:49 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'2683'), (b'Connection', b'keep-alive'), (b'content-security-policy', b"default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';base-uri 'self';form-action 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests;")])
+2026-10-04 14:10:49 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.started
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.complete
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | api executed successfully...
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | updating found_resources list
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 04 Oct 2026 08:40:49 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'2018'), (b'Connection', b'keep-alive'), (b'content-security-policy', b"default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';base-uri 'self';form-action 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests;")])
+2026-10-04 14:10:49 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.started
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.complete
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | api executed successfully...
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | updating found_resources list
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 04 Oct 2026 08:40:49 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'3252'), (b'Connection', b'keep-alive'), (b'content-security-policy', b"default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';base-uri 'self';form-action 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests;")])
+2026-10-04 14:10:49 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.started
+2026-10-04 14:10:49 | DEBUG | httpcore.http11 | response_closed.complete
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | api executed successfully...
+2026-10-04 14:10:49 | INFO | app.core.langgraph.nodes | updating found_resources list
+2026-10-04 14:10:49 | INFO | app.services.agent_services | invoked langgraph workflow...
+2026-10-04 14:10:49 | INFO | app.main | Request: /api/v1/agent/asks completed in 5.8430 seconds.
+2026-10-04 14:12:29 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:12:29 | INFO | app.services.auth_services | searching for current user in database.
+2026-10-04 14:12:29 | INFO | app.services.auth_services | find the current user in db.
+2026-10-04 14:12:29 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.4981 seconds.
+2026-10-04 14:12:29 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:12:30 | INFO | app.services.auth_services | searching for current user in database.
+2026-10-04 14:12:30 | INFO | app.utils.get_db_session | session closed now!!
+2026-10-04 14:12:30 | INFO | app.services.auth_services | find the current user in db.
+2026-10-04 14:12:30 | INFO | app.main | Request: /api/v1/google/auth/me completed in 0.5133 seconds.
+2026-10-04 14:12:30 | INFO | app.utils.get_db_session | session closed now!!
+2026-10-04 14:15:46 | INFO | app.services.auth_services | searching for current user_id in redis.
+2026-10-04 14:15:46 | INFO | app.main | Request: /api/v1/google/logout completed in 0.1104 seconds.

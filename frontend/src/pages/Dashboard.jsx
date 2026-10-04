@@ -130,7 +130,7 @@ export default function Dashboard() {
 
   return (
     <section
-      className="h-dvh overflow-hidden bg-[#f4f4f0] text-neutral-900 font-sans selection:bg-[#ff8ae2] selection:text-black"
+      className="h-dvh overflow-hidden bg-[#f4f4f0] text-neutral-900 font-sans selection:bg-[#fcabe7bd] selection:text-black"
       style={{
         backgroundImage: `linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)`,
         backgroundSize: '24px 24px',

@@ -75,7 +75,7 @@ export default function Footer() {
         {/* Bottom Bar: Name */}
         <div className="max-w-6xl mx-auto mt-16 pt-6 border-t-2 border-black/10 flex justify-end">
           <p className="font-black text-xl text-black uppercase tracking-tight bg-[#ff8ae2] px-4 py-1 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] -rotate-1">
-            Surjan Thakur
+            ❤️ by [ Surjan Thakur ]
           </p>
         </div>
       </footer>

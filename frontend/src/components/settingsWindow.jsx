@@ -18,44 +18,41 @@ export default function SettingsPopupWindow({ openSetting, setSetting }) {
   if (!openSetting) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-lg rounded-2xl border border-black/10 bg-white p-5 text-neutral-900 shadow-xl sm:p-6 dark:border-white/10 dark:bg-neutral-900 dark:text-neutral-100">
+    <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
+      {/* Modal Container - Neo-Brutalist Card */}
+      <div className="relative w-full max-w-md rounded-3xl border-4 border-black bg-[#fcf6c5] p-6 shadow-[12px_12px_0px_0px_#000] sm:p-8">
+        {/* Close Button - Floating Circle */}
+        <button
+          type="button"
+          aria-label="Close settings"
+          onClick={() => setSetting(false)} // Assuming setSetting toggles the boolean
+          className="absolute -right-4 -top-4 flex h-12 w-12 items-center justify-center rounded-full border-2 border-black bg-[#ff8ae2] text-black shadow-[3px_3px_0px_0px_#000] transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0px_0px_#000] active:translate-y-1 active:shadow-none"
+        >
+          <X size={24} strokeWidth={3} />
+        </button>
+
         {/* Header */}
-
-        <div className="relative mb-6">
-          <div className="group relative shrink-0">
-            <button
-              type="button"
-              aria-label="Close settings"
-              onClick={setSetting}
-              className="absolute right-0 top-0 rounded-md p-1 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
-            >
-              <X size={25} />
-            </button>
-
-            {/* Tooltip */}
-            <div className="pointer-events-none absolute bottom-full left-2/2 mb-2 -translate-x-1/2 rounded-lg border border-black/10 bg-white px-3 py-2 text-xs font-medium whitespace-nowrap text-neutral-700 opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 dark:border-white/10 dark:bg-neutral-800 dark:text-neutral-200">
-              close
-            </div>
-          </div>
-
-          <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Settings</h2>
-
-          <p className="mt-1 pr-8 text-sm text-neutral-500 dark:text-neutral-400">
-            Customize your Lily experience.
+        <div className="mb-8">
+          <h2 className="text-3xl font-black uppercase tracking-tight text-black">Settings</h2>
+          <p className="mt-2 text-sm font-bold text-neutral-600">
+            if you want to take break it's OK.
           </p>
         </div>
 
-        {/* Logout */}
+        {/* Logout Button - Chunky & Interactive */}
         <button
           onClick={handleLogout}
           type="button"
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600 transition hover:bg-red-100 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300 dark:hover:bg-red-950/70"
+          className="group flex w-full items-center justify-center gap-3 rounded-xl border-2 border-black bg-white px-4 py-4 text-base font-black text-black shadow-[4px_4px_0px_0px_#000] transition-all hover:bg-[#ff8ae2] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#000] active:translate-y-1 active:shadow-none"
         >
-          <Logout6 size={18} />
-          Logout
+          <Logout6
+            size={20}
+            strokeWidth={3}
+            className="transition-transform group-hover:-translate-x-1"
+          />
+          LOGOUT
         </button>
       </div>
-    </div>
+    </section>
   );
 }
