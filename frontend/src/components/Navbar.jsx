@@ -1,12 +1,14 @@
 import LilyLogo from '../assets/lily-logo.png';
 import { useAuthContext } from '../context/Auth.js';
 import { Handshake } from 'reicon-react';
+import { motion, useScroll } from 'motion/react';
 
 export default function Navbar() {
   const { user, isAuthenticated, loginUser } = useAuthContext();
+  const { scrollYProgress } = useScroll();
 
   return (
-    <nav className="sticky top-0 z-50 w-full  backdrop-blur-lg">
+    <nav className="sticky top-0 z-50 w-full backdrop-blur-lg">
       <div
         className=" mx-auto flex h-25 w-full items-center justify-between px-6 sm:px-10 lg:px-14
         "
@@ -50,9 +52,6 @@ export default function Navbar() {
               group-hover:w-full
             "
           />
-        </a>
-        <a href="https://www.buymeacoffee.com/tsurjan506a">
-          <img src="https://img.buymeacoffee.com/button-api/?text=buy me a Diet Coke&emoji=&slug=tsurjan506a&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff" />
         </a>
 
         {isAuthenticated && (
@@ -115,6 +114,11 @@ export default function Navbar() {
           </button>
         )}
       </div>
+      <motion.div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 h-1 w-full origin-left bg-black"
+        style={{ scaleX: scrollYProgress }}
+      />
     </nav>
   );
 }
