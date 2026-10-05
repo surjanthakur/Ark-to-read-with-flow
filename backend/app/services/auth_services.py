@@ -1,6 +1,8 @@
 import httpx
+from authlib.integrations.base_client.errors import MismatchingStateError, OAuthError
 from fastapi import HTTPException, Request, status
 from fastapi.responses import HTMLResponse, JSONResponse
+from joserfc.errors import JoseError
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
@@ -27,14 +29,6 @@ async def authenticate_user(
         logger.info("Requesting Google OAuth token authorization.")
 
         token_info = await oauth_client.google_auth.authorize_access_token(req)
-
-        if not token_info:
-            logger.warning("Google OAuth token authorization failed.")
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="can't authenticate user",
-            )
-
         logger.info("Google OAuth token authorization succeeded.")
 
         try:
@@ -143,6 +137,32 @@ async def authenticate_user(
 
         logger.info("Authentication completed successfully✅¯.")
         return response
+
+    except MismatchingStateError:
+        logger.warning("CSRF mismatched state on google oauth token authorization")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="can't find the route"
+        )
+
+    except OAuthError as e:
+        logger.warning(f"access_denied while authenticate user {e}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="user not authenticate access denied.",
+        )
+
+    except httpx.HTTPError:
+        logger.warning("newwork error white google oauth token authorization.")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="network error try again.",
+        )
+
+    except (KeyError, ValueError, JoseError):
+        logger.warning("wrong details with google oauth token authorization.")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="user not authenticated."
+        )
 
     except Exception:
         logger.exception("Unexpected authentication error")
