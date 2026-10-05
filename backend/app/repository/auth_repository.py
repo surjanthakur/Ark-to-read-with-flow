@@ -1,7 +1,5 @@
 """Repository layer for user authentication and user lookup operations."""
 
-from uuid import UUID
-
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -26,20 +24,20 @@ async def get_user_by_google_id(google_id: str, session: AsyncSession) -> User |
     return result.one_or_none()
 
 
-async def get_user_by_user_id(user_id: UUID, session: AsyncSession) -> User | None:
-    """Fetch a user by internal UUID.
+# async def get_user_by_user_id(user_id: UUID, session: AsyncSession) -> User | None:
+#     """Fetch a user by internal UUID.
 
-    Args:
-        user_id: Unique user identifier.
-        session: Async database session.
+#     Args:
+#         user_id: Unique user identifier.
+#         session: Async database session.
 
-    Returns:
-        The matching User record, or None if not found.
-    """
-    statement = select(User).where(User.user_id == user_id)
-    result = await session.exec(statement)
+#     Returns:
+#         The matching User record, or None if not found.
+#     """
+#     statement = select(User).where(User.user_id == user_id)
+#     result = await session.exec(statement)
 
-    return result.one_or_none()
+#     return result.one_or_none()
 
 
 # CREATE user

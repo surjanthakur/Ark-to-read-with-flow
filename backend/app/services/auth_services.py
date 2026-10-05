@@ -1,5 +1,3 @@
-from uuid import UUID
-
 import httpx
 from fastapi import HTTPException, Request, status
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -12,7 +10,6 @@ from ..db.redis_db import redis_client
 from ..repository.auth_repository import (
     create_new_user,
     get_user_by_google_id,
-    get_user_by_user_id,
 )
 from ..schemas.user_req import UserRequest
 from ..utils.auth import create_auth_response, create_session, oauth_client
@@ -26,7 +23,6 @@ async def authenticate_user(
     db_session: AsyncSession,
 ) -> HTMLResponse:
     try:
-
         logger.info("Authentication started.")
         try:
             logger.info("Requesting Google OAuth token authorization.")
@@ -127,15 +123,22 @@ async def authenticate_user(
 
             logger.info("New user created successfully✅.")
             session_creation_user_id = new_user.user_id
+            session_creation_username = new_user.username
+            session_creation_email = new_user.email_id
         else:
             logger.info("Existing user found; creating application session.")
             session_creation_user_id = existing_user.user_id
+            session_creation_username = existing_user.username
+            session_creation_email = existing_user.email_id
 
         # Create session once
-
         logger.info("Creating application session.")
 
-        new_session_id = await create_session(session_creation_user_id)
+        new_session_id = await create_session(
+            session_creation_user_id,
+            session_creation_username,
+            session_creation_email,
+        )
 
         logger.info("Application session created.")
 
@@ -153,10 +156,7 @@ async def authenticate_user(
 
 
 # get current session user
-async def get_current_user(
-    request: Request,
-    db_session: AsyncSession,
-) -> JSONResponse:
+async def get_current_user(request: Request) -> JSONResponse:
     try:
         session_id = request.cookies.get("oauth_session")
 
@@ -168,30 +168,20 @@ async def get_current_user(
             )
 
         logger.info("searching for current user_id in redis.")
-        curr_user_id = await redis_client.get(f"session:{session_id}")
+        session_data = await redis_client.get(f"session:{session_id}")
 
-        if not curr_user_id:
+        if not session_data["user_id"]:
             logger.warning("No user ID found in Redis for the current session.")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="user is not Authenticated",
             )
 
-        logger.info("searching for current user in database.")
-        curr_user = await get_user_by_user_id(UUID(curr_user_id), db_session)
-
-        if not curr_user:
-            logger.warning("Current session references a user that does not exist.")
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="user don't exists login first",
-            )
-
         logger.info("find the current user in db.")
         return JSONResponse(
             content={
-                "username": curr_user.username,
-                "email": curr_user.email_id,
+                "username": session_data["username"],
+                "email": session_data["email"],
             },
             status_code=status.HTTP_200_OK,
             media_type="application/json",
