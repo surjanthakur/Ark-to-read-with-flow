@@ -80,12 +80,12 @@ async def auth(
 @router.get(
     "/auth/me",
     status_code=status.HTTP_200_OK,
-    summary="Get the signed-in user",
+    summary="Get the login user",
     description=(
         "Returns the profile associated with the `oauth_session` cookie. "
         "The response includes an `is_authenticated: true` header."
     ),
-    response_description="The signed-in user's username, email, and profile image URL.",
+    response_description="The login user's username, email, and profile image URL.",
     responses={
         status.HTTP_401_UNAUTHORIZED: {
             "description": "The session cookie is missing or invalid."

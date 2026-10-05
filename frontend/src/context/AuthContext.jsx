@@ -19,12 +19,11 @@ const AuthContextProvider = ({ children }) => {
 
         const result = await GetCurrentUser();
 
-        const { username, email, profile_img } = result.data ?? {};
+        const { username, email } = result.data ?? {};
 
         setUser({
           username,
           email,
-          profile_img: profile_img || '',
         });
 
         setIsAuthenticated(true);
