@@ -36,7 +36,7 @@ oauth_client.register(
 SESSION_EXPIRY = timedelta(minutes=1440)
 
 
-async def create_session(user_id: UUID) -> str:
+async def create_session(user_id: UUID, username: str, email: str) -> str:
     """Create a short-lived Redis-backed auth session for a user.
 
     Args:
