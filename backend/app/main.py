@@ -59,6 +59,7 @@ app.add_middleware(
     session_cookie="oauth_state",
     https_only=settings.HTTPONLY,
     same_site=settings.SAMESITE,
+    max_age=settings.SESSION_EXPIRY,
 )
 
 app.add_middleware(

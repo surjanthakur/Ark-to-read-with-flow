@@ -43,6 +43,7 @@ class Settings(BaseSettings):
     FRONTEND_ORIGINS: str
 
     HTTPONLY: bool
+    SESSION_EXPIRY: int
     SECURE: bool
     SAMESITE: Literal["lax", "strict", "none"]
 

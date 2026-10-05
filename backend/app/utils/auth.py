@@ -1,4 +1,3 @@
-from datetime import timedelta
 from uuid import UUID, uuid4
 
 from authlib.integrations.starlette_client import OAuth, OAuthError
@@ -34,9 +33,6 @@ oauth_client.register(
 )
 
 
-SESSION_EXPIRY = timedelta(minutes=1440)
-
-
 async def create_session(user_id: UUID, username: str, email: str) -> str:
     """Create a short-lived Redis-backed auth session for a user.
 
@@ -61,7 +57,7 @@ async def create_session(user_id: UUID, username: str, email: str) -> str:
         )
         await redis_client.expire(
             name=session_key,
-            time=SESSION_EXPIRY,
+            time=settings.SESSION_EXPIRY,
         )
 
         return session_id
@@ -117,7 +113,7 @@ def create_auth_response(session_id: str) -> HTMLResponse:
         response.set_cookie(
             key="oauth_session",
             value=session_id,
-            max_age=int(SESSION_EXPIRY.total_seconds()),
+            max_age=settings.SESSION_EXPIRY,
             httponly=settings.HTTPONLY,
             secure=settings.SECURE,
             samesite=settings.SAMESITE,
