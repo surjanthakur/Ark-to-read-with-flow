@@ -20,8 +20,6 @@ class Settings(BaseSettings):
     LOG_LEVEL: str
     API_V1_STR: str
 
-    LOG_FIRE_TOEKN: str
-
     DB_URL: str
 
     REDIS_DB_URL: str
