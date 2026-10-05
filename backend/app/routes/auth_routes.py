@@ -100,12 +100,11 @@ async def auth(
 )
 async def current_user(
     request: Request,
-    db_session: AsyncSession = Depends(get_db_session),  # noqa: B008
 ):
     """
     api endpoint to get current user information if its authenticated.
     """
-    return await get_current_user(request, db_session)
+    return await get_current_user(request)
 
 
 # * LOGOUT USER ROUTE

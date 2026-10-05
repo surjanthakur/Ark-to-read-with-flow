@@ -1,4 +1,3 @@
-import json
 from datetime import timedelta
 from uuid import UUID, uuid4
 
@@ -50,16 +49,20 @@ async def create_session(user_id: UUID, username: str, email: str) -> str:
     """
     try:
         session_id = str(uuid4())
-        session_data = {
-            "user_id": str(user_id),
-            "username": username,
-            "email": email,
-        }
-        await redis_client.set(
-            name=f"session:{session_id}",
-            value=json.dumps(session_data),
-            ex=SESSION_EXPIRY,
+        session_key = f"session:{session_id}"
+        await redis_client.hset(
+            name=session_key,
+            mapping={
+                "user_id": str(user_id),
+                "username": username,
+                "email": email,
+            },
         )
+        await redis_client.expire(
+            name=session_key,
+            time=SESSION_EXPIRY,
+        )
+
         return session_id
 
     except TimeoutError:

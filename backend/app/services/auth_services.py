@@ -168,10 +168,10 @@ async def get_current_user(request: Request) -> JSONResponse:
             )
 
         logger.info("searching for current user_id in redis.")
-        session_data = await redis_client.get(f"session:{session_id}")
+        session_data = await redis_client.hgetall(name=f"session:{session_id}")
 
-        if not session_data["user_id"]:
-            logger.warning("No user ID found in Redis for the current session.")
+        if not session_data:
+            logger.warning("No user found in Redis for the current session.")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="user is not Authenticated",
@@ -180,8 +180,8 @@ async def get_current_user(request: Request) -> JSONResponse:
         logger.info("find the current user in db.")
         return JSONResponse(
             content={
-                "username": session_data["username"],
-                "email": session_data["email"],
+                "username": session_data.get("username"),
+                "email": session_data.get("email"),
             },
             status_code=status.HTTP_200_OK,
             media_type="application/json",
@@ -208,10 +208,10 @@ async def logout_session_user(request: Request) -> JSONResponse:
             )
 
         logger.info("searching for current user_id in redis.")
-        curr_user_id = await redis_client.get(f"session:{session_id}")
+        session_data = await redis_client.hgetall(f"session:{session_id}")
 
-        if not curr_user_id:
-            logger.warning("No user ID found in Redis for the current session.")
+        if not session_data:
+            logger.warning("No user found in Redis for the current session.")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="user is not Authenticated",
