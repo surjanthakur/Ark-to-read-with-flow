@@ -26,20 +26,19 @@ class Settings(BaseSettings):
     REDIS_PASSWORD: str
     REDIS_USERNAME: str
     REDIS_PORT: str
-    REDIS_MAX_CONNECTION: str
+    REDIS_MAX_CONNECTION: int
 
     GOOGLE_GEMINI_API_KEY: str
     TRAVILY_API_KEY: str
+    GOOGLE_CLIENT_ID: str
+    GOOGLE_CLIENT_SECRET: str
 
-    AUTH_REDIRECT_URL: str
-    JWT_SECRET_KEY: str
     AUTHORIZE_URL: str
     ACCESS_TOKEN_URL: str
     JWKS_URL: str
     PROJECT_ID: str
     SECRET_KEY: str
     JWT_SECRET_KEY: str
-
     AUTH_REDIRECT_URL: str
     FRONTEND_ORIGINS: str
 
