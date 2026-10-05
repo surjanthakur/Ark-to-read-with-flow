@@ -2,10 +2,6 @@ import axios from 'axios';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
-if (!BACKEND_URL) {
-  throw new Error('VITE_BACKEND_URL is not defined');
-}
-
 const apiClient = axios.create({
   baseURL: `${BACKEND_URL}/api/v1`,
   headers: {
