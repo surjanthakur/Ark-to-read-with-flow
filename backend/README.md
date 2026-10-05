@@ -1,29 +1,38 @@
-# Ark Agent
+# Ark Backend
 
-Ark Agent is an AI-powered research assistant built with FastAPI, LangGraph, Google Gemini, and Tavily. It accepts a user query, optimizes it into focused search prompts, runs a multi-step research workflow, and returns ranked web resources with titles, URLs, relevance scores, and content snippets.
+This README is intentionally scoped to the backend service only. It covers the FastAPI application, auth flow, LLM research pipeline, environment setup, and local development commands.
 
-## ✨ Features
+## Overview
+
+The backend powers the Ark research experience. It handles:
+
+- Google OAuth login and JWT-based session management
+- Research requests backed by Gemini and LangGraph
+- Web search and content retrieval via Tavily
+- Database persistence using SQLModel and PostgreSQL
+- API endpoints for frontend integration
+
+## Features
 
 - AI-driven query optimization using Google Gemini
-- Multi-agent research flow powered by LangGraph
+- Multi-step research workflow powered by LangGraph
 - Real-time web search with Tavily
-- Google OAuth login and JWT-based session handling
-- Async FastAPI backend with structured API routes
-- SQLModel-based persistence for user data
-- Frontend-ready architecture with React + Vitec
+- Google OAuth login and secure JWT handling
+- Async FastAPI API layer
+- SQLModel-based persistence for user and app data
 
-## 🏗️ Architecture
+## Architecture
 
-The backend is organized around a service-oriented FastAPI application:
+The backend is organized as a service-oriented FastAPI application:
 
-- `app/main.py` initializes the FastAPI app and registers routes
-- `app/routes/` contains HTTP endpoints for auth and research requests
-- `app/services/` contains business logic for auth and LangGraph orchestration
-- `app/core/` handles settings, LLM integration, tool providers, and LangGraph workflow
-- `app/db/` manages the database connection and model definitions
-- `app/utils/` contains JWT/OAuth utilities and JSON parsing helpers
+- `app/main.py` initializes the app and registers routes
+- `app/routes/` contains HTTP endpoints for authentication and research requests
+- `app/services/` contains business logic for auth and agent orchestration
+- `app/core/` contains settings, LLM integration, tool providers, and workflow logic
+- `app/db/` manages database connection and model definitions
+- `app/utils/` contains auth/session helpers and parsing utilities
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - Python 3.11+
 - FastAPI
@@ -33,23 +42,22 @@ The backend is organized around a service-oriented FastAPI application:
 - Google Gemini API
 - Tavily Search API
 - Authlib + JWT
-- PostgreSQL/async database support via SQLModel
-- React + Vite frontend
+- PostgreSQL-compatible database support
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before starting, make sure you have:
 
 - Python 3.11 or newer
 - A virtual environment tool such as `venv`
 - A PostgreSQL-compatible database URL
-- Google Gemini API key
-- Tavily API key
+- A Google Gemini API key
+- A Tavily API key
 - Google OAuth credentials
 
-## 🚀 Installation
+## Installation
 
-From the backend folder:
+From the backend directory:
 
 ```bash
 cd backend
@@ -59,17 +67,9 @@ pip install --upgrade pip
 pip install -e .
 ```
 
-If you want to run the frontend separately:
+## Environment Variables
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## ⚙️ Environment Variables
-
-Create a `.env` file in the `backend/` directory using the values from `.env.example`.
+Create a `.env` file in the `backend/` directory using values from `.env.example`.
 
 Required variables:
 
@@ -91,14 +91,14 @@ REDIRECT_URL="http://127.0.0.1:8000/api/v1/google/auth"
 
 ### Notes
 
-- `DB_URL` should point to your database connection string
-- `ENVIRONMENT` is usually `development` or `production`
-- `FRONTEND_URL` is used after OAuth login redirects the user back to the frontend app
-- `REDIRECT_URL` should match your Google OAuth callback endpoint
+- `DB_URL` should point to your PostgreSQL connection string
+- `ENVIRONMENT` is typically `development` or `production`
+- `FRONTEND_URL` is used after OAuth redirects back to the client app
+- `REDIRECT_URL` should match your Google OAuth callback route
 
-## ▶️ Running the Project
+## Running the Backend
 
-Start the backend server:
+Start the app in development mode:
 
 ```bash
 cd backend
@@ -114,7 +114,7 @@ source .venv/bin/activate
 uvicorn app.main:app --reload
 ```
 
-## 📡 API Documentation
+## API Endpoints
 
 ### Health check
 
@@ -136,7 +136,7 @@ Response:
 GET /api/v1/google/login
 ```
 
-This redirects the user to Google OAuth for authentication.
+Redirects the user to the Google OAuth consent page.
 
 ### Google OAuth callback
 
@@ -144,7 +144,7 @@ This redirects the user to Google OAuth for authentication.
 GET /api/v1/google/auth
 ```
 
-This validates the Google token, creates a user record if needed, and creates a JWT cookie for the frontend.
+Validates the Google token, creates or verifies the user, and issues a JWT-backed session for the app.
 
 ### Research agent request
 
@@ -175,32 +175,30 @@ Example response:
 }
 ```
 
-## 🔐 Authentication
+## Authentication Flow
 
-The project supports Google OAuth-based login and JWT cookie sessions.
+The backend supports Google OAuth-based login and JWT cookie sessions.
 
-Flow:
-
-1. User clicks the Google login route
-2. Backend redirects to Google OAuth
-3. Google returns user identity and access token
-4. Backend validates the token and fetches user profile data
-5. User is created or verified in the database
+1. The user visits the Google login route
+2. The backend redirects to Google OAuth
+3. Google returns the user identity and access token
+4. The backend validates the token and fetches profile data
+5. The user is created or verified in the database
 6. A JWT is generated and stored as an HTTP-only cookie
-7. User is redirected to the frontend
+7. The request is redirected back to the frontend application
 
-## 🧠 How It Works
+## How the Research Flow Works
 
 A research request moves through the following stages:
 
 1. The user sends a natural-language query to the research API
-2. The query optimization node uses Gemini to rewrite and expand the topic into more specific queries
-3. A LangGraph workflow fans out the optimized queries to the resource search node
+2. The query optimization node uses Gemini to refine and expand the request
+3. A LangGraph workflow fans out the optimized queries into search tasks
 4. Each query is evaluated with Tavily search
-5. Results are normalized into a list of ranked resources
-6. The backend returns structured search results to the frontend
+5. Results are normalized and ranked into a list of resources
+6. The backend returns the final structured findings to the client
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 backend/
@@ -241,27 +239,24 @@ backend/
 │       ├── get_db_session.py
 │       ├── json_parser.py
 │       └── __init__.py
-└── frontend/
-    ├── package.json
-    ├── src/
-    └── public/
+└── .venv/
 ```
 
-## 🧪 Testing
+## Testing
 
-The project currently does not include a dedicated test suite in the repository structure. For local validation, you can:
+The project currently does not include a dedicated automated test suite in the repository structure. For local validation, you can:
 
 - run the server and test the API manually in Swagger UI
 - validate endpoints using curl or Postman
-- check database connectivity and OAuth flow in development mode
+- confirm database connectivity and OAuth flow in development mode
 
 Suggested future additions:
 
-- unit tests for auth flow
+- unit tests for the auth flow
 - integration tests for the LangGraph workflow
 - validation tests for JSON parsing and query optimization
 
-## 🚀 Frontend
+This README is scoped to backend usage only and intentionally excludes frontend setup and client-side documentation.
 
 The frontend is a React + Vite app located in the `frontend/` directory.
 
