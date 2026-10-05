@@ -104,7 +104,7 @@ def create_auth_response(session_id: str) -> HTMLResponse:
                 <script>
                     window.opener.postMessage(
                         { type: "google-login-success" },
-                        "http://localhost:5173"
+                        "https://ark-agent-delta.vercel.app"
                     );
                     window.close();
                 </script>
