@@ -103,25 +103,25 @@ frontend/
 ## Useful scripts
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Runs the app in local development mode.
 
 ```bash
-npm run build
+bun run build
 ```
 
 Builds the project for production.
 
 ```bash
-npm run preview
+bun  run preview
 ```
 
 Shows the production build locally.
 
 ```bash
-npm run lint
+bun  run lint
 ```
 
 Checks the code for lint issues.
