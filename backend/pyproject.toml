@@ -27,6 +27,7 @@ dependencies = [
     "slowapi>=0.1.10",
     "sqlmodel>=0.0.42",
     "tavily-python>=0.8.2",
+    "fastapi-cloud-cli>=0.26.0",
 ]
 
 [tool.fastapi]
