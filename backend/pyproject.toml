@@ -28,6 +28,7 @@ dependencies = [
     "sqlmodel>=0.0.42",
     "tavily-python>=0.8.2",
     "fastapi-cloud-cli>=0.26.0",
+    "logfire[fastapi]>=5.1.1",
 ]
 
 [tool.fastapi]

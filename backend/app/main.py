@@ -1,6 +1,7 @@
 import time
 from contextlib import asynccontextmanager
 
+import logfire
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -39,6 +40,9 @@ app = FastAPI(
     redoc_url="/redoc" if settings.ENVIRONMENT != "production" else None,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
 )
+
+# FastAPI Cloud injects this when the Logfire integration is connected.
+logfire.instrument_fastapi(app)
 
 app.state.limiter = rate_limiter
 
