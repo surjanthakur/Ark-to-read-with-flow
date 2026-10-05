@@ -16,10 +16,10 @@ redis_client = Redis.from_url(
     url=settings.REDIS_DB_URL,
     encoding="utf-8",
     decode_responses=True,
-    max_connections=10,
-    port=19221,
-    username="default",
-    password="a40uFO3WHQbvKuEuWMFvMbhtKi9G3z8b",
+    max_connections=settings.REDIS_MAX_CONNECTION,
+    port=settings.REDIS_PORT,
+    username=settings.REDIS_USERNAME,
+    password=settings.REDIS_PASSWORD,
 )
 
 

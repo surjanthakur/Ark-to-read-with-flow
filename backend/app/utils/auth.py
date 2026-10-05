@@ -19,16 +19,17 @@ oauth_client = OAuth()
 
 oauth_client.register(
     name="google_auth",
+    project_id=settings.PROJECT_ID,
     client_id=settings.GOOGLE_CLIENT_ID,
     client_secret=settings.GOOGLE_CLIENT_SECRET,
-    authorize_url="https://accounts.google.com/o/oauth2/auth",
+    authorize_url=settings.AUTHORIZE_URL,
     authorize_params=None,
-    access_token_url="https://accounts.google.com/o/oauth2/token",
+    access_token_url=settings.ACCESS_TOKEN_URL,
     access_token_params=None,
     refresh_token_url=None,
     authorize_state=settings.JWT_SECRET_KEY,
     redirect_uri=settings.AUTH_REDIRECT_URL,
-    jwks_uri="https://www.googleapis.com/oauth2/v3/certs",
+    jwks_uri=settings.JWKS_URL,
     client_kwargs={"scope": "openid profile email"},
 )
 

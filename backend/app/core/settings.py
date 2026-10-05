@@ -14,22 +14,29 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    DB_URL: str
-    REDIS_DB_URL: str
-
+    VERSION: str
+    APP_NAME: str
+    ENVIRONMENT: str
     LOG_LEVEL: str
     API_V1_STR: str
+
+    DB_URL: str
+
+    REDIS_DB_URL: str
+    REDIS_PASSWORD: str
+    REDIS_USERNAME: str
+    REDIS_PORT: str
+    REDIS_MAX_CONNECTION: str
 
     GOOGLE_GEMINI_API_KEY: str
     TRAVILY_API_KEY: str
 
-    VERSION: str
-    APP_NAME: str
-    ENVIRONMENT: str
-
-    GOOGLE_CLIENT_ID: str
-    GOOGLE_CLIENT_SECRET: str
-
+    AUTH_REDIRECT_URL: str
+    JWT_SECRET_KEY: str
+    AUTHORIZE_URL: str
+    ACCESS_TOKEN_URL: str
+    JWKS_URL: str
+    PROJECT_ID: str
     SECRET_KEY: str
     JWT_SECRET_KEY: str
 
