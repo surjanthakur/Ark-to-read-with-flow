@@ -1,6 +1,6 @@
-# Lily Agent
+# Ark Agent
 
-Lily Agent is an AI-powered research assistant built with FastAPI, LangGraph, Google Gemini, and Tavily. It accepts a user query, optimizes it into focused search prompts, runs a multi-step research workflow, and returns ranked web resources with titles, URLs, relevance scores, and content snippets.
+Ark Agent is an AI-powered research assistant built with FastAPI, LangGraph, Google Gemini, and Tavily. It accepts a user query, optimizes it into focused search prompts, runs a multi-step research workflow, and returns ranked web resources with titles, URLs, relevance scores, and content snippets.
 
 ## ✨ Features
 
@@ -149,7 +149,7 @@ This validates the Google token, creates a user record if needed, and creates a 
 ### Research agent request
 
 ```http
-POST /api/v1/lily-agent/asks
+POST /api/v1/agent/asks
 ```
 
 Request body:

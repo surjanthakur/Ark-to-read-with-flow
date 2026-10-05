@@ -1,7 +1,7 @@
 [project]
 name = "backend"
 version = "0.1.0"
-description = "lily a research good reads multi agent project"
+description = "Ark Agent is an AI-powered research assistant."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

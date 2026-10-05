@@ -45,7 +45,7 @@ export default function Footer() {
             {/* Bottom: Motivational Quote Card */}
             <div className="mt-4 max-w-md bg-[#fcf6c5] border-2 border-black p-5 rounded-2xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] -rotate-1 relative">
               <p className="font-bold text-black text-4xl leading-relaxed">
-                "Don't dig through the internet — let Lily find the best resources for you. Keep
+                "Don't dig through the internet — let Ark find the best resources for you. Keep
                 learning, keep building." <span className="text-fuchsia-600">*its free now*</span>
               </p>
             </div>

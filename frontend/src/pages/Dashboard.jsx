@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { CallAgent } from '../api/agent.api.js';
 import { AgentLoader } from '../components/export.js';
-import Lilylogo from '../assets/lily-logo.png';
+import ArkLogo from '../assets/lily-logo.png';
 import { ArrowToDownLeft, Magicpen } from 'reicon-react';
 import { useAuthContext } from '../context/Auth.js';
 
@@ -150,7 +150,7 @@ export default function Dashboard() {
         <header className="flex h-16 shrink-0 items-center justify-between border-b-4 border-black bg-white px-4 sm:px-8">
           <div className="flex items-center gap-3">
             <div className="border-2 border-black rounded-xl p-1 bg-lime-200 shadow-[2px_2px_0px_0px_#000]">
-              <img src={Lilylogo} alt="Lily" className="h-8 w-8 rounded-lg object-cover" />
+              <img src={ArkLogo} alt="Ark Agent" className="h-8 w-8 rounded-lg object-cover" />
             </div>
             <span className="hidden sm:block text-sm font-bold tracking-tight uppercase">
               Agent on mission
@@ -179,8 +179,8 @@ export default function Dashboard() {
                 <div className="flex min-h-[50vh] items-center justify-center">
                   <div className="max-w-lg text-center bg-lime-200 border-4 border-black p-8 rounded-3xl shadow-[12px_12px_0px_0px_#000] -rotate-1 relative">
                     <img
-                      src={Lilylogo}
-                      alt="Lily"
+                      src={ArkLogo}
+                      alt="Ark Agent"
                       className="mx-auto mb-6 h-24 w-24 rounded-2xl object-cover border-2 border-black bg-[#ff8ae2] p-2 shadow-[4px_4px_0px_0px_#000]"
                     />
                     <span className="text-2xl font-serif font-bold">hey!!</span>
@@ -191,7 +191,7 @@ export default function Dashboard() {
 
                     <p className="mt-4 text-base font-medium leading-6 text-neutral-700">
                       Read the best articles and blogs out there. Don't dig through the internet —
-                      Lily finds them for you.
+                      Ark finds them for you.
                     </p>
                   </div>
                 </div>
@@ -316,7 +316,7 @@ export default function Dashboard() {
                   rows={1}
                   onInput={handleInput}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask Lily what you want to learn..."
+                  placeholder="Ask Ark what you want to learn..."
                   className="max-h-50 min-h-12 flex-1 resize-none overflow-y-auto bg-transparent px-3 py-3 text-base font-medium text-black outline-none placeholder:text-neutral-400"
                 />
 

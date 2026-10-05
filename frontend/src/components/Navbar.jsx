@@ -1,4 +1,4 @@
-import LilyLogo from '../assets/lily-logo.png';
+import ArkLogo from '../assets/lily-logo.png';
 import { useAuthContext } from '../context/Auth.js';
 import { Handshake } from 'reicon-react';
 import { motion, useScroll } from 'motion/react';
@@ -26,8 +26,8 @@ export default function Navbar() {
           "
         >
           <img
-            src={LilyLogo}
-            alt="Lily"
+            src={ArkLogo}
+            alt="Ark Agent"
             className="
               h-20
               w-auto
