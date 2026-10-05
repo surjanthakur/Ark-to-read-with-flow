@@ -57,7 +57,7 @@ app.add_middleware(
     SessionMiddleware,
     secret_key=settings.SECRET_KEY,
     session_cookie="oauth_state",
-    https_only=settings.ENVIRONMENT == "production",
+    https_only=settings.HTTPONLY,
     same_site=settings.SAMESITE,
 )
 
