@@ -42,6 +42,12 @@ app = FastAPI(
 )
 
 # FastAPI Cloud injects this when the Logfire integration is connected.
+logfire.configure(
+    token=settings.LOG_FIRE_TOKEN,
+    send_to_logfire=True,
+    environment=settings.ENVIRONMENT,
+)
+logfire.instrument_system_metrics()
 logfire.instrument_fastapi(app)
 
 app.state.limiter = rate_limiter
