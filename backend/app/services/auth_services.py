@@ -1,7 +1,6 @@
 import httpx
 from fastapi import HTTPException, Request, status
 from fastapi.responses import HTMLResponse, JSONResponse
-from jose import JWTError
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
@@ -24,21 +23,19 @@ async def authenticate_user(
 ) -> HTMLResponse:
     try:
         logger.info("Authentication started.")
-        try:
-            logger.info("Requesting Google OAuth token authorization.")
 
-            token_info: dict = await oauth_client.google_auth.authorize_access_token(
-                req
-            )
+        logger.info("Requesting Google OAuth token authorization.")
 
-            logger.info("Google OAuth token authorization succeeded.")
+        token_info = await oauth_client.google_auth.authorize_access_token(req)
 
-        except JWTError:
-            logger.exception("Google OAuth token authorization failed.")
+        if not token_info:
+            logger.warning("Google OAuth token authorization failed.")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Google authentication failed.",
+                detail="can't authenticate user",
             )
+
+        logger.info("Google OAuth token authorization succeeded.")
 
         try:
             user_info_endpoint = "https://www.googleapis.com/oauth2/v2/userinfo"
