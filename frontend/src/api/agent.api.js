@@ -1,4 +1,4 @@
-import apiClient from './Client.api.js';
+import apiClient from './BaseClient.js';
 
 export const CallAgent = async (user_input = String) => {
   const response = await apiClient.post('/agent/asks', {

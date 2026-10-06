@@ -1,4 +1,4 @@
-import apiClient from './Client.api';
+import apiClient from './BaseClient.js';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
