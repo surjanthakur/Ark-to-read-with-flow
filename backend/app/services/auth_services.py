@@ -6,7 +6,6 @@ from joserfc.errors import JoseError
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
-from ..core.settings import settings
 from ..db.redis_db import redis_client
 from ..repository.auth_repository import (
     create_new_user,
@@ -244,9 +243,9 @@ async def logout_session_user(request: Request) -> JSONResponse:
         response.delete_cookie(
             key="oauth_session",
             path="/",
-            httponly=settings.HTTPONLY,
-            secure=settings.SECURE,
-            samesite=settings.SAMESITE,
+            httponly=True,
+            secure=True,
+            samesite="none",
         )
         return response
 

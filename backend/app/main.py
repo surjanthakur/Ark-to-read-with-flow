@@ -58,8 +58,8 @@ app.add_middleware(
     SessionMiddleware,
     secret_key=settings.SECRET_KEY,
     session_cookie="oauth_state",
-    https_only=settings.HTTPONLY,
-    same_site=settings.SAMESITE,
+    https_only=True,
+    same_site="none",
     max_age=settings.SESSION_EXPIRY,
 )
 

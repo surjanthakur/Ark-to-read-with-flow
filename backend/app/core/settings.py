@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -13,13 +12,14 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
-
+    # app configs
     VERSION: str
     APP_NAME: str
     ENVIRONMENT: str
     LOG_LEVEL: str
     API_V1_STR: str
 
+    # db configs
     DB_URL: str
 
     REDIS_DB_URL: str
@@ -28,11 +28,13 @@ class Settings(BaseSettings):
     REDIS_PORT: str
     REDIS_MAX_CONNECTION: int
 
+    # platform keys configs
     GOOGLE_GEMINI_API_KEY: str
     TRAVILY_API_KEY: str
+
+    # oauth configs
     GOOGLE_CLIENT_ID: str
     GOOGLE_CLIENT_SECRET: str
-
     AUTHORIZE_URL: str
     ACCESS_TOKEN_URL: str
     JWKS_URL: str
@@ -41,11 +43,7 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str
     AUTH_REDIRECT_URL: str
     FRONTEND_ORIGINS: str
-
-    HTTPONLY: bool
     SESSION_EXPIRY: int
-    SECURE: bool
-    SAMESITE: Literal["lax", "strict", "none"]
 
 
 settings = Settings()

@@ -33,17 +33,9 @@ oauth_client.register(
 )
 
 
+# CREATING REDIS SESSION
 async def create_session(user_id: UUID, username: str, email: str) -> str:
-    """Create a short-lived Redis-backed auth session for a user.
-
-    Args:
-        user_id: The authenticated user UUID.
-        username: The authenticated user str.
-        email: The authenticated user str.
-
-    Returns:
-        A random session ID that is stored in Redis and later used as a cookie value.
-    """
+    """Create a short-lived Redis-backed auth session for a user."""
     try:
         session_id = str(uuid4())
         session_key = f"session:{session_id}"
@@ -77,21 +69,9 @@ async def create_session(user_id: UUID, username: str, email: str) -> str:
         )
 
 
+# SETTING COOKIE
 def create_auth_response(session_id: str) -> HTMLResponse:
-    """Return a small HTML page that notifies the frontend login succeeded.
-
-    The page posts a success message to the opener window and closes itself,
-    while also setting an HttpOnly session cookie for the browser.
-
-    Args:
-        session_id: The Redis-backed session identifier to store in the cookie.
-
-    Returns:
-        An HTML response that triggers the frontend login-success flow.
-
-    Raises:
-        HTTPException: If cookie creation fails due to OAuth-related issues.
-    """
+    """Return a small HTML page that notifies the frontend login succeeded."""
     try:
         response = HTMLResponse(
             content="""
@@ -114,9 +94,9 @@ def create_auth_response(session_id: str) -> HTMLResponse:
             key="oauth_session",
             value=session_id,
             max_age=settings.SESSION_EXPIRY,
-            httponly=settings.HTTPONLY,
-            secure=settings.SECURE,
-            samesite=settings.SAMESITE,
+            httponly=True,
+            secure=True,
+            samesite="none",
             path="/",
         )
         return response
