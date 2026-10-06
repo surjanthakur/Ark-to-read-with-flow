@@ -1,37 +1,22 @@
 import time
-from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
-from starlette.middleware.sessions import SessionMiddleware
 
 from .core.logginig import get_logger, setup_logging
 from .core.settings import settings
-from .db.databse import create_db_tables
-from .db.redis_db import check_redis_connection, close_redis_connection
-from .routes import agent_routes, auth_routes
+from .routes import agent_routes
 from .utils.rate_limiter import rate_limiter
 
 logger = get_logger(__name__)
 
-
-# to perform app startup and shutdown task
-@asynccontextmanager
-async def lifespan(app: FastAPI):  # noqa: ARG001
-    try:
-        setup_logging()
-        await create_db_tables()
-        await check_redis_connection()
-        yield
-    finally:
-        await close_redis_connection()
+setup_logging()
 
 
 app = FastAPI(
-    lifespan=lifespan,
     title=settings.APP_NAME,
     version=settings.VERSION,
     description="API for Ark Agent.",
@@ -54,20 +39,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.add_middleware(
-    SessionMiddleware,
-    secret_key=settings.SECRET_KEY,
-    session_cookie="oauth_state",
-    https_only=True,
-    same_site="none",
-    max_age=settings.SESSION_EXPIRY,
-)
 
 app.add_middleware(
     TrustedHostMiddleware,
     allowed_hosts=[
-        "ark-to-read-with-flow.vercel.app",
-        "arkagent-cd82c5ec.fastapicloud.dev",
+        "localhost",
+        "127.0.0.1",
     ],
 )
 
@@ -84,7 +61,6 @@ async def log_response_time(request: Request, call_next):
 
 # include routes to app
 app.include_router(router=agent_routes.router, prefix=f"{settings.API_V1_STR}/agent")
-app.include_router(router=auth_routes.router, prefix=f"{settings.API_V1_STR}/google")
 
 
 # health check route

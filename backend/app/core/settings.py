@@ -18,33 +18,11 @@ class Settings(BaseSettings):
     ENVIRONMENT: str
     LOG_LEVEL: str
     API_V1_STR: str
-
-    # db configs
-    DB_URL: str
-
-    REDIS_DB_URL: str
-    REDIS_PASSWORD: str
-    REDIS_USERNAME: str
-    REDIS_PORT: str
-    REDIS_MAX_CONNECTION: int
+    FRONTEND_ORIGINS: str
 
     # platform keys configs
     GOOGLE_GEMINI_API_KEY: str
     TRAVILY_API_KEY: str
-
-    # oauth configs
-    GOOGLE_CLIENT_ID: str
-    GOOGLE_CLIENT_SECRET: str
-    AUTHORIZE_URL: str
-    ACCESS_TOKEN_URL: str
-    JWKS_URL: str
-    PROJECT_ID: str
-    SECRET_KEY: str
-    JWT_SECRET_KEY: str
-    AUTH_REDIRECT_URL: str
-    FRONTEND_ORIGINS: str
-    BACKEND_DOMAIN: str
-    SESSION_EXPIRY: int
 
 
 settings = Settings()
