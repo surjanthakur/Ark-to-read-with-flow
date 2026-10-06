@@ -24,13 +24,13 @@ export const LoginUser = () => {
 
 // LOGOUT USER
 export const LogoutUser = async () => {
-  const response = await apiClient.post('/google/logout');
+  const response = await apiClient.post('/google/logout', { withCredentials: true });
   return response;
 };
 
 // GET CURRENT USER
 export const GetCurrentUser = async () => {
-  const response = await apiClient.get('/google/auth/me');
+  const response = await apiClient.get('/google/auth/me', { withCredentials: true });
   if (response.status == 200) {
     return response;
   }
