@@ -1,5 +1,5 @@
 ---
-name: user-query-optimizer
+name: query-optimizer
 description: "Break a user's learning topic into 5 focused, related subqueries, expanding to a maximum of 10 only when needed for complete topic coverage. Use when a user wants related topics, a study plan, search queries, or a topic decomposed into learnable subtopics."
 argument-hint: 'Enter the topic or question to decompose into related learning subqueries'
 user-invocable: true
