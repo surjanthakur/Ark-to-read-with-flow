@@ -204,6 +204,9 @@ async def get_current_user(request: Request) -> JSONResponse:
             media_type="application/json",
         )
 
+    except HTTPException:
+        raise
+
     except Exception:
         logger.exception("Unexpected error while retrieving the current user.")
         raise HTTPException(
@@ -215,7 +218,7 @@ async def get_current_user(request: Request) -> JSONResponse:
 # logout session user
 async def logout_session_user(request: Request) -> JSONResponse:
     try:
-        session_id = request.cookies.get("oauth_session")
+        session_id = request.cookies.get("session")
 
         if not session_id:
             logger.warning("Current user request has no session cookie.")
@@ -250,6 +253,9 @@ async def logout_session_user(request: Request) -> JSONResponse:
             domain=settings.BACKEND_DOMAIN,
         )
         return response
+
+    except HTTPException:
+        raise
 
     except Exception:
         logger.exception("Unexpected error while retrieving the current user.")
