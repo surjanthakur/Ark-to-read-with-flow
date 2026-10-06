@@ -58,7 +58,7 @@ class AgentResponse(BaseModel):
 @rate_limiter.limit("1/minute")
 async def get_agent_response(
     requests: AgentReq,
-    request: Request,
+    request: Request,  # noqa: ARG001
 ) -> dict:
     res = await call_langgraph_agent(query=requests.user_query)
     return {"found_resources": res}
