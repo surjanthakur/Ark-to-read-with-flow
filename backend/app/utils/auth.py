@@ -100,7 +100,7 @@ def create_auth_response(session_id: str) -> HTMLResponse:
                 <script>
                     window.opener.postMessage(
                         { type: "google-login-success" },
-                        "https://ark-agent-delta.vercel.app"
+                        "https://ark-to-read-with-flow.vercel.app"
                     );
                     window.close();
                 </script>

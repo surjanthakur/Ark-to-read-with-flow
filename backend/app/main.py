@@ -65,7 +65,10 @@ app.add_middleware(
 
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["ark-agent-delta.vercel.app", "arkagent.fastapicloud.dev"],
+    allowed_hosts=[
+        "ark-to-read-with-flow.vercel.app",
+        "arkagent-cd82c5ec.fastapicloud.dev",
+    ],
 )
 
 
