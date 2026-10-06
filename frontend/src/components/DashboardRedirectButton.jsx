@@ -1,30 +1,17 @@
 import './DashboardButton.css';
-import { useAuthContext } from '../context/Auth.js';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 export default function DashboardRedirectButton() {
-  const { isLoading, user, isAuthenticated } = useAuthContext();
-
   const navigate = useNavigate();
 
   const handleClick = async (e) => {
     e.preventDefault();
-    try {
-      if (!isAuthenticated || !user?.email) {
-        toast.error('Please login first to open dashboard');
-        return;
-      } else {
-        navigate(`/dashboard/${user?.email}`);
-      }
-    } catch {
-      toast.error('Something went wrong. Please try again.');
-    }
+    navigate(`/dashboard`);
   };
 
   return (
     <>
-      <button type="button" disabled={isLoading} className="button" onClick={handleClick}>
+      <button type="button" className="button" onClick={handleClick}>
         <div className="dots_border"></div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="sparkle">
           <path

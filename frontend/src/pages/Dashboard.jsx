@@ -7,20 +7,8 @@ import { CallAgent } from '../api/agent.api.js';
 import { AgentLoader } from '../components/export.js';
 import ArkLogo from '../assets/lily-logo.png';
 import { ArrowToDownLeft, Magicpen } from 'reicon-react';
-import { useAuthContext } from '../context/Auth.js';
 
 export default function Dashboard() {
-  const { user, isLoading } = useAuthContext();
-
-  const profileInitials =
-    (user?.username || 'default')
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((word) => word[0]?.toUpperCase())
-      .join('') || 'D';
-
   const [openSettings, setOpenSettings] = useState(false);
 
   const [isAgentLoading, setIsAgentLoading] = useState(false);
@@ -136,15 +124,6 @@ export default function Dashboard() {
         backgroundSize: '24px 24px',
       }}
     >
-      {/* Global Loading Overlay */}
-      {isLoading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#f4f4f0]/80 backdrop-blur-sm">
-          <div className="bg-white border-4 border-black p-6 rounded-3xl shadow-[8px_8px_0px_0px_#000]">
-            <AgentLoader />
-          </div>
-        </div>
-      )}
-
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-transparent">
         {/* Header - Neo Brutalist Style */}
         <header className="flex h-16 shrink-0 items-center justify-between border-b-4 border-black bg-white px-4 sm:px-8">
@@ -155,15 +134,6 @@ export default function Dashboard() {
             <span className="hidden sm:block text-sm font-bold tracking-tight uppercase">
               Agent on mission
             </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="hidden text-sm font-bold bg-[#fcf6c5] px-3 py-1 border-2 border-black rounded-full shadow-[2px_2px_0px_0px_#000] sm:block">
-              {user?.username || 'default'}
-            </span>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ff8ae2] border-2 border-black shadow-[2px_2px_0px_0px_#000]">
-              <h1 className="text-sm font-black leading-none">{profileInitials}</h1>
-            </div>
           </div>
         </header>
 

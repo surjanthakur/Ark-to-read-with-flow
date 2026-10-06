@@ -1,20 +1,6 @@
-import { Logout6, X } from 'reicon-react';
-import { useAuthContext } from '../context/Auth.js';
-import { useNavigate } from 'react-router-dom';
+import { X } from 'reicon-react';
 
 export default function SettingsPopupWindow({ openSetting, setSetting }) {
-  const { logoutUser } = useAuthContext();
-
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    const success = await logoutUser();
-
-    if (success) {
-      navigate('/');
-    }
-  };
-
   if (!openSetting) return null;
 
   return (
@@ -38,20 +24,6 @@ export default function SettingsPopupWindow({ openSetting, setSetting }) {
             if you want to take break it's OK.
           </p>
         </div>
-
-        {/* Logout Button - Chunky & Interactive */}
-        <button
-          onClick={handleLogout}
-          type="button"
-          className="group flex w-full items-center justify-center gap-3 rounded-xl border-2 border-black bg-white px-4 py-4 text-base font-black text-black shadow-[4px_4px_0px_0px_#000] transition-all hover:bg-[#ff8ae2] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#000] active:translate-y-1 active:shadow-none"
-        >
-          <Logout6
-            size={20}
-            strokeWidth={3}
-            className="transition-transform group-hover:-translate-x-1"
-          />
-          LOGOUT
-        </button>
       </div>
     </section>
   );
