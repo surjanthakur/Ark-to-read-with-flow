@@ -91,13 +91,14 @@ def create_auth_response(session_id: str) -> HTMLResponse:
         )
 
         response.set_cookie(
-            key="oauth_session",
+            key="session",
             value=session_id,
             max_age=settings.SESSION_EXPIRY,
             httponly=True,
             secure=True,
             samesite="none",
             path="/",
+            domain=settings.BACKEND_DOMAIN,
         )
         return response
 

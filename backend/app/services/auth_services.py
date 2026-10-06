@@ -6,6 +6,7 @@ from joserfc.errors import JoseError
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from ..core.logginig import get_logger
+from ..core.settings import settings
 from ..db.redis_db import redis_client
 from ..repository.auth_repository import (
     create_new_user,
@@ -174,7 +175,7 @@ async def authenticate_user(
 # get current session user
 async def get_current_user(request: Request) -> JSONResponse:
     try:
-        session_id = request.cookies.get("oauth_session")
+        session_id = request.cookies.get("session")
 
         if not session_id:
             logger.warning("Current user request has no session cookie.")
@@ -241,11 +242,12 @@ async def logout_session_user(request: Request) -> JSONResponse:
             media_type="application/json",
         )
         response.delete_cookie(
-            key="oauth_session",
+            key="session",
             path="/",
             httponly=True,
             secure=True,
             samesite="none",
+            domain=settings.BACKEND_DOMAIN,
         )
         return response
 

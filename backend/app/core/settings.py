@@ -43,6 +43,7 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str
     AUTH_REDIRECT_URL: str
     FRONTEND_ORIGINS: str
+    BACKEND_DOMAIN: str
     SESSION_EXPIRY: int
 
 
