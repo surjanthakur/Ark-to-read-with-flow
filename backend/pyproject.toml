@@ -17,6 +17,7 @@ dependencies = [
     "pydantic>=2.12.5,<2.13.0",
     "python-dotenv>=1.2.3",
     "requests>=2.34.2",
+    "sentry-sdk>=2.35.0",
     "slowapi>=0.1.10",
     "tavily-python>=0.8.2",
 ]

@@ -1,6 +1,8 @@
 import logging
 import logging.config
 
+import sentry_sdk
+
 from .settings import settings
 
 
@@ -43,6 +45,13 @@ def setup_logging() -> None:
             "root": {"level": log_level, "handlers": ["console", "file"]},
         }
     )
+
+
+sentry_sdk.init(
+    dsn=settings.SENTRY_URL,
+    send_default_pii=True,
+    enable_logs=True,
+)
 
 
 def get_logger(name: str) -> logging.Logger:
