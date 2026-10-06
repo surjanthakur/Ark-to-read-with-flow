@@ -125,3 +125,13 @@
 2026-10-06 22:08:27 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
 2026-10-06 22:09:26 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
 2026-10-06 22:09:26 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-06 22:10:11 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-06 22:10:12 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-06 22:12:05 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-06 22:12:05 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-06 22:13:53 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-06 22:13:54 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-06 22:14:28 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-06 22:14:43 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-06 22:17:54 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-06 22:17:54 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0

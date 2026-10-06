@@ -33,8 +33,6 @@ async def query_optimizer_node(state: AgentState) -> dict:
             system_prompt=QUERY_OPTIMIZER_SKILL.read_text(encoding="utf-8"),
         )
 
-        logger.info("Calling llm...")
-
         res = await llm_provider(validation_config)
 
         logger.info("llm returned repsonse successfully...")
@@ -46,6 +44,10 @@ async def query_optimizer_node(state: AgentState) -> dict:
         logger.info("getting list of queries from loaded json data...")
 
     except Exception:
+        # what error can cause here:
+        # 1.getting empy response from llm
+        # 2. no getting query list
+        # 3. llm provide shut down due to too many requests.
         logger.exception("Query optimizer call failed...")
         raise
 

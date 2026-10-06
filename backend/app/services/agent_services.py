@@ -30,9 +30,6 @@ async def call_langgraph_agent(query: str) -> dict:
                 "optimized_query": [],
             }
         )
-
-        logger.info("invoked langgraph workflow...")
-
         return response.get("found_resources", [])
 
     except (EmptyInputError, EmptyChannelError, InvalidUpdateError) as exc:
