@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     # platform keys configs
     GOOGLE_GEMINI_API_KEY: str
     TRAVILY_API_KEY: str
-    SENTRY_URL: str
+    SENTRY_URL: str | None = None
 
 
 settings = Settings()

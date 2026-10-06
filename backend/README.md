@@ -95,6 +95,7 @@ REDIRECT_URL="http://127.0.0.1:8000/api/v1/google/auth"
 - `ENVIRONMENT` is typically `development` or `production`
 - `FRONTEND_URL` is used after OAuth redirects back to the client app
 - `REDIRECT_URL` should match your Google OAuth callback route
+- `SENTRY_URL` is optional; when set to your Sentry project DSN, application logs are sent to Sentry and errors are captured as events
 
 ## Running the Backend
 

@@ -2,11 +2,11 @@ import logging
 import logging.config
 
 import sentry_sdk
+from sentry_sdk.integrations.logging import LoggingIntegration
 
 from .settings import settings
 
 
-# logging setup function
 def setup_logging() -> None:
     """Configure application logs for local development and production."""
     log_level = (settings.LOG_LEVEL or "INFO").upper()
@@ -46,12 +46,16 @@ def setup_logging() -> None:
         }
     )
 
-
-sentry_sdk.init(
-    dsn=settings.SENTRY_URL,
-    send_default_pii=True,
-    enable_logs=True,
-)
+    sentry_sdk.init(
+        dsn=settings.SENTRY_URL or None,
+        environment=settings.ENVIRONMENT,
+        release=f"{settings.APP_NAME}@{settings.VERSION}",
+        integrations=[
+            LoggingIntegration(level=logging.INFO, event_level=logging.ERROR)
+        ],
+        send_default_pii=True,
+        enable_logs=True,
+    )
 
 
 def get_logger(name: str) -> logging.Logger:
