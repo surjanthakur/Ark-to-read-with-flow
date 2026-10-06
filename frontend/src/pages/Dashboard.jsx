@@ -10,15 +10,13 @@ import { ArrowToDownLeft, Magicpen } from 'reicon-react';
 
 export default function Dashboard() {
   const [openSettings, setOpenSettings] = useState(false);
-
   const [isAgentLoading, setIsAgentLoading] = useState(false);
-
   const [chats, setChats] = useState(() => {
     try {
       const storedChats = localStorage.getItem('lily_chats');
       return storedChats ? JSON.parse(storedChats) : [];
     } catch {
-      console.error('Failed to load chats.');
+      toast.error("faild to load chat's try again!");
       return [];
     }
   });
