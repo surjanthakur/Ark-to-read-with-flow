@@ -12,7 +12,7 @@ export const LoginUser = () => {
   const top = window.screenY + (window.outerHeight - height) / 2;
 
   const popup = window.open(
-    `${BACKEND_URL}/api/v1/google/login`,
+    `${BACKEND_URL}/google/login`,
     'google-login',
     `width=${width},height=${height},left=${left},top=${top}`
   );
