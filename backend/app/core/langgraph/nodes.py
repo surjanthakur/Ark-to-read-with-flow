@@ -27,13 +27,16 @@ async def query_optimizer_node(state: AgentState) -> dict:
     """
     Expands the user's topic into multiple focused search queries.
     """
-    try:
-        input_query = state["topic"]
+    input_query = state.get("topic", "").strip()
 
-        # validating llm config's
+    if not input_query:
+        logger.warning("Query optimizer received an empty topic")
+        return {"optimized_queries": []}
+
+    try:
         validation_config = LLMRequest(
             user_input=input_query,
-            model_name="gemini-2.5-flash",
+            model_name="gemini-3.5-flash",
             thinking_level="high",
             task_prompt=QUERY_OPTIMIZER_SKILL.read_text(encoding="utf-8"),
             system_prompt=LEELY_DEFAULT_SYSTEM_PROMPT,
@@ -44,21 +47,24 @@ async def query_optimizer_node(state: AgentState) -> dict:
 
         res = await llm_provider(validation_config)
 
-        logger.info("llm returned repsonse successfully...")
+        logger.info("llm returned response successfully...")
 
-        logger.info("Loading optimizer result's into JSON...")
+        logger.info("Loading optimizer results into JSON...")
 
         queries = parse_optimized_queries(res)
 
         logger.info("getting list of queries from loaded json data...")
 
+        if not queries:
+            logger.warning(
+                "Query optimizer returned no queries for input: %s", input_query
+            )
+
+            return {"optimized_queries": [input_query]}
+
     except Exception:
-        # what error can cause here:
-        # 1.getting empy response from llm
-        # 2. no getting query list
-        # 3. llm provide shut down due to too many requests.
-        logger.exception("Query optimizer call failed...")
-        raise
+        logger.exception("Query optimizer call failed; falling back to original topic")
+        return {"optimized_queries": [input_query]}
 
     logger.info("Updating graph state...")
     return {"optimized_queries": queries}

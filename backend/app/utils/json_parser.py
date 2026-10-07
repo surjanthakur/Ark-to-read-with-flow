@@ -7,14 +7,17 @@ logger = get_logger(__name__)
 
 
 def parse_optimized_queries(result: str) -> list[str]:
-    try:
-        # removing white spaces
-        cleaned_result = result.strip()
+    if result is None:
+        raise ValueError("Query optimizer response is empty")
 
+    cleaned_result = str(result).strip()
+
+    if not cleaned_result:
+        raise ValueError("Query optimizer response is empty")
+
+    try:
         if cleaned_result.startswith("```"):
-            # break into list of line's
             lines = cleaned_result.splitlines()
-            # join them as str into next line
             cleaned_result = "\n".join(lines[1:-1]).strip()
 
             if cleaned_result.startswith("json"):
@@ -24,15 +27,15 @@ def parse_optimized_queries(result: str) -> list[str]:
             cleaned_result = cleaned_result.partition("=")[2].strip()
 
         data = json.loads(cleaned_result)
-        # check if parsed data is in list format or not
-        queries = data if isinstance(data, list) else data["queries"]
+        queries = data if isinstance(data, list) else data.get("queries", [])
 
         if not isinstance(queries, list) or not all(
             isinstance(query, str) and query.strip() for query in queries
         ):
             raise ValueError("Query optimizer response must contain a list of strings")
 
-        return queries
+        return [query.strip() for query in queries]
 
-    except JSONDecodeError:
-        logger.exception("json decoder error wrong format to decode")
+    except (JSONDecodeError, TypeError, AttributeError) as exc:
+        logger.exception("JSON parser failed while decoding optimizer response")
+        raise ValueError("Could not parse query optimizer response") from exc
