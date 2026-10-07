@@ -35,9 +35,18 @@ export default function AboutPage() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl font-mono text-sm leading-7 text-black/70 sm:text-base">
-            I built Leely because learning online should feel intentional, not exhausting. I wanted
-            a tool that helps people find the best reading material faster and keep momentum without
-            the usual chaos.
+            At first, I didn’t know much about reading blogs or articles. But after spending more
+            time on X (Twitter) and seeing people share the blogs and articles they had written, I
+            started reading them. I found it really fun and realized how much knowledge you can gain
+            from reading good content. But finding good blogs and articles can be a mess. If you
+            search on platforms like Medium, it can be difficult to know which articles are actually
+            worth reading, and you can end up wasting a lot of time searching. To solve this
+            problem, I built this platform to help you find relevant and valuable blogs and articles
+            with just one query. It’s simple, and it can save you a lot of time. Of course, if you
+            already follow people whose content you enjoy, finding good articles is much easier. But
+            there are also so many great blogs and articles out there that deserve your attention. I
+            hope you find this product useful in your daily life. I’d really love to hear your
+            feedback and ideas so I can keep improving it. Thank you for using it. ❤️
           </p>
         </header>
 
@@ -65,7 +74,7 @@ export default function AboutPage() {
                 the problem
               </p>
               <h2 className="mt-4 font-serif text-3xl tracking-[-0.06em] text-white sm:text-4xl">
-                The internet is full of good ideas, but the path to them is messy.
+                The internet is full of good reads blogs/articles, but the path to them is messy.
               </h2>
             </div>
 

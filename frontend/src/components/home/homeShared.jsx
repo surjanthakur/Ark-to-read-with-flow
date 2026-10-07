@@ -21,7 +21,14 @@ export function Reveal({ children, className = '', delay = 0, y = 24, amount = 0
   );
 }
 
-export function RevealGroup({ children, className = '', stagger = 0.08, delay = 0.05, amount = 0.15, role }) {
+export function RevealGroup({
+  children,
+  className = '',
+  stagger = 0.08,
+  delay = 0.05,
+  amount = 0.15,
+  role,
+}) {
   const reduce = useReducedMotion();
 
   return (
@@ -56,7 +63,13 @@ export function Eyebrow({ children, className = '' }) {
   );
 }
 
-export function Marquee({ items, speed = 28, reverse = false, className = '', itemClassName = '' }) {
+export function Marquee({
+  items,
+  speed = 28,
+  reverse = false,
+  className = '',
+  itemClassName = '',
+}) {
   const reduce = useReducedMotion();
   const row = [...items, ...items];
 
@@ -82,7 +95,14 @@ export function Marquee({ items, speed = 28, reverse = false, className = '', it
   );
 }
 
-export function CollageCard({ variants, className = '', innerClassName = '', lift = -10, rotateOnHover = 0, children }) {
+export function CollageCard({
+  variants,
+  className = '',
+  innerClassName = '',
+  lift = -10,
+  rotateOnHover = 0,
+  children,
+}) {
   return (
     <div className={className}>
       <motion.div

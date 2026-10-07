@@ -55,7 +55,7 @@ export function Features() {
                 key={step.n}
                 role="listitem"
                 variants={item}
-                className="group relative flex gap-5 rounded-2xl border-2 border-white/12 bg-white/[0.04] p-5 backdrop-blur-sm transition-colors duration-300 hover:border-white/35 hover:bg-white/[0.08] sm:p-6"
+                className="group relative flex gap-5 rounded-2xl border-2 border-white/12 bg-white/4 p-5 backdrop-blur-sm transition-colors duration-300 hover:border-white/35 hover:bg-white/8 sm:p-6"
               >
                 <span
                   className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl border-2 border-black font-mono text-sm font-bold text-black shadow-[3px_3px_0_#000] transition-transform duration-300 group-hover:-rotate-6 ${step.color}`}

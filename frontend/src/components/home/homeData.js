@@ -11,14 +11,15 @@ export const NAV = [
 ];
 
 export const TOPICS = [
-  'General ',
-  'Computer Science',
-  'finance redings',
-  'product design',
-  'devops',
-  'databases',
-  'design systems',
+  'General knowledge resources',
+  'Computer Science resources',
+  'finance resources',
+  'research blogs',
+  'devops resources',
+  'database resources',
+  'design design resources',
   'crypto knowledge',
+  'more....',
 ];
 
 export const STEPS = [

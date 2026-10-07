@@ -2,7 +2,7 @@ import SettingsPopupWindow from './settingsWindow.jsx';
 import AgentLoader from './AgentLoader.jsx';
 import DashboardRedirectButton from './DashboardRedirectButton.jsx';
 import Footer from './Footer.jsx';
-import { SiteHeader } from './home/SiteHeader.jsx';
+import { Navbar } from './home/Navbar.jsx';
 import { Hero } from './home/Hero.jsx';
 import { Showcase } from './home/Showcase.jsx';
 import { Features } from './home/Features.jsx';
@@ -14,7 +14,7 @@ export {
   AgentLoader,
   DashboardRedirectButton,
   Footer,
-  SiteHeader,
+  Navbar,
   Hero,
   Showcase,
   Features,

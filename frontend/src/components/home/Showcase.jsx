@@ -30,8 +30,9 @@ export function Showcase() {
             </h2>
           </div>
           <p className="max-w-sm font-mono text-sm leading-6 text-[#55554f]">
-            Ranked results, topic clusters and a workspace that stays out of your way. Here&apos;s a
-            peek at what&apos;s inside.
+            <span className="text-blue-500 underline">Ranked articles and blogs</span>, topic
+            clusters and a workspace that stays out of your way. Here&apos;s a peek at what&apos;s
+            inside.
           </p>
         </Reveal>
 
@@ -147,7 +148,7 @@ export function Showcase() {
             innerClassName={`${CARD} ${SHADOW} h-full overflow-hidden bg-amber-100 p-5`}
           >
             <span className="inline-block rounded-full border-2 border-black bg-white px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-widest">
-              coming soon
+              coming soon...
             </span>
 
             <h3 className="mt-4 font-serif text-2xl leading-tight xl:text-3xl">

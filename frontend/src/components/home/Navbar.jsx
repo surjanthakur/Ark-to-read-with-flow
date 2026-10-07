@@ -5,7 +5,7 @@ import { DashboardRedirectButton } from '../export.js';
 import { EASE, NAV } from './homeData.js';
 import { Marquee } from './homeShared.jsx';
 
-export function SiteHeader() {
+export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -15,10 +15,16 @@ export function SiteHeader() {
           speed={34}
           itemClassName="font-mono text-[10px] uppercase tracking-[0.22em]"
           items={[
-            'free while in beta',
-            'no credit card',
-            'ranked reading lists',
-            'built for curious people',
+            "it's free now",
+            "it's free now",
+            "it's free now",
+            "it's free now",
+            "it's free now",
+            "it's free now",
+            "it's free now",
+            "it's free now",
+            "it's free now",
+            "it's free now",
           ]}
         />
       </div>
