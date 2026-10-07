@@ -85,10 +85,6 @@ export default function Dashboard() {
       },
     ]);
 
-    const loadingNoticeTimer = setTimeout(() => {
-      toast.info('This model is currently experiencing high demand');
-    }, 10000);
-
     try {
       const response = await CallAgent(userQuery);
       const foundResources = response?.found_resources || [];
@@ -109,7 +105,6 @@ export default function Dashboard() {
       setChats((prev) => prev.filter((_, index) => index !== chatIndex));
       toast.error(error.response?.data?.detail || "Oop's Something went wrong. Please try again.");
     } finally {
-      clearTimeout(loadingNoticeTimer);
       setIsAgentLoading(false);
       reset();
 
