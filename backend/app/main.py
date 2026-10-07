@@ -19,7 +19,7 @@ setup_logging()
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.VERSION,
-    description="API for Ark Agent.",
+    description="API for LeelyAgent.",
     docs_url="/docs" if settings.ENVIRONMENT != "production" else None,
     redoc_url="/redoc" if settings.ENVIRONMENT != "production" else None,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",

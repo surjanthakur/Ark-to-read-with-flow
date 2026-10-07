@@ -1,6 +1,6 @@
-# Ark Agent
+# LeelyAgent
 
-Ark Agent is an AI-powered research assistant built with FastAPI, LangGraph, Google Gemini, and Tavily. It accepts a user query, optimizes it into focused search prompts, runs a multi-step research workflow, and returns ranked web resources with titles, URLs, relevance scores, and content snippets.
+LeelyAgent is an AI-powered research assistant built with FastAPI, LangGraph, Google Gemini, and Tavily. It accepts a user query, optimizes it into focused search prompts, runs a multi-step research workflow, and returns ranked web resources with titles, URLs, relevance scores, and content snippets.
 
 ## ✨ Features
 

@@ -1,10 +1,10 @@
-# Ark Backend
+# LeelyAgent Backend
 
 This README is intentionally scoped to the backend service only. It covers the FastAPI application, auth flow, LLM research pipeline, environment setup, and local development commands.
 
 ## Overview
 
-The backend powers the Ark research experience. It handles:
+The backend powers the Leely research experience. It handles:
 
 - Google OAuth login and JWT-based session management
 - Research requests backed by Gemini and LangGraph

@@ -1,4 +1,4 @@
-import ArkFlower from '../assets/lily-logo.png';
+import LeelyFlower from '../assets/lily-logo.png';
 import { motion } from 'motion/react';
 import { DashboardRedirectButton } from '../components/export.js';
 
@@ -63,7 +63,7 @@ export default function HomePage() {
                 className=" relative inline px-2 before:absolute before:inset-x-0  before:bottom-1  before:-z-10  before:h-[72%]  before:bg-[#f2a9dd]
               "
               >
-                Ark finds the best resources for you.
+                Leely finds the best resources for you.
               </span>
             </h1>
 
@@ -102,7 +102,7 @@ export default function HomePage() {
                 <div className="flex h-full items-end p-3">
                   <div className="rounded-lg bg-white/80 p-4 backdrop-blur">
                     <h3 className="font-serif text-xl font-semibold">
-                      How Ark finds your resources
+                      How Leely finds your resources
                     </h3>
 
                     <ul className="mt-3 space-y-1.5 font-mono text-xs leading-5">
@@ -196,7 +196,7 @@ export default function HomePage() {
                   <div className="text-center">
                     <div className="mx-auto mb-4 h-16 w-16 rounded-full border-2 border-black bg-[#d9a5ed]" />
 
-                    <p className="font-serif text-xl">Ark's</p>
+                    <p className="font-serif text-xl">Leely's</p>
 
                     <p className="font-mono text-xs">RESOURCE CLUB</p>
                   </div>
@@ -265,11 +265,11 @@ export default function HomePage() {
               variants={collageReveal}
             >
               <div className="flex h-full flex-col">
-                <p className="font-serif text-4xl">Let it flow with Ark Agent!</p>
+                <p className="font-serif text-4xl">Let it flow with LeelyAgent!</p>
 
                 <div className="relative mt-5 flex flex-1 items-center justify-center overflow-hidden rounded-full bg-lime-300">
                   {/* simple flower illustration */}
-                  <img src={ArkFlower} alt="Ark Agent logo"></img>
+                  <img src={LeelyFlower} alt="LeelyAgent logo"></img>
                 </div>
 
                 <div className="mt-3 flex justify-between font-mono text-xs ">

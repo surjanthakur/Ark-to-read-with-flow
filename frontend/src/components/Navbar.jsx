@@ -1,4 +1,4 @@
-import ArkLogo from '../assets/lily-logo.png';
+import LeelyLogo from '../assets/lily-logo.png';
 import { motion, useScroll } from 'motion/react';
 
 export default function Navbar() {
@@ -23,8 +23,8 @@ export default function Navbar() {
           "
         >
           <img
-            src={ArkLogo}
-            alt="Ark Agent"
+            src={LeelyLogo}
+            alt="LeelyAgent"
             className="
               h-20
               w-auto

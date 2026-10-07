@@ -1,6 +1,6 @@
-# Ark Frontend
+# LeelyAgent Frontend
 
-This is the frontend for the Ark app. It is a React + Vite app that helps users sign in, ask questions, and view the best research resources found by the backend.
+This is the frontend for the Leely app. It is a React + Vite app that helps users sign in, ask questions, and view the best research resources found by the backend.
 
 ## What this app does
 
