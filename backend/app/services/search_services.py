@@ -1,4 +1,9 @@
+from fastapi import HTTPException, status
+
+from ..core.logginig import get_logger
 from ..core.tools_provider import web_search_tool
+
+logger = get_logger(__name__)
 
 
 async def search_resources_service(input_query: str):
@@ -8,35 +13,61 @@ async def search_resources_service(input_query: str):
         raise ValueError("Search query cannot be empty.")
 
     try:
+        logger.info(f"👍 executing web_search_tool for query: {query}")
+
         response = await web_search_tool(query)
 
-    except TimeoutError as exc:
-        raise TimeoutError("Search request timed out. Please try again.") from exc
-    except OSError as exc:
-        raise ConnectionError(
-            "Network error while searching for resources. Please try again."
+        search_results = (
+            response.get("results", []) if isinstance(response, dict) else []
+        )
+        logger.info("web_search_tool executed successfully✅")
+        resources = []
+
+        for result in search_results:
+            if not isinstance(result, dict):
+                continue
+            title = result.get("title") or "Untitled resource"
+            url = result.get("url") or ""
+            score = result.get("score", 0)
+            content = result.get("content") or ""
+            resources.append(
+                {
+                    "title": title,
+                    "url": url,
+                    "score": score,
+                    "content": content,
+                }
+            )
+
+        resources.sort(key=lambda resource: resource["score"], reverse=True)
+
+        logger.info("returned response successfully by search_resource_service ✅")
+
+        return {"found_resources": resources}
+
+    except ValueError as exc:
+        logger.exception("value error while search_resource_services")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)
         ) from exc
 
-    search_results = response.get("results", []) if isinstance(response, dict) else []
-    resources = []
+    except TimeoutError as exc:
+        logger.exception("timeout error while search_resource_services")
+        raise HTTPException(
+            status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+            detail=str(exc),
+        ) from exc
 
-    for result in search_results:
-        if not isinstance(result, dict):
-            continue
+    except (ConnectionError, OSError) as exc:
+        logger.exception("network error while search_resource_services")
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(exc),
+        ) from exc
 
-        title = result.get("title") or "Untitled resource"
-        url = result.get("url") or ""
-        score = result.get("score", 0)
-        content = result.get("content") or ""
-
-        resources.append(
-            {
-                "title": title,
-                "url": url,
-                "score": score,
-                "content": content,
-            }
+    except Exception:
+        logger.exception("something went wrong while search_resource_services")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="something went wrong try again!",
         )
-
-    resources.sort(key=lambda resource: resource["score"], reverse=True)
-    return {"found_resources": resources}

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Request, status
+from fastapi import APIRouter, Request, status
 
 from ..schema.search_query_model import SearchRequest, SearchResponse
 from ..services.search_services import search_resources_service
@@ -23,23 +23,4 @@ async def search_resources(
     requests: SearchRequest,
     request: Request,  # noqa: ARG001
 ) -> dict:
-
-    try:
-        return await search_resources_service(input_query=requests.user_query)
-
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)
-        ) from exc
-
-    except TimeoutError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_504_GATEWAY_TIMEOUT,
-            detail=str(exc),
-        ) from exc
-
-    except (ConnectionError, OSError) as exc:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=str(exc),
-        ) from exc
+    return await search_resources_service(input_query=requests.user_query)
