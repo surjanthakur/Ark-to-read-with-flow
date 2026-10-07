@@ -50,6 +50,12 @@ export function Navbar() {
               {n.label}
             </a>
           ))}
+          <a
+            href="/why"
+            className="rounded-full px-3.5 py-2 font-mono text-xs font-bold uppercase tracking-wider text-black/70 transition-colors hover:bg-black hover:text-white focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-black"
+          >
+            why i build this?
+          </a>
         </nav>
 
         <div className="flex items-center gap-2">

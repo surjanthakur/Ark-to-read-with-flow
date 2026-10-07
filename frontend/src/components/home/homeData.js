@@ -7,7 +7,6 @@ export const MOBILE_CARD = 'mx-auto w-full max-w-[360px] sm:max-w-none';
 export const NAV = [
   { label: 'Showcase', href: '#showcase' },
   { label: 'Features', href: '#features' },
-  { label: 'why i build this?', href: '/why' },
 ];
 
 export const TOPICS = [
