@@ -65,7 +65,7 @@ async def web_search_tool(input_queries: list[str]) -> list[dict]:
     for result in travily_results:
         if isinstance(result, Exception):
             continue
-        all_resource.extend(result.get("results", []))
+        all_resource.extend(result["results"])
 
     seen_urls = set()
     unique_results = []
@@ -89,10 +89,10 @@ async def web_search_tool(input_queries: list[str]) -> list[dict]:
 
         unique_results.append(
             {
-                "title": result.get("title"),
+                "title": source.get("title"),
                 "url": url,
-                "content": result.get("content"),
-                "score": result.get("score", 0.0),
+                "content": source.get("content"),
+                "score": source.get("score", 0.0),
             }
         )
 
