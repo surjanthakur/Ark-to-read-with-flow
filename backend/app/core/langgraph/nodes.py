@@ -6,7 +6,6 @@ from ...schemas.llm_req import LLMRequest
 from ...utils.json_parser import parse_optimized_queries
 from ..llm_provider import llm_provider
 from ..logginig import get_logger
-from ..system_prompt import LEELY_DEFAULT_SYSTEM_PROMPT
 from ..tools_provider import web_search
 from .state_graph import AgentState
 
@@ -35,7 +34,6 @@ async def query_optimizer_node(state: AgentState) -> dict:
             model_name="gemini-3.5-flash",
             thinking_level="high",
             task_prompt=QUERY_OPTIMIZER_SKILL.read_text(encoding="utf-8"),
-            system_prompt=LEELY_DEFAULT_SYSTEM_PROMPT,
             thinking_budget=8190,
             temperature=0,
             max_output_token=1025,

@@ -25,10 +25,6 @@ class LLMRequest(BaseModel):
         max_length=10000,
         description="task Instructions for the model",
     )
-    system_prompt: str = Field(
-        min_length=1,
-        description="default Instructions for the model",
-    )
     temperature: Optional[int] = Field(  # noqa: UP045
         title="temp for the llm", default=0
     )

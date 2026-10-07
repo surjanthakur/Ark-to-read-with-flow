@@ -34,22 +34,13 @@ async def llm_provider(model_validation: LLMRequest) -> str:
         model = ChatGoogleGenerativeAI(
             model=model_validation.model_name,
             api_key=settings.GOOGLE_GEMINI_API_KEY,
-            thinking_level=model_validation.thinking_level,
             max_output_tokens=model_validation.max_output_token,
             temperature=model_validation.temperature,
             thinking_budget=model_validation.thinking_budget,
         )
 
-        # add system and user msg
-        combined_system_prompt = f"""
-
-{model_validation.system_prompt}
-
-CURRENT TASK INSTRUCTIONS:{model_validation.task_prompt}
-"""
-
         messages = [
-            SystemMessage(content=combined_system_prompt),
+            SystemMessage(content=model_validation.task_prompt),
             HumanMessage(content=model_validation.user_input),
         ]
 
