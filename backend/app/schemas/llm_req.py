@@ -20,8 +20,12 @@ class LLMRequest(BaseModel):
     thinking_level: Literal["low", "medium", "high"] = Field(
         description="The model's reasoning level"
     )
-    system_prompt: str = Field(
+    task_prompt: str = Field(
         min_length=1,
         max_length=10000,
-        description="Instructions for the model",
+        description="task Instructions for the model",
+    )
+    system_prompt: str = Field(
+        min_length=1,
+        description="default Instructions for the model",
     )

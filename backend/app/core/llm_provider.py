@@ -28,8 +28,13 @@ async def llm_provider(model_validation: LLMRequest) -> str:
             max_output_tokens=1024,
         )
         # add system and user msg
+        combined_system_prompt = f"""{model_validation.system_prompt}
+
+        CURRENT TASK INSTRUCTIONS:{model_validation.task_prompt}
+"""
+
         messages = [
-            SystemMessage(content=model_validation.system_prompt),
+            SystemMessage(content=combined_system_prompt),
             HumanMessage(content=model_validation.user_input),
         ]
         # invoke model

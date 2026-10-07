@@ -6,6 +6,7 @@ from ...schemas.llm_req import LLMRequest
 from ...utils.json_parser import parse_optimized_queries
 from ..llm_provider import llm_provider
 from ..logginig import get_logger
+from ..system_prompt import LEELY_DEFAULT_SYSTEM_PROMPT
 from ..tools_provider import web_search
 from .state_graph import AgentState
 
@@ -34,7 +35,8 @@ async def query_optimizer_node(state: AgentState) -> dict:
             user_input=input_query,
             model_name="gemini-3.5-flash-lite",
             thinking_level="high",
-            system_prompt=QUERY_OPTIMIZER_SKILL.read_text(encoding="utf-8"),
+            task_prompt=QUERY_OPTIMIZER_SKILL.read_text(encoding="utf-8"),
+            system_prompt=LEELY_DEFAULT_SYSTEM_PROMPT,
         )
 
         res = await llm_provider(validation_config)
@@ -78,7 +80,6 @@ async def resource_search_node(state: dict) -> dict:
     return structured dict source {title , url , score , content}
     """
     try:
-
         query = state["query"]
 
         logger.info("executing Travily api...")
