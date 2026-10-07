@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
-import LeelyFlower from '../../assets/lily-logo.png';
+import LeelyLogo from '../../assets/read_with_leely_logo.png';
 import { DashboardRedirectButton } from '../export.js';
 import { CARD, SHADOW } from './homeData.js';
 import { useItemVariants } from './homeMotion.js';
@@ -144,7 +144,7 @@ export function Hero() {
 export function HeroLogoBadge() {
   return (
     <span className="grid h-20 w-20 place-items-center overflow-hidden rounded-full border-2 border-black bg-[#f7f6f0] shadow-[5px_5px_0_#000]">
-      <img src={LeelyFlower} alt="Leely" className="h-14 w-14 object-contain" />
+      <img src={LeelyLogo} alt="Leely" className="h-14 w-14 object-contain" />
     </span>
   );
 }

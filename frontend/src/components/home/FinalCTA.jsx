@@ -1,4 +1,4 @@
-import LeelyFlower from '../../assets/lily-logo.png';
+import LeelyLogo from '../../assets/read_with_leely_logo.png';
 import { DashboardRedirectButton } from '../export.js';
 import { Reveal } from './homeShared.jsx';
 
@@ -16,9 +16,7 @@ export function FinalCTA() {
       />
 
       <Reveal className="relative mx-auto flex max-w-3xl flex-col items-center text-center">
-        <span className="grid h-20 w-20 place-items-center overflow-hidden rounded-full border-2 border-black bg-[#f7f6f0] shadow-[5px_5px_0_#000]">
-          <img src={LeelyFlower} alt="Leely" className="h-14 w-14 object-contain" />
-        </span>
+        <img src={LeelyLogo} alt="Leely" className="h-full w-full object-contain" />
 
         <h2 className="mt-8 font-serif text-[34px] leading-[1.04] tracking-[-1.2px] text-balance sm:text-[48px] lg:text-[60px] lg:tracking-[-2px]">
           Stop searching.

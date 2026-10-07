@@ -1,4 +1,4 @@
-import LeelyFlower from '../../assets/lily-logo.png';
+import LeelyLogo from '../../assets/read_with_leely_logo.png';
 import { NAV } from './homeData.js';
 
 export function SiteFooter() {
@@ -7,7 +7,7 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-7xl flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2.5">
           <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-full border-2 border-white bg-lime-300">
-            <img src={LeelyFlower} alt="" className="h-6 w-6 object-contain" />
+            <img src={LeelyLogo} alt="" className="h-6 w-6 object-contain" />
           </span>
           <span className="font-serif text-xl font-bold leading-none">Leely</span>
         </div>

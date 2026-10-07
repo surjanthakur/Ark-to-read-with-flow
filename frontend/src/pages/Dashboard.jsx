@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { CallAgent } from '../api/agent.api.js';
 import { AgentLoader } from '../components/export.js';
-import LeelyLogo from '../assets/lily-logo.png';
+import LeelyLogo from '../assets/read_with_leely_logo.png';
 import { ArrowToDownLeft, Magicpen } from 'reicon-react';
 
 export default function Dashboard() {

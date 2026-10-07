@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import LeelyFlower from '../../assets/lily-logo.png';
+import LeelyLogo from '../../assets/read_with_leely_logo.png';
 import { DashboardRedirectButton } from '../export.js';
 import { EASE, NAV } from './homeData.js';
 import { Marquee } from './homeShared.jsx';
@@ -25,9 +25,7 @@ export function SiteHeader() {
 
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-8 lg:px-12">
         <a href="#home" className="group flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-full border-2 border-black bg-lime-300 transition-transform group-hover:-rotate-12">
-            <img src={LeelyFlower} alt="" className="h-6 w-6 object-contain" />
-          </span>
+          <img src={LeelyLogo} alt="" className="h-18 w-18 object-contain" />
           <span className="font-serif text-xl font-bold leading-none tracking-tight">
             Leely.fun
             <span className="ml-1 align-super font-mono text-[9px] font-bold tracking-widest text-black/70">

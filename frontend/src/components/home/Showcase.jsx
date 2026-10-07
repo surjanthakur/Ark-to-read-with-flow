@@ -1,4 +1,4 @@
-import LeelyFlower from '../../assets/lily-logo.png';
+import LeelyLogo from '../../assets/read_with_leely_logo.png';
 import { CARD, MOBILE_CARD, SHADOW, TOPICS } from './homeData.js';
 import { useItemVariants } from './homeMotion.js';
 import { CollageCard, Eyebrow, Reveal, RevealGroup } from './homeShared.jsx';
@@ -126,7 +126,7 @@ export function Showcase() {
                   className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.65),transparent_62%)]"
                 />
                 <img
-                  src={LeelyFlower}
+                  src={LeelyLogo}
                   alt="LeelyAgent"
                   className="relative h-32 w-auto object-contain lg:h-52 xl:h-60"
                 />
