@@ -28,10 +28,4 @@ class LLMRequest(BaseModel):
     temperature: Optional[int] = Field(  # noqa: UP045
         title="temp for the llm", default=0
     )
-
-    max_output_token: Optional[int] = Field(  # noqa: UP045
-        title="max output tokens per input req", default=1024
-    )
-    thinking_budget: Optional[int] = Field(  # noqa: UP045
-        title="reasoning budget token's", default=8192
-    )
+    thinking_level: Literal["low", "medium", "high"]

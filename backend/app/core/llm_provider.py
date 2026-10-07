@@ -34,9 +34,8 @@ async def llm_provider(model_validation: LLMRequest) -> str:
         model = ChatGoogleGenerativeAI(
             model=model_validation.model_name,
             api_key=settings.GOOGLE_GEMINI_API_KEY,
-            max_output_tokens=model_validation.max_output_token,
             temperature=model_validation.temperature,
-            thinking_budget=model_validation.thinking_budget,
+            thinking_level=model_validation.thinking_level,
         )
 
         messages = [

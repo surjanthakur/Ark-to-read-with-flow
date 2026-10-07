@@ -34,9 +34,6 @@ async def query_optimizer_node(state: AgentState) -> dict:
             model_name="gemini-3.5-flash",
             thinking_level="high",
             task_prompt=QUERY_OPTIMIZER_SKILL.read_text(encoding="utf-8"),
-            thinking_budget=8190,
-            temperature=0,
-            max_output_token=1025,
         )
 
         res = await llm_provider(validation_config)
