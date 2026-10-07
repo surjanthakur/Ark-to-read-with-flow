@@ -8,7 +8,7 @@ from slowapi.errors import RateLimitExceeded
 
 from .core.logginig import get_logger, setup_logging
 from .core.settings import settings
-from .routes import agent_routes
+from .routes import search_routes
 from .utils.rate_limiter import rate_limiter
 
 logger = get_logger(__name__)
@@ -57,7 +57,7 @@ async def log_response_time(request: Request, call_next):
 
 
 # include routes to app
-app.include_router(router=agent_routes.router, prefix=f"{settings.API_V1_STR}/agent")
+app.include_router(router=search_routes.router, prefix=f"{settings.API_V1_STR}/agent")
 
 
 # health check route

@@ -2,7 +2,7 @@ from tavily import AsyncTavilyClient
 
 from .settings import settings
 
-Travily_lient = AsyncTavilyClient(api_key=settings.TRAVILY_API_KEY)
+tavily_client = AsyncTavilyClient(api_key=settings.TRAVILY_API_KEY)
 
 PREFERRED_DOMAINS = [
     "medium.com",
@@ -24,9 +24,9 @@ EXCLUDED_DOMAINS = [
 
 
 async def web_search_tool(query: str) -> dict:
-    response = await Travily_lient.search(
+    response = await tavily_client.search(
         query=query,
-        max_results=1,
+        max_results=5,
         timeout=20,
         language="en",
         search_depth="ultra-fast",

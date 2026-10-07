@@ -21,7 +21,6 @@ class Settings(BaseSettings):
     FRONTEND_ORIGINS: str
 
     # platform keys configs
-    GOOGLE_GEMINI_API_KEY: str
     TRAVILY_API_KEY: str
     SENTRY_URL: str | None = None
 

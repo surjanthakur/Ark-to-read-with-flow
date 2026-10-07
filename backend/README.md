@@ -1,21 +1,18 @@
 # LeelyAgent Backend
 
-This README is intentionally scoped to the backend service only. It covers the FastAPI application, auth flow, LLM research pipeline, environment setup, and local development commands.
+This README is intentionally scoped to the backend service only. It covers the FastAPI application, auth flow, direct web search, environment setup, and local development commands.
 
 ## Overview
 
 The backend powers the Leely research experience. It handles:
 
 - Google OAuth login and JWT-based session management
-- Research requests backed by Gemini and LangGraph
-- Web search and content retrieval via Tavily
+- Resource searches sent directly to Tavily
 - Database persistence using SQLModel and PostgreSQL
 - API endpoints for frontend integration
 
 ## Features
 
-- AI-driven query optimization using Google Gemini
-- Multi-step research workflow powered by LangGraph
 - Real-time web search with Tavily
 - Google OAuth login and secure JWT handling
 - Async FastAPI API layer
@@ -27,10 +24,10 @@ The backend is organized as a service-oriented FastAPI application:
 
 - `app/main.py` initializes the app and registers routes
 - `app/routes/` contains HTTP endpoints for authentication and research requests
-- `app/services/` contains business logic for auth and agent orchestration
-- `app/core/` contains settings, LLM integration, tool providers, and workflow logic
+- `app/services/` contains business logic for authentication
+- `app/core/` contains settings and the Tavily search client
 - `app/db/` manages database connection and model definitions
-- `app/utils/` contains auth/session helpers and parsing utilities
+- `app/utils/` contains auth and session helpers
 
 ## Tech Stack
 
@@ -38,8 +35,6 @@ The backend is organized as a service-oriented FastAPI application:
 - FastAPI
 - SQLModel
 - Async SQLAlchemy
-- LangChain + LangGraph
-- Google Gemini API
 - Tavily Search API
 - Authlib + JWT
 - PostgreSQL-compatible database support
@@ -51,7 +46,6 @@ Before starting, make sure you have:
 - Python 3.11 or newer
 - A virtual environment tool such as `venv`
 - A PostgreSQL-compatible database URL
-- A Google Gemini API key
 - A Tavily API key
 - Google OAuth credentials
 
@@ -76,7 +70,6 @@ Required variables:
 ```env
 DB_URL="your db url link"
 LOG_LEVEL="add your logs level"
-GOOGLE_GEMINI_API_KEY="your gemini api"
 TRAVILY_API_KEY="your tavily web search api"
 ENVIRONMENT="set your app environment"
 APP="set your app name"
@@ -147,7 +140,7 @@ GET /api/v1/google/auth
 
 Validates the Google token, creates or verifies the user, and issues a JWT-backed session for the app.
 
-### Research agent request
+### Resource search request
 
 ```http
 POST /api/v1/agent/asks
@@ -188,16 +181,14 @@ The backend supports Google OAuth-based login and JWT cookie sessions.
 6. A JWT is generated and stored as an HTTP-only cookie
 7. The request is redirected back to the frontend application
 
-## How the Research Flow Works
+## How resource search works
 
-A research request moves through the following stages:
+A resource search request moves through these stages:
 
-1. The user sends a natural-language query to the research API
-2. The query optimization node uses Gemini to refine and expand the request
-3. A LangGraph workflow fans out the optimized queries into search tasks
-4. Each query is evaluated with Tavily search
-5. Results are normalized and ranked into a list of resources
-6. The backend returns the final structured findings to the client
+1. The user sends a natural-language query to the search API
+2. The backend sends that query directly to Tavily
+3. Tavily results are normalized and ranked into resource objects
+4. The backend returns them in the `found_resources` response field
 
 ## Project Structure
 
@@ -210,35 +201,27 @@ backend/
 ├── app/
 │   ├── main.py
 │   ├── core/
-│   │   ├── llm_provider.py
 │   │   ├── logginig.py
 │   │   ├── settings.py
 │   │   ├── tools_provider.py
-│   │   └── langgraph/
-│   │       ├── graph.py
-│   │       ├── nodes.py
-│   │       └── state_graph.py
 │   ├── db/
 │   │   ├── databse.py
 │   │   └── models.py
 │   ├── repository/
 │   │   └── auth_repo.py
 │   ├── routes/
-│   │   ├── agent_routes.py
+│   │   ├── search_routes.py
 │   │   ├── auth_routes.py
 │   │   └── __init__.py
 │   ├── schemas/
-│   │   ├── llm_req.py
 │   │   ├── user_req.py
 │   │   └── __init__.py
 │   ├── services/
-│   │   ├── agent_services.py
 │   │   ├── auth_services.py
 │   │   └── __init__.py
 │   └── utils/
 │       ├── auth.py
 │       ├── get_db_session.py
-│       ├── json_parser.py
 │       └── __init__.py
 └── .venv/
 ```
@@ -254,8 +237,7 @@ The project currently does not include a dedicated automated test suite in the r
 Suggested future additions:
 
 - unit tests for the auth flow
-- integration tests for the LangGraph workflow
-- validation tests for JSON parsing and query optimization
+- tests for direct Tavily search response mapping
 
 This README is scoped to backend usage only and intentionally excludes frontend setup and client-side documentation.
 
