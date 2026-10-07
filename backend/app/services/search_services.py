@@ -48,26 +48,27 @@ async def search_resources_service(input_query: str):
     except ValueError as exc:
         logger.exception("value error while search_resource_services")
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Please enter a search topic before searching.",
         ) from exc
 
     except TimeoutError as exc:
         logger.exception("timeout error while search_resource_services")
         raise HTTPException(
             status_code=status.HTTP_504_GATEWAY_TIMEOUT,
-            detail=str(exc),
+            detail="The search is taking longer than expected. Please try again.",
         ) from exc
 
     except (ConnectionError, OSError) as exc:
         logger.exception("network error while search_resource_services")
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=str(exc),
+            detail="We couldn't connect to the search service. Check your connection and try again.",
         ) from exc
 
     except Exception:
         logger.exception("something went wrong while search_resource_services")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="something went wrong try again!",
-        )
+            detail="We couldn't complete your search right now. Please try again in a moment.",
+        ) from None
