@@ -1,4 +1,4 @@
-import time
+from time import perf_counter
 
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -49,9 +49,9 @@ app.add_middleware(
 # Logging time taken for each api request
 @app.middleware("http")
 async def log_response_time(request: Request, call_next):
-    start_time = time.time()
+    start_time = perf_counter()
     response = await call_next(request)
-    process_time = time.time() - start_time
+    process_time = perf_counter() - start_time
     logger.info(f"Request: {request.url.path} completed in {process_time:.4f} seconds.")
     return response
 
