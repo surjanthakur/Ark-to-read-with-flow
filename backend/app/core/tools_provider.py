@@ -26,14 +26,15 @@ EXCLUDED_DOMAINS = [
 async def web_search_tool(query: str) -> dict:
     response = await tavily_client.search(
         query=query,
-        max_results=5,
+        max_results=10,
         timeout=20,
         language="en",
-        search_depth="ultra-fast",
+        search_depth="advanced",
         include_domains_mode="prefer",
         include_usage=False,
         include_answer=False,
         include_favicon=False,
+        safe_search=True,
         include_images=False,
         include_raw_content=False,
         include_generated_markdown=False,
@@ -41,6 +42,7 @@ async def web_search_tool(query: str) -> dict:
         filter_by_language=False,
         include_domains=PREFERRED_DOMAINS,
         exclude_domains=EXCLUDED_DOMAINS,
+        chunks_per_source=1,
     )
 
     return response
