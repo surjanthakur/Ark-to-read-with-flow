@@ -57,6 +57,7 @@ async def llm_provider(model_validation: LLMRequest) -> str:
             perf_counter() - request_started_at,
             len(result),
         )
+        logger.info(f"llm response structure: {result}")
         return result
 
     except GoogleRateLimitError as error:
