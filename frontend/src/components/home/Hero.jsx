@@ -112,7 +112,7 @@ export function Hero() {
           <DashboardRedirectButton />
           <a
             href="#features"
-            className="group inline-flex items-center gap-2 rounded-xl border-2 border-black bg-white px-5 py-3 font-mono text-sm font-bold uppercase tracking-wide shadow-[4px_4px_0_#000] transition-transform hover:-translate-y-0.5 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
+            className="group inline-flex items-center gap-2 rounded-xl border-2 border-black bg-white px-5 py-3 font-mono text-sm font-bold uppercase tracking-wide shadow-[4px_4px_0_#000] transition-transform hover:-translate-y-0.5 active:translate-x-0.75 active:translate-y-0.75 active:shadow-none"
           >
             How it works
             <span className="transition-transform group-hover:translate-x-1">→</span>

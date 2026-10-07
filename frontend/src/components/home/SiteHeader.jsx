@@ -41,7 +41,7 @@ export function SiteHeader() {
             <a
               key={n.href}
               href={n.href}
-              className="rounded-full px-3.5 py-2 font-mono text-xs font-bold uppercase tracking-wider text-black/70 transition-colors hover:bg-black hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              className="rounded-full px-3.5 py-2 font-mono text-xs font-bold uppercase tracking-wider text-black/70 transition-colors hover:bg-black hover:text-white focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               {n.label}
             </a>
@@ -58,7 +58,7 @@ export function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
-            className="grid h-10 w-10 place-items-center rounded-xl border-2 border-black bg-white shadow-[3px_3px_0_#000] transition-transform active:translate-x-[2px] active:translate-y-[2px] active:shadow-none md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-xl border-2 border-black bg-white shadow-[3px_3px_0_#000] transition-transform active:translate-x-0.5 active:translate-y-0.5 active:shadow-none md:hidden"
           >
             <span className="relative block h-3 w-4">
               <span
@@ -96,7 +96,7 @@ export function SiteHeader() {
                   key={n.href}
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl border-2 border-black bg-white px-4 py-3 font-mono text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+                  className="rounded-xl border-2 border-black bg-white px-4 py-3 font-mono text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                 >
                   {n.label}
                 </a>

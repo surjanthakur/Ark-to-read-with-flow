@@ -36,7 +36,7 @@ export function Showcase() {
         </Reveal>
 
         <RevealGroup
-          className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:auto-rows-[64px] lg:grid-cols-12 lg:gap-5"
+          className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:auto-rows-16 lg:grid-cols-12 lg:gap-5"
           stagger={0.08}
           amount={0.08}
         >
@@ -66,7 +66,7 @@ export function Showcase() {
                 </p>
               </div>
 
-              <div className="mx-auto flex h-37.5 w-32.5 -rotate-3 items-center justify-center border-2 border-black bg-[#f4f1e8] text-black xl:h-42 xl:w-[150px]">
+              <div className="mx-auto flex h-37.5 w-32.5 -rotate-3 items-center justify-center border-2 border-black bg-[#f4f1e8] text-black xl:h-42 xl:w-37.5">
                 <div className="text-center">
                   <div className="mx-auto mb-3 h-14 w-14 rounded-full border-2 border-black bg-[#d9a5ed] xl:h-16 xl:w-16" />
                   <p className="font-serif text-xl">Leely&apos;s</p>
@@ -120,7 +120,7 @@ export function Showcase() {
                 Let it flow with LeelyAgent!
               </p>
 
-              <div className="relative mt-4 flex min-h-[180px] flex-1 items-center justify-center overflow-hidden rounded-full bg-lime-300">
+              <div className="relative mt-4 flex min-h-45 flex-1 items-center justify-center overflow-hidden rounded-full bg-lime-300">
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.65),transparent_62%)]"
@@ -164,7 +164,7 @@ export function Showcase() {
           <CollageCard
             variants={item}
             rotateOnHover={-2}
-            className={`${MOBILE_CARD} order-6 -rotate-[1.5deg] lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-7 lg:h-full lg:-rotate-2`}
+            className={`${MOBILE_CARD} order-6 rotate-[-1.5deg] lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-7 lg:h-full lg:-rotate-2`}
             innerClassName={`${CARD} ${SHADOW} flex h-full items-center bg-[#a5c8ff] px-4 py-4`}
           >
             <p className="font-mono text-sm font-bold leading-5">
