@@ -1,4 +1,5 @@
 import asyncio
+from urllib.parse import urlparse
 
 from tavily import AsyncTavilyClient
 
@@ -64,19 +65,44 @@ async def web_search_tool(input_queries: list[str]) -> list[dict]:
     for result in travily_results:
         if isinstance(result, Exception):
             continue
+        all_resource.extend(result.get("results", []))
 
-        resource: dict = result.get("results", [])
-        all_resource.append(
+    seen_urls = set()
+    unique_results = []
+
+    for source in all_resource:
+        url = source.get("url")
+
+        if not url:
+            continue
+
+        parsed = urlparse(url)
+
+        normalized_url = (
+            f"{parsed.scheme}://" f"{parsed.netloc}" f"{parsed.path}"
+        ).rstrip("/")
+
+        if normalized_url in seen_urls:
+            continue
+
+        seen_urls.add(normalized_url)
+
+        unique_results.append(
             {
-                "title": resource.get("title"),
-                "url": resource.get["url"],
-                "score": resource.get("score", 0.0),
-                "content": resource.get("content"),
+                "title": result.get("title"),
+                "url": url,
+                "content": result.get("content"),
+                "score": result.get("score", 0.0),
             }
         )
 
-    all_resource.sort(
+    # --------------------------------
+    # Highest relevance first
+    # --------------------------------
+
+    unique_results.sort(
         key=lambda item: item["score"],
         reverse=True,
     )
-    return all_resource
+
+    return unique_results
