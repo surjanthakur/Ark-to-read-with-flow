@@ -93,6 +93,9 @@ async def resource_search_node(state: dict) -> dict:
             }
             for result in response.get("results", [])
         ]
+
+        source.sort(key=lambda item: item["score"], reverse=True)
+
         logger.info("updating found_resources list")
         return {"found_resources": source}
 

@@ -58,7 +58,6 @@ async def llm_provider(model_validation: LLMRequest) -> str:
         )
         logger.info(f"llm response structure: {result}")
         return result
-
     except GoogleRateLimitError as error:
         logger.exception(
             "Gemini request failed (category=rate_limit, stage=%s, model=%s, "
