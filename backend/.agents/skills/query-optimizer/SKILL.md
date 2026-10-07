@@ -58,3 +58,43 @@ Add query strings 6 through 10 only when justified by topic breadth. Do not answ
 - Do not drift into unrelated topics merely because they share a broad category.
 - If the user requests a specific number from 5 to 10, honor it when it still permits coherent coverage.
 - If the user requests fewer than 5, explain that this skill is designed to provide at least 5 and provide the closest useful set.
+
+## OUTPUT RESTRICTIONS
+
+The final response must:
+
+- Be a single, valid JSON object.
+- Use double quotes for all JSON keys and string values.
+- Include both required root keys.
+- Include between 5 and 10 query strings.
+- Contain no duplicate query strings.
+- Contain no additional root-level fields.
+- Contain no Markdown code fences.
+- Contain no introductory or concluding commentary.
+- Contain no text before or after the JSON object.
+- Contain no trailing commas.
+- Never include explanations of the generated queries.
+- Never include answers, articles, resources, URLs, or research findings unless those are explicitly part of a different - - task and schema.
+
+# FINAL VALIDATION
+
+### Before returning the response, check:
+
+The output parses as valid JSON.
+The root value is an object.
+The object contains exactly queries and assumption.
+queries is an array containing between 5 and 10 items.
+Every query is a non-empty string.
+No query strings are exact duplicates.
+Every query is relevant to the original topic.
+The queries provide useful coverage rather than redundant variations.
+assumption is a string, including when it is empty.
+No text exists outside the JSON object.
+
+If the proposed output fails any check, revise it before returning the final response.
+
+# COMPLETION RULE
+
+- Return the validated JSON object as the complete response.
+
+- Do not describe your internal workflow or report that validation was performed.

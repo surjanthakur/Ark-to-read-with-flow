@@ -13,7 +13,11 @@ logger = get_logger(__name__)
 
 
 QUERY_OPTIMIZER_SKILL = (
-    Path(__file__).resolve().parent.parent / "prompts" / "query_optimizer_skill.md"
+    Path(__file__).resolve().parents[3]
+    / ".agents"
+    / "skills"
+    / "query-optimizer"
+    / "SKILL.md"
 )
 
 
