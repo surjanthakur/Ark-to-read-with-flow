@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Request, status
+from fastapi import APIRouter, HTTPException, Request, status
 from pydantic import BaseModel, Field
 
-from ..core.tools_provider import web_search_tool
+from ..services.search_services import search_resources_service
 from ..utils.rate_limiter import rate_limiter
 
 router = APIRouter(tags=["web search"])
@@ -39,15 +39,23 @@ async def search_resources(
     requests: SearchRequest,
     request: Request,  # noqa: ARG001
 ) -> dict:
-    response = await web_search_tool(requests.user_query)
-    resources = [
-        {
-            "title": result["title"],
-            "url": result["url"],
-            "score": result["score"],
-            "content": result["content"],
-        }
-        for result in response.get("results", [])
-    ]
-    resources.sort(key=lambda resource: resource["score"], reverse=True)
-    return {"found_resources": resources}
+
+    try:
+        return await search_resources_service(input_query=requests.user_query)
+
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)
+        ) from exc
+
+    except TimeoutError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+            detail=str(exc),
+        ) from exc
+
+    except (ConnectionError, OSError) as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(exc),
+        ) from exc

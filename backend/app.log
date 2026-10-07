@@ -1,9 +1,0 @@
-2026-10-07 15:17:48 | INFO | app.main | Request: /api/v1/agent/asks completed in 0.0004 seconds.
-2026-10-07 15:17:49 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
-2026-10-07 15:17:50 | INFO | app.main | Request: /api/v1/agent/asks completed in 1.8536 seconds.
-2026-10-07 15:19:16 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
-2026-10-07 15:19:16 | INFO | app.main | Request: /api/v1/agent/asks completed in 1.3192 seconds.
-2026-10-07 15:28:31 | INFO | app.main | Request: /api/v1/agent/asks completed in 0.0006 seconds.
-2026-10-07 15:28:32 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 400 Bad Request"
-2026-10-07 15:29:38 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
-2026-10-07 15:29:38 | INFO | app.main | Request: /api/v1/agent/asks completed in 7.3060 seconds.
