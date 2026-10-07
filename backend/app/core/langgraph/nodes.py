@@ -33,10 +33,13 @@ async def query_optimizer_node(state: AgentState) -> dict:
         # validating llm config's
         validation_config = LLMRequest(
             user_input=input_query,
-            model_name="gemini-3.5-flash-lite",
+            model_name="gemini-2.5-flash",
             thinking_level="high",
             task_prompt=QUERY_OPTIMIZER_SKILL.read_text(encoding="utf-8"),
             system_prompt=LEELY_DEFAULT_SYSTEM_PROMPT,
+            thinking_budget=8190,
+            temperature=0,
+            max_output_token=1025,
         )
 
         res = await llm_provider(validation_config)
