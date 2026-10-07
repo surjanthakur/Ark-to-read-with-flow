@@ -87,7 +87,7 @@ export default function Dashboard() {
 
     const loadingNoticeTimer = setTimeout(() => {
       toast.info('This model is currently experiencing high demand');
-    }, 60_000);
+    }, 10000);
 
     try {
       const response = await CallAgent(userQuery);
