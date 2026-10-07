@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import LeelyLogo from '../../assets/read_with_leely_logo.png';
 import { DashboardRedirectButton } from '../export.js';
 import { EASE, NAV } from './homeData.js';
@@ -50,12 +51,12 @@ export function Navbar() {
               {n.label}
             </a>
           ))}
-          <a
-            href="/why"
+          <Link
+            to="/why"
             className="rounded-full px-3.5 py-2 font-mono text-xs font-bold uppercase tracking-wider text-black/70 transition-colors hover:bg-black hover:text-white focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-black"
           >
             why i build this?
-          </a>
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -111,6 +112,13 @@ export function Navbar() {
                   {n.label}
                 </a>
               ))}
+              <Link
+                to="/why"
+                onClick={() => setOpen(false)}
+                className="rounded-xl border-2 border-black bg-white px-4 py-3 font-mono text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              >
+                why i build this?
+              </Link>
               <div className="mt-2 sm:hidden">
                 <DashboardRedirectButton />
               </div>

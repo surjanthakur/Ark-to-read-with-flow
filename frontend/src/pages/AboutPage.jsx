@@ -17,18 +17,19 @@ const reasons = [
 ];
 
 import { ArrowLeft5 } from 'reicon-react';
+import { Link } from 'react-router-dom';
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#f7f6f0] text-black">
       <main className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
         <header className="mx-auto max-w-4xl text-center">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-lime-300 px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-black shadow-[3px_3px_0_#000]"
           >
             <ArrowLeft5 size={25} /> back to home
-          </a>
+          </Link>
 
           <h1 className="mt-8 font-serif text-[42px] leading-[0.96] tracking-[-1.4px] text-black sm:text-[56px] lg:text-[72px] lg:tracking-[-2.4px]">
             Why I built this project.
