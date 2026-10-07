@@ -29,10 +29,6 @@ async def query_optimizer_node(state: AgentState) -> dict:
     """
     input_query = state.get("topic", "").strip()
 
-    if not input_query:
-        logger.warning("Query optimizer received an empty topic")
-        return {"optimized_queries": []}
-
     try:
         validation_config = LLMRequest(
             user_input=input_query,
@@ -59,15 +55,15 @@ async def query_optimizer_node(state: AgentState) -> dict:
             logger.warning(
                 "Query optimizer returned no queries for input: %s", input_query
             )
-
             return {"optimized_queries": [input_query]}
 
     except Exception:
         logger.exception("Query optimizer call failed; falling back to original topic")
         return {"optimized_queries": [input_query]}
 
-    logger.info("Updating graph state...")
-    return {"optimized_queries": queries}
+    else:
+        logger.info("Updating graph state...")
+        return {"optimized_queries": queries}
 
 
 # send query one by one to resource_search node
@@ -76,11 +72,7 @@ def fan_out_query_node(state: AgentState):
     send optmized list of queries one by one to reosurce_search node
     """
     queries = state.get("optimized_queries")
-
-    if queries:
-        return [Send("resource_search", {"query": query}) for query in queries]
-
-    return [Send("resource_search", {"query": state.get("topic")})]
+    return [Send("resource_search", {"query": query}) for query in queries]
 
 
 # find resource based on query

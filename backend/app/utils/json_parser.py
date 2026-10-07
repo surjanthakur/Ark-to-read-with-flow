@@ -7,6 +7,7 @@ logger = get_logger(__name__)
 
 
 def parse_optimized_queries(result: str) -> list[str]:
+
     if result is None:
         raise ValueError("Query optimizer response is empty")
 

@@ -1,0 +1,71 @@
+2026-10-07 12:21:48 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:21:48 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:24:08 | INFO | app.main | Request: /api/v1/agent/asks completed in 0.0003 seconds.
+2026-10-07 12:24:08 | INFO | app.services.agent_services | invoking langgraph workflow...
+2026-10-07 12:24:08 | ERROR | app.core.langgraph.nodes | Query optimizer call failed; falling back to original topic
+Traceback (most recent call last):
+  File "/Users/surjanthakur/Documents/Documents/Ark-to-read-with-flow/backend/.venv/lib/python3.11/site-packages/pydantic/_internal/_validators.py", line 321, in min_length_validator
+    if not (len(x) >= min_length):
+            ^^^^^^
+TypeError: object of type 'int' has no len()
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/surjanthakur/Documents/Documents/Ark-to-read-with-flow/backend/app/core/langgraph/nodes.py", line 37, in query_optimizer_node
+    validation_config = LLMRequest(
+                        ^^^^^^^^^^^
+  File "/Users/surjanthakur/Documents/Documents/Ark-to-read-with-flow/backend/.venv/lib/python3.11/site-packages/pydantic/main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/surjanthakur/Documents/Documents/Ark-to-read-with-flow/backend/.venv/lib/python3.11/site-packages/pydantic/_internal/_validators.py", line 327, in min_length_validator
+    raise TypeError(f"Unable to apply constraint 'min_length' to supplied value {x}")
+TypeError: Unable to apply constraint 'min_length' to supplied value 0
+2026-10-07 12:24:08 | INFO | app.core.langgraph.nodes | executing Travily api...
+2026-10-07 12:24:08 | DEBUG | httpcore.connection | connect_tcp.started host='api.tavily.com' port=443 local_address=None timeout=20 socket_options=None
+2026-10-07 12:24:08 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:24:08 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10f4a0790>
+2026-10-07 12:24:08 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x10eac83b0> server_hostname='api.tavily.com' timeout=20
+2026-10-07 12:24:09 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x10f4a1650>
+2026-10-07 12:24:09 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'POST']>
+2026-10-07 12:24:09 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-10-07 12:24:09 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'POST']>
+2026-10-07 12:24:09 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-10-07 12:24:09 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'POST']>
+2026-10-07 12:24:10 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 07 Oct 2026 06:54:10 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'1852'), (b'Connection', b'keep-alive'), (b'content-security-policy', b"default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';base-uri 'self';form-action 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests;")])
+2026-10-07 12:24:10 | INFO | httpx | HTTP Request: POST https://api.tavily.com/search "HTTP/1.1 200 OK"
+2026-10-07 12:24:10 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'POST']>
+2026-10-07 12:24:10 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-10-07 12:24:10 | DEBUG | httpcore.http11 | response_closed.started
+2026-10-07 12:24:10 | DEBUG | httpcore.http11 | response_closed.complete
+2026-10-07 12:24:10 | INFO | app.core.langgraph.nodes | api executed successfully...
+2026-10-07 12:24:10 | INFO | app.core.langgraph.nodes | updating found_resources list
+2026-10-07 12:24:10 | INFO | app.main | Request: /api/v1/agent/asks completed in 2.2386 seconds.
+2026-10-07 12:24:11 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:25:08 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:26:36 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:26:36 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:27:00 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:27:01 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:27:36 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:27:36 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:27:54 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:27:54 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:28:15 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:28:15 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:28:46 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:28:46 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:29:25 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:29:25 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:29:39 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:29:39 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:30:21 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:30:21 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:32:33 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:32:33 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:32:45 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:32:45 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:32:58 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:32:58 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0
+2026-10-07 12:33:06 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): o4512210192695296.ingest.us.sentry.io:443
+2026-10-07 12:33:06 | DEBUG | urllib3.connectionpool | https://o4512210192695296.ingest.us.sentry.io:443 "POST /api/4512210197348352/envelope/ HTTP/1.1" 200 0

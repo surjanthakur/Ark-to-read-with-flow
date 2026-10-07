@@ -30,7 +30,7 @@ class LLMRequest(BaseModel):
         description="default Instructions for the model",
     )
     temperature: Optional[int] = Field(  # noqa: UP045
-        title="temp for the llm", min_length=0, max_length=5, default=0
+        title="temp for the llm", default=0
     )
 
     max_output_token: Optional[int] = Field(  # noqa: UP045
