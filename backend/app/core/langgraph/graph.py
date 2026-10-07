@@ -1,6 +1,6 @@
 from langgraph.graph import END, START
 
-from .nodes import query_optimizer_node, resource_search_node
+from .nodes import fan_out_query_node, query_optimizer_node, resource_search_node
 from .state_graph import GRAPH_BUILDER
 
 # NODES
@@ -14,7 +14,7 @@ GRAPH_BUILDER.add_node(
 
 # EDGES
 GRAPH_BUILDER.add_edge(START, "query_optimizer")
-GRAPH_BUILDER.add_edge("query_optimizer", "resource_search")
+GRAPH_BUILDER.add_conditional_edges("query_optimizer", fan_out_query_node)
 GRAPH_BUILDER.add_edge("resource_search", END)
 
 

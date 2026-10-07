@@ -1,6 +1,3 @@
-import asyncio
-from urllib.parse import urlparse
-
 from tavily import AsyncTavilyClient
 
 from .settings import settings
@@ -26,7 +23,7 @@ EXCLUDED_DOMAINS = [
 ]
 
 
-async def _search_one(query: str) -> dict:
+async def web_search_tool(query: str) -> dict:
     response = await Travily_lient.search(
         query=query,
         max_results=1,
@@ -47,62 +44,3 @@ async def _search_one(query: str) -> dict:
     )
 
     return response
-
-
-async def web_search_tool(input_queries: list[str]) -> list[dict]:
-    """
-    Run multiple Tavily searches concurrently and
-    return unique ranked results.
-    """
-    # serch for all queries in one event loop
-    travily_results = asyncio.gather(
-        *[_search_one(query) for query in input_queries], return_exceptions=True
-    )
-
-    all_resource = []
-
-    # add all the resource to the list
-    for result in travily_results:
-        if isinstance(result, Exception):
-            continue
-        all_resource.extend(result["results"])
-
-    seen_urls = set()
-    unique_results = []
-
-    for source in all_resource:
-        url = source.get("url")
-
-        if not url:
-            continue
-
-        parsed = urlparse(url)
-
-        normalized_url = (
-            f"{parsed.scheme}://" f"{parsed.netloc}" f"{parsed.path}"
-        ).rstrip("/")
-
-        if normalized_url in seen_urls:
-            continue
-
-        seen_urls.add(normalized_url)
-
-        unique_results.append(
-            {
-                "title": source.get("title"),
-                "url": url,
-                "content": source.get("content"),
-                "score": source.get("score", 0.0),
-            }
-        )
-
-    # --------------------------------
-    # Highest relevance first
-    # --------------------------------
-
-    unique_results.sort(
-        key=lambda item: item["score"],
-        reverse=True,
-    )
-
-    return unique_results
