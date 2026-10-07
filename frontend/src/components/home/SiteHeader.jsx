@@ -29,9 +29,9 @@ export function SiteHeader() {
             <img src={LeelyFlower} alt="" className="h-6 w-6 object-contain" />
           </span>
           <span className="font-serif text-xl font-bold leading-none tracking-tight">
-            Leely
+            Leely.fun
             <span className="ml-1 align-super font-mono text-[9px] font-bold tracking-widest text-black/70">
-              AI
+              beta
             </span>
           </span>
         </a>
