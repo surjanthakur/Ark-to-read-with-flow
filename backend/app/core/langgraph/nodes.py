@@ -1,12 +1,10 @@
 from pathlib import Path
 
-from langgraph.types import Send
-
 from ...schemas.llm_req import LLMRequest
 from ...utils.json_parser import parse_optimized_queries
 from ..llm_provider import llm_provider
 from ..logginig import get_logger
-from ..tools_provider import web_search
+from ..tools_provider import web_search_tool
 from .state_graph import AgentState
 
 logger = get_logger(__name__)
@@ -61,40 +59,22 @@ async def query_optimizer_node(state: AgentState) -> dict:
         return {"optimized_queries": queries}
 
 
-# send query one by one to resource_search node
-def fan_out_query_node(state: AgentState):
-    """
-    send optmized list of queries one by one to reosurce_search node
-    """
-    queries = state.get("optimized_queries")
-    return [Send("resource_search", {"query": query}) for query in queries]
-
-
 # find resource based on query
-async def resource_search_node(state: dict) -> dict:
+async def resource_search_node(state: AgentState) -> dict:
     """
     return structured dict source {title , url , score , content}
     """
     try:
-        query = state["query"]
+        queries = state["optimized_queries"]
 
-        logger.info("executing Travily api...")
+        logger.info("executing Travily req api...")
 
-        response = await web_search(query)
+        founded_resources = await web_search_tool(queries)
 
-        logger.info("api executed successfully...")
-
-        source = [
-            {
-                "title": result["title"],
-                "url": result["url"],
-                "score": result["score"],
-                "content": result["content"],
-            }
-            for result in response.get("results", [])
-        ]
+        logger.info("executed Travily successfully")
         logger.info("updating found_resources list")
-        return {"found_resources": source}
+
+        return {"found_resources": founded_resources}
 
     except Exception:
         logger.exception("reosurce search call failed...")
