@@ -100,10 +100,10 @@ export default function Dashboard() {
             : chat
         )
       );
-    } catch (err) {
+    } catch (error) {
       // Remove the pending chat if request fails
       setChats((prev) => prev.filter((_, index) => index !== chatIndex));
-      toast.error(err.response?.data?.detail || "Oop's Something went wrong. Please try again.");
+      toast.error(error.response?.data?.detail || "Oop's Something went wrong. Please try again.");
     } finally {
       setIsAgentLoading(false);
       reset();
