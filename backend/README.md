@@ -1,265 +1,171 @@
-# LeelyAgent Backend
+# Leely backend
 
-This README is intentionally scoped to the backend service only. It covers the FastAPI application, auth flow, direct web search, environment setup, and local development commands.
+The backend is a Python 3.11+ API built with FastAPI. It exposes a health check
+and a web-resource search endpoint backed by Tavily search api. This guide covers local
+setup, configuration, the current source layout, and contribution basics.
 
-## Overview
+## Backend layout
 
-The backend powers the Leely research experience. It handles:
+```text
+backend/
+├── .env.example              # Safe starter template for local configuration
+├── .python-version           # Python version selected by uv (3.11)
+├── pyproject.toml            # Project dependencies and tool configuration
+├── uv.lock                   # Pinned dependency resolution
+└── app/
+    ├── main.py               # FastAPI app, middleware, and health route
+    ├── core/
+    │   ├── settings.py       # Loads settings from backend/.env
+    │   ├── logginig.py       # Logging and optional Sentry setup
+    │   └── tools_provider.py # Tavily client and search configuration
+    ├── routes/
+    │   └── search_routes.py  # Search HTTP endpoint
+    ├── schema/
+    │   └── search_query_model.py # Search request/response validation
+    ├── services/
+    │   └── search_services.py    # Search orchestration and result mapping
+    └── utils/
+        └── rate_limiter.py  # Shared request rate limiter
+```
 
-- Google OAuth login and JWT-based session management
-- Resource searches sent directly to Tavily
-- Database persistence using SQLModel and PostgreSQL
-- API endpoints for frontend integration
-
-## Features
-
-- Real-time web search with Tavily
-- Google OAuth login and secure JWT handling
-- Async FastAPI API layer
-- SQLModel-based persistence for user and app data
-
-## Architecture
-
-The backend is organized as a service-oriented FastAPI application:
-
-- `app/main.py` initializes the app and registers routes
-- `app/routes/` contains HTTP endpoints for authentication and research requests
-- `app/services/` contains business logic for authentication
-- `app/core/` contains settings and the Tavily search client
-- `app/db/` manages database connection and model definitions
-- `app/utils/` contains auth and session helpers
-
-## Tech Stack
-
-- Python 3.11+
-- FastAPI
-- SQLModel
-- Async SQLAlchemy
-- Tavily Search API
-- Authlib + JWT
-- PostgreSQL-compatible database support
+The `.venv/`, `.env`, and generated `app.log` are local files and should not be
+committed. There is currently no database, authentication flow, or dedicated
+automated test suite in this backend.
 
 ## Prerequisites
 
-Before starting, make sure you have:
-
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - Python 3.11 or newer
-- A virtual environment tool such as `venv`
-- A PostgreSQL-compatible database URL
-- A Tavily API key
-- Google OAuth credentials
+- A Tavily API key for the search endpoint
 
-## Installation
+`uv` reads the Python version from `.python-version`, creates the backend
+virtual environment, and installs the exact dependencies recorded in
+`uv.lock`.
 
-From the backend directory:
+## Configure the environment
 
-```bash
+Run these commands from the repository root for a fresh checkout:
+
+```sh
 cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install -e .
+uv sync
+test -f .env || cp .env.example .env
 ```
 
-## Environment Variables
+Edit `backend/.env` and replace the Tavily placeholder with a key from your
+Tavily account. Keep real API keys and Sentry DSNs private; `.env` is ignored by
+Git. Do not overwrite an existing `.env` if it already contains your local
+settings.
 
-Create a `.env` file in the `backend/` directory using values from `.env.example`.
+| Variable           | Required | Purpose                                                                                       |
+| ------------------ | -------- | --------------------------------------------------------------------------------------------- |
+| `ENVIRONMENT`      | Yes      | Runtime environment name, for example `development` or `production`.                          |
+| `APP_NAME`         | Yes      | Application name used by FastAPI and Sentry metadata.                                         |
+| `VERSION`          | Yes      | Application version used by FastAPI and Sentry metadata.                                      |
+| `LOG_LEVEL`        | Yes      | Python logging level, for example `INFO` or `DEBUG`.                                          |
+| `API_V1_STR`       | Yes      | API prefix used for the OpenAPI schema and search router (default `/api/v1`).                 |
+| `FRONTEND_ORIGINS` | Yes      | One allowed frontend origin for CORS, such as `http://localhost:5173`; do not include a path. |
+| `TRAVILY_API_KEY`  | Yes      | API key used by the Tavily search client.                                                     |
+| `SENTRY_URL`       | No       | Sentry DSN. Leave empty to disable sending events to Sentry during local development.         |
 
-Required variables:
+The settings loader reads `backend/.env` regardless of the current working
+directory. Process environment variables can also provide settings and take
+precedence over values in the file.
 
-```env
-DB_URL="your db url link"
-LOG_LEVEL="add your logs level"
-TRAVILY_API_KEY="your tavily web search api"
-ENVIRONMENT="set your app environment"
-APP="set your app name"
-VERSION="set your version"
-GOOGLE_CLIENT_ID="your google client id"
-GOOGLE_CLIENT_SECRET="your google client secret"
-SECRET_KEY="your session secret"
-JWT_SECRET_KEY="your jwt secret"
-FRONTEND_URL="http://localhost:5173"
-REDIRECT_URL="http://127.0.0.1:8000/api/v1/google/auth"
+## Run locally
+
+From `backend/`:
+
+```sh
+uv run fastapi dev
 ```
 
-### Notes
+The FastAPI CLI uses the entrypoint configured in `pyproject.toml` and starts
+the development server at <http://localhost:8000> with reload enabled. You can
+also launch Uvicorn directly:
 
-- `DB_URL` should point to your PostgreSQL connection string
-- `ENVIRONMENT` is typically `development` or `production`
-- `FRONTEND_URL` is used after OAuth redirects back to the client app
-- `REDIRECT_URL` should match your Google OAuth callback route
-- `SENTRY_URL` is optional; when set to your Sentry project DSN, application logs are sent to Sentry and errors are captured as events
-
-## Running the Backend
-
-Start the app in development mode:
-
-```bash
-cd backend
-source .venv/bin/activate
-fastapi dev app.main:app
+```sh
+uv run uvicorn app.main:app --reload
 ```
 
-Or run with Uvicorn directly:
+Use `uv run ...` for project commands so they run in the managed environment
+without manually activating `.venv`. To refresh dependencies after changing
+`pyproject.toml`, run:
 
-```bash
-cd backend
-source .venv/bin/activate
-uvicorn app.main:app --reload
+```sh
+uv lock
+uv sync
 ```
 
-## API Endpoints
+## API
+
+In development, interactive API documentation is available at
+<http://localhost:8000/docs>. The OpenAPI document is at
+<http://localhost:8000/api/v1/openapi.json>. Documentation endpoints are
+disabled when `ENVIRONMENT=production`.
 
 ### Health check
 
 ```http
-GET /health
-```
-
-Response:
-
-```json
-{
-  "status": "ok"
-}
-```
-
-### Google login
-
-```http
-GET /api/v1/google/login
-```
-
-Redirects the user to the Google OAuth consent page.
-
-### Google OAuth callback
-
-```http
-GET /api/v1/google/auth
-```
-
-Validates the Google token, creates or verifies the user, and issues a JWT-backed session for the app.
-
-### Resource search request
-
-```http
-POST /api/v1/agent/asks
-```
-
-Request body:
-
-```json
-{
-  "user_query": "Latest trends in AI agents for startups"
-}
+GET /api/v1/health
 ```
 
 Example response:
 
 ```json
+{ "status": "ok" }
+```
+
+The health check is limited to 10 requests per minute per client IP.
+
+### Search for resources
+
+```http
+POST /api/v1/agent/asks
+Content-Type: application/json
+```
+
+Request body:
+
+```json
+{ "user_query": "Database design articles" }
+```
+
+`user_query` must contain 1–100 characters. The endpoint calls Tavily and
+returns normalized search results:
+
+```json
 {
   "found_resources": [
     {
-      "title": "AI agents are changing startup workflows",
+      "title": "Example resource",
       "url": "https://example.com/article",
-      "score": 0.91,
-      "content": "A concise summary of the article..."
+      "score": 0.9,
+      "content": "A short extract from the resource."
     }
   ]
 }
 ```
 
-## Authentication Flow
+The search endpoint is limited to 20 requests per minute per client IP and
+requires a working `TRAVILY_API_KEY`.
 
-The backend supports Google OAuth-based login and JWT cookie sessions.
+Quick local health check:
 
-1. The user visits the Google login route
-2. The backend redirects to Google OAuth
-3. Google returns the user identity and access token
-4. The backend validates the token and fetches profile data
-5. The user is created or verified in the database
-6. A JWT is generated and stored as an HTTP-only cookie
-7. The request is redirected back to the frontend application
-
-## How resource search works
-
-A resource search request moves through these stages:
-
-1. The user sends a natural-language query to the search API
-2. The backend sends that query directly to Tavily
-3. Tavily results are normalized and ranked into resource objects
-4. The backend returns them in the `found_resources` response field
-
-## Project Structure
-
-```text
-backend/
-├── .env
-├── .env.example
-├── pyproject.toml
-├── README.md
-├── app/
-│   ├── main.py
-│   ├── core/
-│   │   ├── logginig.py
-│   │   ├── settings.py
-│   │   ├── tools_provider.py
-│   ├── db/
-│   │   ├── databse.py
-│   │   └── models.py
-│   ├── repository/
-│   │   └── auth_repo.py
-│   ├── routes/
-│   │   ├── search_routes.py
-│   │   ├── auth_routes.py
-│   │   └── __init__.py
-│   ├── schemas/
-│   │   ├── user_req.py
-│   │   └── __init__.py
-│   ├── services/
-│   │   ├── auth_services.py
-│   │   └── __init__.py
-│   └── utils/
-│       ├── auth.py
-│       ├── get_db_session.py
-│       └── __init__.py
-└── .venv/
+```sh
+curl -i http://localhost:8000/api/v1/health
 ```
 
-## Testing
+## Contributing
 
-The project currently does not include a dedicated automated test suite in the repository structure. For local validation, you can:
+1. Fork the repository and create a focused branch for your change.
+2. Make changes in `backend/` for API behavior, configuration, or backend
+   documentation. Keep secrets out of commits and update `.env.example` when
+   adding or changing configuration.
+3. Run the API locally and check the health endpoint. For search changes, use
+   the interactive docs or a local request with your own Tavily key.
+4. Describe the change and the checks you ran in your pull request.
 
-- run the server and test the API manually in Swagger UI
-- validate endpoints using curl or Postman
-- confirm database connectivity and OAuth flow in development mode
-
-Suggested future additions:
-
-- unit tests for the auth flow
-- tests for direct Tavily search response mapping
-
-This README is scoped to backend usage only and intentionally excludes frontend setup and client-side documentation.
-
-The frontend is a React + Vite app located in the `frontend/` directory.
-
-Run it with:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## 🤝 Contributing
-
-Contributions are welcome. For improvements, please:
-
-1. Create a feature branch
-2. Make your changes
-3. Validate the backend and frontend locally
-4. Submit a pull request with a clear description
-
-## 📄 License
-
-MIT
+There are no backend tests configured at this time. When adding tests, place
+them in a dedicated `tests/` directory and document the command contributors
+should use to run them.
