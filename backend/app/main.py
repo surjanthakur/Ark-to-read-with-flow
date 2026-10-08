@@ -33,7 +33,7 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.FRONTEND_ORIGINS.rstrip("/")],
+    allow_origins=[settings.FRONTEND_ORIGIN.rstrip("/")],
     allow_credentials=True,
     allow_methods=["POST"],
     allow_headers=["*"],
@@ -42,7 +42,7 @@ app.add_middleware(
 
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["leely.fun", "leely.fastapicloud.dev"],
+    allowed_hosts=[settings.FRONTEND_HOST, settings.BACKEND_HOST],
 )
 
 

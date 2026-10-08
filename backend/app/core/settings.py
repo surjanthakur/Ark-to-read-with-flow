@@ -18,7 +18,9 @@ class Settings(BaseSettings):
     ENVIRONMENT: str
     LOG_LEVEL: str
     API_V1_STR: str
-    FRONTEND_ORIGINS: str
+    FRONTEND_ORIGIN: str
+    FRONTEND_HOST: str
+    BACKEND_HOST: str
 
     # platform keys configs
     TRAVILY_API_KEY: str
