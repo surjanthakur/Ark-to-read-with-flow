@@ -56,8 +56,8 @@ It shows the Leely UI and connects to the backend.
 
 ```bash
 cd frontend
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 ## Simple flow
@@ -82,3 +82,5 @@ For local work:
 - test the flow from browser
 
 This project is simple and focused on helping users read better and faster.
+
+## build with ❤️ by surjan.
