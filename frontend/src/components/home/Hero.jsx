@@ -5,6 +5,7 @@ import { DashboardRedirectButton } from '../export.js';
 import { CARD, SHADOW } from './homeData.js';
 import { useItemVariants } from './homeMotion.js';
 import { RevealGroup } from './homeShared.jsx';
+import { ArrowRight } from 'reicon-react';
 
 export function Hero() {
   const ref = useRef(null);
@@ -65,10 +66,12 @@ export function Hero() {
           <DashboardRedirectButton />
           <a
             href="#features"
-            className="group inline-flex items-center gap-2 rounded-xl border-2 border-black bg-lime-300 px-5 py-3 font-mono text-sm font-bold uppercase tracking-wide shadow-[4px_4px_0_#000] transition-transform hover:-translate-y-0.5 active:translate-x-0.75 active:translate-y-0.75 active:shadow-none"
+            className="group inline-flex text-black items-center gap-2 rounded-xl border-2 border-black bg-lime-300 px-5 py-3 font-mono text-sm font-bold uppercase tracking-wide shadow-[4px_4px_0_#000] transition-transform hover:-translate-y-0.5 active:translate-x-0.75 active:translate-y-0.75 active:shadow-none"
           >
             How it works
-            <span className="transition-transform group-hover:translate-x-1">→</span>
+            <span className="transition-transform group-hover:translate-x-1">
+              <ArrowRight color="black" size={25} />
+            </span>
           </a>
         </motion.div>
 
@@ -78,14 +81,14 @@ export function Hero() {
         >
           {[
             ['10k+', 'blogs indexed'],
-            ['~3s', 'average search'],
-            ['$0', 'now its free'],
+            ['~5s', 'average search'],
+            ['$0', 'free now'],
           ].map(([value, label]) => (
             <div
               key={label}
               className={`${CARD} ${SHADOW} bg-indigo-100 px-4 py-3 backdrop-blur-sm`}
             >
-              <dt className="font-serif text-2xl font-bold leading-none">{value}</dt>
+              <dt className="font-serif text-2xl font-bold text-black leading-none">{value}</dt>
               <dd className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-black/55">
                 {label}
               </dd>
