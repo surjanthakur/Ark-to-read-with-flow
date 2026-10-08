@@ -195,7 +195,7 @@ export default function Dashboard() {
                         {chat.found_resources.map((resource, resourceIndex) => (
                           <article
                             key={`${resource.url}-${resourceIndex}`}
-                            className="rounded-2xl rounded-tl-sm border-2 border-black bg-[#fcf6c5] p-5 shadow-[6px_6px_0px_0px_#000] transition-colors duration-300 hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_#000] dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-[6px_6px_0px_0px_#c4f75d] dark:hover:shadow-[8px_8px_0px_0px_#c4f75d]"
+                            className="rounded-2xl rounded-tl-sm border-2 border-black bg-[#fcf6c5] p-5 shadow-[6px_6px_0px_0px_#000] transition-colors duration-300 hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_#000] dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-white/30"
                           >
                             {/* Title */}
                             <h3 className="wrap-break-word py-2 text-lg font-black leading-7 text-black dark:text-white sm:text-xl">
@@ -208,7 +208,7 @@ export default function Dashboard() {
                                 read <ArrowToDownLeft size={16} className="ml-1" />
                               </span>
 
-                              <span className="text-xs font-bold bg-[#c4f75d] border-2 border-black px-2 py-1 rounded-md shadow-[2px_2px_0px_0px_#000]">
+                              <span className="text-xs font-bold bg-[#c4f75d] border-2 border-black px-2 py-1 rounded-md shadow-[2px_2px_0px_0px_#000] dark:text-black">
                                 score: {((resource.score || 0) * 100).toFixed(0)}%
                               </span>
                             </div>
@@ -224,7 +224,7 @@ export default function Dashboard() {
                             </a>
 
                             {/* Content Snippet */}
-                            <div className="mt-4 rounded-xl border-2 border-black bg-white p-3 shadow-[2px_2px_0px_0px_#000] transition-colors duration-300 dark:border-neutral-600 dark:bg-neutral-900 dark:shadow-[2px_2px_0px_0px_#c4f75d]">
+                            <div className="mt-4 rounded-xl border-2 border-black bg-white p-3 shadow-[2px_2px_0px_0px_#000] transition-colors duration-300 dark:border-neutral-600 dark:bg-neutral-900">
                               <p className="wrap-break-word text-sm font-medium leading-6 text-neutral-800 dark:text-neutral-200">
                                 <span className="mb-1 block font-black text-black dark:text-white">
                                   About this resource:
