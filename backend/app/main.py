@@ -42,7 +42,7 @@ app.add_middleware(
 
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["localhost"],
+    allowed_hosts=["leely.fun"],
 )
 
 

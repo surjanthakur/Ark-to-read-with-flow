@@ -29,8 +29,8 @@ backend/
 ```
 
 The `.venv/`, `.env`, and generated `app.log` are local files and should not be
-committed. There is currently no database, authentication flow, or dedicated
-automated test suite in this backend.
+committed. There is currently no database or authentication flow in this
+backend.
 
 ## Prerequisites
 
@@ -156,6 +156,18 @@ Quick local health check:
 curl -i http://localhost:8000/api/v1/health
 ```
 
+## Run tests
+
+From `backend/`, run the service and route tests with:
+
+```sh
+uv run pytest
+```
+
+The tests mock the Tavily client, so they do not make external requests or need
+a live Tavily key. Application settings still need to be configured as
+described above.
+
 ## Contributing
 
 1. Fork the repository and create a focused branch for your change.
@@ -166,6 +178,5 @@ curl -i http://localhost:8000/api/v1/health
    the interactive docs or a local request with your own Tavily key.
 4. Describe the change and the checks you ran in your pull request.
 
-There are no backend tests configured at this time. When adding tests, place
-them in a dedicated `tests/` directory and document the command contributors
-should use to run them.
+Add backend tests under `test/` and keep external services mocked so the test
+suite remains reliable and safe to run locally and in CI.

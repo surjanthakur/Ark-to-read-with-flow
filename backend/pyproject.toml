@@ -8,9 +8,11 @@ dependencies = [
     "fastapi[standard]>=0.141.1",
     "greenlet>=3.2.4",
     "httpx>=0.28.1",
+    "httpx2>=2.13.1",
     "itsdangerous>=2.2.0",
     "pathlib>=1.0.1",
     "pydantic>=2.12.5,<2.13.0",
+    "pytest>=9.1.1",
     "python-dotenv>=1.2.3",
     "requests>=2.34.2",
     "sentry-sdk>=2.35.0",
@@ -20,6 +22,10 @@ dependencies = [
 
 [tool.fastapi]
 entrypoint = "app.main:app"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["test"]
 
 [tool.mypy]
 strict = true
