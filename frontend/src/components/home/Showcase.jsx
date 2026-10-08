@@ -47,7 +47,7 @@ export function Showcase() {
             className={`${MOBILE_CARD} order-1 -rotate-2 lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:h-full`}
             innerClassName={`${CARD} ${SHADOW} flex h-full items-center bg-[#ffd55d] px-4 py-4`}
           >
-            <p className="font-mono text-sm font-bold leading-5">
+            <p className="font-mono text-sm text-black font-bold leading-5">
               finds multiple blogs &amp; articles
               <br />a lot of options to choose from
             </p>
@@ -88,7 +88,7 @@ export function Showcase() {
             innerClassName={`${CARD} ${SHADOW} flex h-full flex-col justify-between gap-4 overflow-hidden bg-lime-300 p-5`}
           >
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em]">
+              <span className="font-mono text-[10px] text-black font-bold uppercase tracking-[0.18em]">
                 Topics we cover
               </span>
               <span className="text-lg leading-none">✦</span>
@@ -98,7 +98,7 @@ export function Showcase() {
               {TOPICS.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border-2 border-black bg-white px-2.5 py-1 font-mono text-[10px] font-bold leading-none"
+                  className="rounded-full border-2 text-black border-black bg-white px-2.5 py-1 font-mono text-[10px] font-bold leading-none"
                 >
                   {t}
                 </span>
@@ -117,7 +117,7 @@ export function Showcase() {
             innerClassName={`${CARD} ${SHADOW} h-full bg-[#f7f4eb] p-4 sm:p-5`}
           >
             <div className="flex h-full flex-col">
-              <p className="font-serif text-[26px] leading-tight xl:text-4xl">
+              <p className="font-serif text-[26px] text-black leading-tight xl:text-4xl">
                 Let it flow with LeelyAgent!
               </p>
 
@@ -133,7 +133,7 @@ export function Showcase() {
                 />
               </div>
 
-              <div className="mt-3 flex justify-between font-mono text-[10px] uppercase tracking-widest xl:text-xs">
+              <div className="mt-3 flex text-black justify-between font-mono text-[10px] uppercase tracking-widest xl:text-xs">
                 <span>Research</span>
                 <span className="text-black/40">→</span>
                 <span>Learn</span>
@@ -144,7 +144,7 @@ export function Showcase() {
           <CollageCard
             variants={item}
             rotateOnHover={2}
-            className={`${MOBILE_CARD} order-5 rotate-[1.5deg] lg:col-span-4 lg:col-start-9 lg:row-span-3 lg:row-start-6 lg:h-full lg:rotate-1`}
+            className={`${MOBILE_CARD} order-5 text-black rotate-[1.5deg] lg:col-span-4 lg:col-start-9 lg:row-span-3 lg:row-start-6 lg:h-full lg:rotate-1`}
             innerClassName={`${CARD} ${SHADOW} h-full overflow-hidden bg-amber-100 p-5`}
           >
             <span className="inline-block rounded-full border-2 border-black bg-white px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-widest">
@@ -165,7 +165,7 @@ export function Showcase() {
           <CollageCard
             variants={item}
             rotateOnHover={-2}
-            className={`${MOBILE_CARD} order-6 rotate-[-1.5deg] lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-7 lg:h-full lg:-rotate-2`}
+            className={`${MOBILE_CARD} order-6 text-black rotate-[-1.5deg] lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-7 lg:h-full lg:-rotate-2`}
             innerClassName={`${CARD} ${SHADOW} flex h-full items-center bg-[#a5c8ff] px-4 py-4`}
           >
             <p className="font-mono text-sm font-bold leading-5">

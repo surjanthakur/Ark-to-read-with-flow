@@ -33,7 +33,7 @@ export function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-8 lg:px-12">
         <a href="#home" className="group flex items-center gap-2.5">
           <img src={LeelyLogo} alt="" className="h-18 w-18 object-contain" />
-          <span className="font-serif text-xl font-bold leading-none tracking-tight">
+          <span className="font-serif text-xl text-black font-bold leading-none tracking-tight">
             Leely.fun
             <span className="ml-1 align-super font-mono text-[9px] font-bold tracking-widest text-black/70">
               beta

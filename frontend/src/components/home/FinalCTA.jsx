@@ -4,7 +4,7 @@ import { Reveal } from './homeShared.jsx';
 
 export function FinalCTA() {
   return (
-    <section className="relative overflow-hidden border-b-2 border-black bg-[#f2a9dd] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+    <section className="relative overflow-hidden border-b-2 text-black border-black bg-[#f2a9dd] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-50"

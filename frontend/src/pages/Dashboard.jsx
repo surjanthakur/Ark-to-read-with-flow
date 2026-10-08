@@ -1,4 +1,4 @@
-import { Settings2, Trash2 } from 'reicon-react';
+import { Settings2, Trash2, ArrowToDownLeft, Magicpen, Home6 } from 'reicon-react';
 import { useRef, useState, useEffect } from 'react';
 import { SettingsPopupWindow } from '../components/export.js';
 import { useForm } from 'react-hook-form';
@@ -6,9 +6,11 @@ import { toast } from 'react-toastify';
 import { CallAgent } from '../api/agent.api.js';
 import { AgentLoader } from '../components/export.js';
 import LeelyLogo from '../assets/read_with_leely_logo.png';
-import { ArrowToDownLeft, Magicpen } from 'reicon-react';
+import { Link } from 'react-router-dom';
+import useThemeContext from '../context/useThemeContext.js';
 
 export default function Dashboard() {
+  const { theme } = useThemeContext();
   const [openSettings, setOpenSettings] = useState(false);
   const [isAgentLoading, setIsAgentLoading] = useState(false);
   const [chats, setChats] = useState(() => {
@@ -116,23 +118,25 @@ export default function Dashboard() {
 
   return (
     <section
-      className="h-dvh overflow-hidden bg-[#f4f4f0] text-neutral-900 font-sans selection:bg-[#fcabe7bd] selection:text-black"
+      className="h-dvh overflow-hidden bg-[#f4f4f0] font-sans text-neutral-900 transition-colors duration-300 selection:bg-[#fcabe7bd] selection:text-black dark:bg-neutral-950 dark:text-neutral-100"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)`,
+        backgroundImage:
+          theme === 'dark'
+            ? 'linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)'
+            : 'linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)',
         backgroundSize: '24px 24px',
       }}
     >
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col bg-transparent">
         {/* Header - Neo Brutalist Style */}
-        <header className="flex h-16 shrink-0 items-center justify-between border-b-4 border-black bg-white px-4 sm:px-8">
-          <div className="flex items-center gap-3">
-            <div className="border-2 border-black rounded-xl p-1 bg-lime-200 shadow-[2px_2px_0px_0px_#000]">
-              <img src={LeelyLogo} alt="LeelyAgent" className="h-8 w-8 rounded-lg object-cover" />
-            </div>
-            <a href="/" className="hidden sm:block text-sm font-bold tracking-tight uppercase">
-              Home
-            </a>
-          </div>
+        <header className="flex h-16 shrink-0 items-center justify-between bg-transparent px-4 sm:px-8">
+          <Link
+            to="/"
+            aria-label="Go to home page"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-black bg-fuchsia-200 shadow-[2px_2px_0px_0px_#000] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-black active:translate-x-0.5 active:translate-y-0.5 active:shadow-none dark:border-neutral-700 dark:shadow-[2px_2px_0px_0px_#c4f75d]"
+          >
+            <Home6 size={25} />
+          </Link>
         </header>
 
         {/* Main Chat Area */}
@@ -145,22 +149,27 @@ export default function Dashboard() {
               {/* Empty State - Floating Card */}
               {chats.length === 0 && !isAgentLoading && (
                 <div className="flex min-h-[50vh] items-center justify-center">
-                  <div className="max-w-lg text-center bg-lime-200 border-4 border-black p-8 rounded-3xl shadow-[12px_12px_0px_0px_#000] -rotate-1 relative">
+                  <div className="max-w-lg text-center bg-lime-200 border-4 border-black p-8 rounded-3xl shadow-[12px_12px_0px_0px_#000] -rotate-1 relative dark:shadow-white/30 dark:border-0">
                     <img
                       src={LeelyLogo}
                       alt="LeelyAgent"
-                      className="mx-auto mb-6 h-24 w-24 rounded-2xl object-cover border-2 border-black bg-[#ff8ae2] p-2 shadow-[4px_4px_0px_0px_#000]"
+                      className="mx-auto mb-4 h-30 w-30 object-cover"
                     />
-                    <span className="text-2xl font-serif font-bold">hey!!</span>
 
-                    <h1 className="text-3xl font-black tracking-tight text-black font-serif sm:text-4xl">
+                    <h1 className="text-3xl font-bold tracking-tight text-black font-serif sm:text-4xl">
                       Tell me what you want to learn.
                     </h1>
-
-                    <p className="mt-4 text-base font-medium leading-6 text-neutral-700">
-                      Read the best articles and blogs out there. Don't dig through the internet —
-                      Leely finds them for you.
-                    </p>
+                    <div className="mt-4 text-left text-base font-medium leading-6 text-neutral-700">
+                      <p className="font-bold">For example, ask about:</p>
+                      <ul className="mt-2 list-disc space-y-1 pl-6">
+                        <li>First-principles thinking 🤔.</li>
+                        <li>Database management systems 💻.</li>
+                        <li>World War II ⚠️.</li>
+                        <li>CORS, explained from first principles 🧠.</li>
+                        <li>Context engineering 🤖.</li>
+                        <li>Personal finance and budgeting tips 🤑.</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               )}
@@ -186,10 +195,10 @@ export default function Dashboard() {
                         {chat.found_resources.map((resource, resourceIndex) => (
                           <article
                             key={`${resource.url}-${resourceIndex}`}
-                            className="rounded-2xl rounded-tl-sm border-2 border-black bg-[#fcf6c5] p-5 shadow-[6px_6px_0px_0px_#000] transition-transform hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_#000]"
+                            className="rounded-2xl rounded-tl-sm border-2 border-black bg-[#fcf6c5] p-5 shadow-[6px_6px_0px_0px_#000] transition-colors duration-300 hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_#000] dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-[6px_6px_0px_0px_#c4f75d] dark:hover:shadow-[8px_8px_0px_0px_#c4f75d]"
                           >
                             {/* Title */}
-                            <h3 className="wrap-break-word py-2 text-lg font-black leading-7 text-black sm:text-xl">
+                            <h3 className="wrap-break-word py-2 text-lg font-black leading-7 text-black dark:text-white sm:text-xl">
                               {resource.title}
                             </h3>
 
@@ -209,15 +218,15 @@ export default function Dashboard() {
                               href={resource.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="mt-4 block break-all text-sm font-bold text-blue-700 underline decoration-2 underline-offset-2 hover:text-blue-900"
+                              className="mt-4 block break-all text-sm font-bold text-blue-700 underline decoration-2 underline-offset-2 hover:text-blue-900 dark:text-sky-300 dark:hover:text-sky-200"
                             >
                               {resource.url}
                             </a>
 
                             {/* Content Snippet */}
-                            <div className="mt-4 bg-white border-2 border-black p-3 rounded-xl shadow-[2px_2px_0px_0px_#000]">
-                              <p className="wrap-break-word text-sm leading-6 text-neutral-800 font-medium">
-                                <span className="font-black text-black block mb-1">
+                            <div className="mt-4 rounded-xl border-2 border-black bg-white p-3 shadow-[2px_2px_0px_0px_#000] transition-colors duration-300 dark:border-neutral-600 dark:bg-neutral-900 dark:shadow-[2px_2px_0px_0px_#c4f75d]">
+                              <p className="wrap-break-word text-sm font-medium leading-6 text-neutral-800 dark:text-neutral-200">
+                                <span className="mb-1 block font-black text-black dark:text-white">
                                   About this resource:
                                 </span>{' '}
                                 {resource.content?.split(/\s+/).slice(0, 50).join(' ')}...
@@ -235,7 +244,7 @@ export default function Dashboard() {
               {isAgentLoading && (
                 <div className="flex justify-start">
                   <div className="w-full max-w-[98%] sm:max-w-[85%]">
-                    <div className="rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0px_0px_#000]">
+                    <div className="rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0px_0px_#000] transition-colors duration-300 dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-[4px_4px_0px_0px_#c4f75d]">
                       <AgentLoader />
                     </div>
                   </div>
@@ -249,7 +258,7 @@ export default function Dashboard() {
             <div className="mx-auto w-full max-w-3xl">
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex items-end gap-2 rounded-3xl border-4 border-black bg-white p-3 shadow-[8px_8px_0px_0px_#000]"
+                className="flex items-end gap-2 rounded-3xl border-4 border-black bg-white p-3 shadow-[8px_8px_0px_0px_#000] transition-colors duration-300 dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-white/30"
               >
                 {/* Settings & Delete */}
                 <div className="flex shrink-0 gap-1">
@@ -257,7 +266,7 @@ export default function Dashboard() {
                     type="button"
                     onClick={handleSettings}
                     aria-label="Settings"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-transparent text-neutral-500 transition hover:border-black hover:bg-[#f4f4f0] hover:text-black hover:shadow-[2px_2px_0px_0px_#000]"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-transparent text-neutral-500 transition hover:border-black hover:bg-[#f4f4f0] hover:text-black hover:shadow-[2px_2px_0px_0px_#000] dark:text-neutral-300 dark:hover:border-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white dark:hover:shadow-[2px_2px_0px_0px_#c4f75d]"
                   >
                     <Settings2 size={22} />
                   </button>
@@ -265,7 +274,7 @@ export default function Dashboard() {
                     type="button"
                     onClick={deleteAllChats}
                     aria-label="Delete all chats"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-transparent text-red-500 transition hover:border-black hover:bg-[#ff8ae2] hover:text-black hover:shadow-[2px_2px_0px_0px_#000]"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-transparent text-red-500 transition hover:border-black hover:bg-[#ff8ae2] hover:text-black hover:shadow-[2px_2px_0px_0px_#000] dark:hover:border-neutral-400 dark:hover:shadow-[2px_2px_0px_0px_#c4f75d]"
                   >
                     <Trash2 size={22} />
                   </button>
@@ -284,8 +293,8 @@ export default function Dashboard() {
                   rows={1}
                   onInput={handleInput}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask Leely what you want to learn..."
-                  className="max-h-50 min-h-12 flex-1 resize-none overflow-y-auto bg-transparent px-3 py-3 text-base font-medium text-black outline-none placeholder:text-neutral-400"
+                  placeholder="what you want to read today?"
+                  className="max-h-50 min-h-12 flex-1 resize-none overflow-y-auto bg-transparent px-3 py-3 text-base font-medium text-black outline-none placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-500"
                 />
 
                 {/* Send Button */}
@@ -301,7 +310,7 @@ export default function Dashboard() {
 
               {/* Helper Text */}
               <div className="mt-4 flex justify-center">
-                <p className="text-xs font-bold text-black bg-[#f4f4f0] border-2 border-black px-3 py-1 rounded-full shadow-[2px_2px_0px_0px_#000]">
+                <p className="text-xs font-bold text-black bg-fuchsia-200 border-2 border-black px-3 py-1 rounded-full shadow-[2px_2px_0px_0px_#000] dark:border-white/80">
                   Press Enter to send · Shift + Enter for a new line
                 </p>
               </div>

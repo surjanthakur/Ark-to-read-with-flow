@@ -7,7 +7,6 @@ import { Hero } from './home/Hero.jsx';
 import { Showcase } from './home/Showcase.jsx';
 import { Features } from './home/Features.jsx';
 import { FinalCTA } from './home/FinalCTA.jsx';
-import { SiteFooter } from './home/SiteFooter.jsx';
 
 export {
   SettingsPopupWindow,
@@ -19,5 +18,4 @@ export {
   Showcase,
   Features,
   FinalCTA,
-  SiteFooter,
 };

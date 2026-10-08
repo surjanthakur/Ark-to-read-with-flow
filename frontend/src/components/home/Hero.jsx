@@ -48,7 +48,7 @@ export function Hero() {
               bg-[linear-gradient(to_top,#f2a9dd_68%,transparent_68%)]
             "
           >
-            Leely finds the best blogs for you.
+            Leely finds the best blogs or articles for you.
           </span>
         </motion.h1>
 
