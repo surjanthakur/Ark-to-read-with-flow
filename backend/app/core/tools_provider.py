@@ -42,7 +42,6 @@ async def web_search_tool(query: str) -> dict:
         filter_by_language=False,
         include_domains=PREFERRED_DOMAINS,
         exclude_domains=EXCLUDED_DOMAINS,
-        chunks_per_source=1,
     )
 
     return response
